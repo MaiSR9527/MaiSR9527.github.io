@@ -1,32 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>welcome to my blog</title>
-    <url>/post/post/hello-world/</url>
-    <content><![CDATA[<h2 id="快速开始：使用hexo编写博客"><a href="#快速开始：使用hexo编写博客" class="headerlink" title="快速开始：使用hexo编写博客"></a>快速开始：使用hexo编写博客</h2><h3 id="新建一个post"><a href="#新建一个post" class="headerlink" title="新建一个post"></a>新建一个post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="本地启动server查看"><a href="#本地启动server查看" class="headerlink" title="本地启动server查看"></a>本地启动server查看</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="部署到远程仓库"><a href="#部署到远程仓库" class="headerlink" title="部署到远程仓库"></a>部署到远程仓库</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>后端</category>
-      </categories>
-      <tags>
-        <tag>Javascript</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot自动装配</title>
-    <url>/post/post/springboot/</url>
+    <title>springcloud入门</title>
+    <url>/post/springcloud/springcloud%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
