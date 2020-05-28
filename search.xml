@@ -6,7 +6,7 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>SpringBoot系列：一、浅析SpringBoot自动装配</title>
+    <title>SpringBoot系列一：浅析SpringBoot自动装配</title>
     <url>/post/springboot/SpringBoot%E7%B3%BB%E5%88%97%EF%BC%9A%E4%B8%80%E3%80%81SpringBoot%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/</url>
     <content><![CDATA[<p>源码地址：<a href="https://github.com/MaiSR9527/springboot-auto-configuration" target="_blank" rel="noopener">github地址</a></p>
 <p>maven依赖</p>
