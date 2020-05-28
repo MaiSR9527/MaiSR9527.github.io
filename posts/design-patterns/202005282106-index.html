@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bitbug-favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bitbug-favicon-16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.maishuren.top","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"24114IQSY6","apiKey":"23e75f7706699b252eafbc1378132bba","indexName":"maiBlog","hits":{"per_page":10},"labels":{"input_placeholder":"文章搜索","hits_empty":"NOT FOUND: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1、单例模式简介​        单例模式可以说是最简单的模式之一，属于创建型模式。单一的类负责创建自己的对象，同时确保该类有且仅有一个对象被创建。同时这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。  单例类智能有一个实例 单例类必须自己创建自己的唯一实例，外部不能去创建 单例类必须提供一个方法来获取该类的对象  单列模式的实现主要有：饿汉式和懒汉式两种。下面将详细">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之单列模式(碾压单例模式)">
+<meta property="og:url" content="http://blog.maishuren.top/posts/design-patterns/202005282106-index.html">
+<meta property="og:site_name" content="maiBlog">
+<meta property="og:description" content="1、单例模式简介​        单例模式可以说是最简单的模式之一，属于创建型模式。单一的类负责创建自己的对象，同时确保该类有且仅有一个对象被创建。同时这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。  单例类智能有一个实例 单例类必须自己创建自己的唯一实例，外部不能去创建 单例类必须提供一个方法来获取该类的对象  单列模式的实现主要有：饿汉式和懒汉式两种。下面将详细">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-28T13:06:37.000Z">
+<meta property="article:modified_time" content="2020-05-28T15:33:13.826Z">
+<meta property="article:tag" content="单例模式">
+<meta property="article:tag" content="内功心法，面试">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.maishuren.top/posts/design-patterns/202005282106-">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>设计模式之单列模式(碾压单例模式) | maiBlog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?639350694bcd9a08a210ce56dce3285c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+<link rel="alternate" href="/atom.xml" title="maiBlog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">maiBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">maishuren blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.maishuren.top/posts/design-patterns/202005282106-index.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://gitee.com/maishuren/blog-pic/raw/master/blog/20170709144233_kQPKE.png">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="穷且益坚，不坠青云之志">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="maiBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          设计模式之单列模式(碾压单例模式)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-28 21:06:37 / 修改时间：23:33:13" itemprop="dateCreated datePublished" datetime="2020-05-28T21:06:37+08:00">2020-05-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1、单例模式简介"><a href="#1、单例模式简介" class="headerlink" title="1、单例模式简介"></a>1、单例模式简介</h2><p>​        单例模式可以说是最简单的模式之一，属于创建型模式。单一的类负责创建自己的对象，同时确保该类有且仅有一个对象被创建。同时这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p>
+<ul>
+<li>单例类智能有一个实例</li>
+<li>单例类必须自己创建自己的唯一实例，外部不能去创建</li>
+<li>单例类必须提供一个方法来获取该类的对象</li>
+</ul>
+<p>单列模式的实现主要有：饿汉式和懒汉式两种。下面将详细讲解这两种实现方法。代码的实现中主要使用lombok工具包。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--springboot工程可省略version--&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.18<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2、饿汉式"><a href="#2、饿汉式" class="headerlink" title="2、饿汉式"></a>2、饿汉式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span> <span class="comment">//lombok注解</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span>(access = AccessLevel.PRIVATE) <span class="comment">//lombok注解 私有化全参构造方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHunger</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//关键 可以使用静态变量，也可以使用静态代码块</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SingletonHunger INSTANCE = <span class="keyword">new</span> SingletonHunger();</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String age;</span><br><span class="line">    <span class="comment">//私有化空参构造，无法在其他类直接new对象</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonHunger</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonHunger <span class="title">getInstance1</span><span class="params">(String name, String age)</span> </span>&#123;</span><br><span class="line">        INSTANCE.setAge(age);</span><br><span class="line">        INSTANCE.setName(name);</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        饿汉式就是在类加载的时候就去就去创建对象，主要是<code>static</code>关键字，static修饰的静态变量或方法在类加载的时候就会被加载到方法区中，只会初始化一次。从static关键字的特性就能很好地理解饿汉式了。对于这个饿汉式可以延伸去了解类的加载，例如java.lang.ClassLoader这个类。</p>
+<p>​        饿汉式是会在类加载的时候就回去实例化对象，虽然可以保证的对象的单例，但是会在一开始就加载很多的对象，一下子内存就上涨了。也有可能加载了不需要的类对象，所以就有了懒汉式。</p>
+<h2 id="3、懒汉式"><a href="#3、懒汉式" class="headerlink" title="3、懒汉式"></a>3、懒汉式</h2><p>​        懒汉式在需要的时候才去实例化对象。即在调用单例类提供方法的时候，采取实例化对象。懒汉式的实现也有很多种。</p>
+<h3 id="3-1-懒汉式：同步方法—-gt-同步代码块（不怎么推荐）"><a href="#3-1-懒汉式：同步方法—-gt-同步代码块（不怎么推荐）" class="headerlink" title="3.1 懒汉式：同步方法—&gt;同步代码块（不怎么推荐）"></a>3.1 懒汉式：同步方法—&gt;同步代码块（不怎么推荐）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonLazy</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> SingletonHunger instance;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String age;</span><br><span class="line">    <span class="comment">//私有化空参构造，无法在其他类直接new对象</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonHunger</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//最简单、最low的写法，有线程安全的问题</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonHunger <span class="title">getInstanceV1</span><span class="params">(String name, String age)</span> </span>&#123;</span><br><span class="line">        instance = <span class="keyword">new</span> SingletonHunger();</span><br><span class="line">        instance.setAge(age);</span><br><span class="line">        instance.setName(name);</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//改进V1-&gt;V2，解决线程安全最简单、最懒和最烂的做法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> SingletonHunger <span class="title">getInstanceV2</span><span class="params">(String name, String age)</span> </span>&#123;</span><br><span class="line">        instance = <span class="keyword">new</span> SingletonHunger();</span><br><span class="line">        instance.setAge(age);</span><br><span class="line">        instance.setName(name);</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//V3 这个也就那样...</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonHunger <span class="title">getInstanceV3</span><span class="params">(String name, String age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">        	<span class="keyword">synchronized</span> (SingletonLazy<span class="class">.<span class="keyword">class</span>) </span>&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> SingletonHunger();</span><br><span class="line">            instance.setAge(age);</span><br><span class="line">            instance.setName(name);    </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//上面三种的缺点就不多说了，也不没必要多看。当然还有著名DCL(Double Check Lock)，这个可以多讲</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonLazy <span class="title">getInstanceByDCL</span><span class="params">(String name, String age)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1.对象还没初始化instance为空，当大量的线程"同时到达"一个if时，假设是长时间的大量并发的情况下</span></span><br><span class="line">        <span class="comment">//12.假如在第一个线程成功初始化对象的之后（instance不为空），如果还有线程进来，就直接返回instance</span></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//2.到达这里只有一个线程拿到锁---&gt; 8.之前没拿到锁的线程，在第一个线程释放锁后，其余的线程来哄抢</span></span><br><span class="line">            <span class="comment">//大量的线程拿不到锁被阻塞（后面的线程就和第二个线程一样的执行流程一样了）</span></span><br><span class="line">            <span class="keyword">synchronized</span> (SingletonLazy<span class="class">.<span class="keyword">class</span>) </span>&#123;</span><br><span class="line">                <span class="comment">//3.再次判空 ---&gt; 9.第二个线程拿到锁的线程再次判空，由于第一个线程已经初始化，instance不为空</span></span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">//4.第一个拿到锁的线程初始化对象</span></span><br><span class="line">                    instance = <span class="keyword">new</span> SingletonLazy();</span><br><span class="line">                    instance.setAge(age);</span><br><span class="line">        			instance.setName(name);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//5.第一个线程执行完，释放锁 ---&gt; 10.第二个线程释放锁</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//6.第一个线程得到对象 11.第二线程拿到同样的对象</span></span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        当然synchronized可以换成Lock，也可以换成自旋锁。自旋锁也是很能装逼，在jdk1.8中的ConcurrentHashMap中就换成了自旋锁。DCL的方法虽然还算可以，但是还有更好的方法。DCL其中还有一个关键就是volatile关键字，就是在<code>instance = new SingletonLazy()</code>时防止指令重排。volatile和自旋锁可以实现轻量级锁。</p>
+<h3 id="3-2-静态内部类Holder"><a href="#3-2-静态内部类Holder" class="headerlink" title="3.2 静态内部类Holder"></a>3.2 静态内部类Holder</h3><p>​        下面介绍静态内部内类的懒汉式实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonLazy</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonLazy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 类加载时类加载器操作会加锁（JVM底层实现）&#123;<span class="doctag">@link</span> ClassLoader&#125;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> age</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonLazy <span class="title">getInstanceByHolder</span><span class="params">(String name, String age)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//调用静态内部内类</span></span><br><span class="line">        <span class="keyword">return</span> SingletonLazy.InstanceHolder.getInstance(name, age);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//静态内部类</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">InstanceHolder</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SingletonLazy LAZY = <span class="keyword">new</span> SingletonLazy();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> SingletonLazy <span class="title">getInstance</span><span class="params">(String name, String age)</span> </span>&#123;</span><br><span class="line">            LAZY.setAge(age);</span><br><span class="line">            LAZY.setName(name);</span><br><span class="line">            <span class="keyword">return</span> LAZY;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        静态内部内类只有在调用的时候才会初始化。第一次调用<code>SingletonLazy.InstanceHolder.getInstance(name, age)</code>的时候静态内部类初始化，同时创建外部内的对象。static修饰只会初始化一次。其实静态内部类的原理时利用了ClassLoader的机制，ClassLoader的加载Class的方法有synchronized关键字修饰。在类加载到完成就存在加锁和释放锁的操作。比DCL的方式就少了synchronized或者Lock代码块的加锁和释放锁的操作。所以静态内部类更加常用，比DCL更好，毕竟能不加锁最好就别加锁。至于”自旋锁”则是CAS机制，详细可以去了解JUC的相关知识。PS：后面也会出关于JUC的相关文章。</p>
+<h3 id="3-3-注册式单列"><a href="#3-3-注册式单列" class="headerlink" title="3.3 注册式单列"></a>3.3 注册式单列</h3><p>​        注册式单例就是把实例化对象放在一个Map集合中类的全限定类名作为key，该类的是实例化对象作为value</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonRegistryContainer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;String, Object&gt; IOC = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonRegistryContainer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 借鉴spring中的单列注册</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> className 全限定类名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getBean</span><span class="params">(String className)</span> </span>&#123;</span><br><span class="line">        Object obj;</span><br><span class="line">        <span class="keyword">if</span> (!IOC.containsKey(className)) &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (!IOC.containsKey(className)) &#123;</span><br><span class="line">                    <span class="comment">//通过反射创建对象</span></span><br><span class="line">                    obj = Class.forName(className).newInstance();</span><br><span class="line">                    IOC.put(className, obj);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> IOC.get(className);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>简单的看一下Spring中单列对象的注册：<code>org.springframework.beans.factory.support.DefaultSingletonBeanRegistry</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultSingletonBeanRegistry</span> <span class="keyword">extends</span> <span class="title">SimpleAliasRegistry</span> <span class="keyword">implements</span> <span class="title">SingletonBeanRegistry</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> Object NULL_OBJECT = <span class="keyword">new</span> Object();</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(<span class="keyword">this</span>.getClass());</span><br><span class="line">    <span class="comment">//存放单例对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> ConcurrentHashMap(<span class="number">64</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, ObjectFactory&lt;?&gt;&gt; singletonFactories = <span class="keyword">new</span> HashMap(<span class="number">16</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; earlySingletonObjects = <span class="keyword">new</span> HashMap(<span class="number">16</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Set&lt;String&gt; registeredSingletons = <span class="keyword">new</span> LinkedHashSet(<span class="number">64</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Set&lt;String&gt; singletonsCurrentlyInCreation = Collections.newSetFromMap(<span class="keyword">new</span> ConcurrentHashMap(<span class="number">16</span>));</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Set&lt;String&gt; inCreationCheckExclusions = Collections.newSetFromMap(<span class="keyword">new</span> ConcurrentHashMap(<span class="number">16</span>));</span><br><span class="line">    <span class="keyword">private</span> Set&lt;Exception&gt; suppressedExceptions;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> singletonsCurrentlyInDestruction = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; disposableBeans = <span class="keyword">new</span> LinkedHashMap();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Set&lt;String&gt;&gt; containedBeanMap = <span class="keyword">new</span> ConcurrentHashMap(<span class="number">16</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Set&lt;String&gt;&gt; dependentBeanMap = <span class="keyword">new</span> ConcurrentHashMap(<span class="number">64</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Set&lt;String&gt;&gt; dependenciesForBeanMap = <span class="keyword">new</span> ConcurrentHashMap(<span class="number">64</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DefaultSingletonBeanRegistry</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//注册单例对象</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerSingleton</span><span class="params">(String beanName, Object singletonObject)</span> <span class="keyword">throws</span> IllegalStateException </span>&#123;</span><br><span class="line">        Assert.notNull(beanName, <span class="string">"'beanName' must not be null"</span>);</span><br><span class="line">        <span class="keyword">synchronized</span>(<span class="keyword">this</span>.singletonObjects) &#123;</span><br><span class="line">            Object oldObject = <span class="keyword">this</span>.singletonObjects.get(beanName);</span><br><span class="line">            <span class="keyword">if</span> (oldObject != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Could not register object ["</span> + singletonObject + <span class="string">"] under bean name '"</span> + beanName + <span class="string">"': there is already object ["</span> + oldObject + <span class="string">"] bound"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//不存在，添加</span></span><br><span class="line">                <span class="keyword">this</span>.addSingleton(beanName, singletonObject);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//添加单例对象到map中</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">addSingleton</span><span class="params">(String beanName, Object singletonObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(<span class="keyword">this</span>.singletonObjects) &#123;</span><br><span class="line">            <span class="keyword">this</span>.singletonObjects.put(beanName, singletonObject != <span class="keyword">null</span> ? singletonObject : NULL_OBJECT);</span><br><span class="line">            <span class="keyword">this</span>.singletonFactories.remove(beanName);</span><br><span class="line">            <span class="keyword">this</span>.earlySingletonObjects.remove(beanName);</span><br><span class="line">            <span class="keyword">this</span>.registeredSingletons.add(beanName);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//篇幅长，其他省略</span></span><br><span class="line">    ...       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-枚举式单例"><a href="#3-4-枚举式单例" class="headerlink" title="3.4 枚举式单例"></a>3.4 枚举式单例</h3><p>TODO</p>
+<h3 id="3-5-重头戏：单列对象的暴力破解–反射和反序列化"><a href="#3-5-重头戏：单列对象的暴力破解–反射和反序列化" class="headerlink" title="3.5 重头戏：单列对象的暴力破解–反射和反序列化"></a>3.5 重头戏：单列对象的暴力破解–反射和反序列化</h3><p>TODO</p>
+<center size=12>文章有什么错误或者有什么问题，欢迎大家通过通论提交issue给我吧！</center>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 单例模式</a>
+              <a href="/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95%EF%BC%8C%E9%9D%A2%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 内功心法，面试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/springboot/202005281915-index.html" rel="prev" title="SpringBoot系列一：浅析SpringBoot自动装配">
+      <i class="fa fa-chevron-left"></i> SpringBoot系列一：浅析SpringBoot自动装配
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+
+
+</script>
+<script src="https://utteranc.es/client.js"
+        repo="MaiSR9527/MaiSR9527.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、单例模式简介"><span class="nav-number">1.</span> <span class="nav-text">1、单例模式简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、饿汉式"><span class="nav-number">2.</span> <span class="nav-text">2、饿汉式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、懒汉式"><span class="nav-number">3.</span> <span class="nav-text">3、懒汉式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-懒汉式：同步方法—-gt-同步代码块（不怎么推荐）"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 懒汉式：同步方法—&gt;同步代码块（不怎么推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-静态内部类Holder"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 静态内部类Holder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-注册式单列"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 注册式单列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-枚举式单例"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 枚举式单例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-重头戏：单列对象的暴力破解–反射和反序列化"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 重头戏：单列对象的暴力破解–反射和反序列化</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt=""
+      src="https://gitee.com/maishuren/blog-pic/raw/master/blog/20170709144233_kQPKE.png">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">穷且益坚，不坠青云之志</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MaiSR9527" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MaiSR9527" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/maisrcn@qq.com" title="E-Mail → maisrcn@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://segmentfault.com/u/maisr" title="思否 → https:&#x2F;&#x2F;segmentfault.com&#x2F;u&#x2F;maisr" rel="noopener" target="_blank"><i class="fab fa-think-peaks fa-fw"></i>思否</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">maishuren</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
