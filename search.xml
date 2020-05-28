@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>设计模式之单列模式(碾压单例模式)</title>
+    <title>设计模式之单列模式</title>
     <url>/posts/design-patterns/202005282106-index.html</url>
     <content><![CDATA[<h2 id="1、单例模式简介"><a href="#1、单例模式简介" class="headerlink" title="1、单例模式简介"></a>1、单例模式简介</h2><p>​        单例模式可以说是最简单的模式之一，属于创建型模式。单一的类负责创建自己的对象，同时确保该类有且仅有一个对象被创建。同时这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p>
 <ul>
