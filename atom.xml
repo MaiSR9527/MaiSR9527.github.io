@@ -5,16 +5,16 @@
   <subtitle>maishuren blog</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://blog.maishuren.top/"/>
   <updated>2020-05-28T02:02:49.444Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://blog.maishuren.top/</id>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
     <title>Second</title>
-    <link href="http://yoursite.com/2020/05/28/Second/"/>
-    <id>http://yoursite.com/2020/05/28/Second/</id>
+    <link href="http://blog.maishuren.top/2020/05/28/Second/"/>
+    <id>http://blog.maishuren.top/2020/05/28/Second/</id>
     <published>2020-05-28T02:01:41.000Z</published>
     <updated>2020-05-28T02:02:49.444Z</updated>
     
@@ -30,19 +30,19 @@
     </summary>
     
     
-      <category term="运维" scheme="http://yoursite.com/categories/%E8%BF%90%E7%BB%B4/"/>
+      <category term="运维" scheme="http://blog.maishuren.top/categories/%E8%BF%90%E7%BB%B4/"/>
     
     
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+      <category term="Java" scheme="http://blog.maishuren.top/tags/Java/"/>
     
-      <category term="web" scheme="http://yoursite.com/tags/web/"/>
+      <category term="web" scheme="http://blog.maishuren.top/tags/web/"/>
     
   </entry>
   
   <entry>
     <title>welcome to my blog</title>
-    <link href="http://yoursite.com/2020/05/27/hello-world/"/>
-    <id>http://yoursite.com/2020/05/27/hello-world/</id>
+    <link href="http://blog.maishuren.top/2020/05/27/hello-world/"/>
+    <id>http://blog.maishuren.top/2020/05/27/hello-world/</id>
     <published>2020-05-27T07:53:43.972Z</published>
     <updated>2020-05-28T01:50:13.457Z</updated>
     
@@ -58,12 +58,12 @@
     </summary>
     
     
-      <category term="后端" scheme="http://yoursite.com/categories/%E5%90%8E%E7%AB%AF/"/>
+      <category term="后端" scheme="http://blog.maishuren.top/categories/%E5%90%8E%E7%AB%AF/"/>
     
     
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+      <category term="Java" scheme="http://blog.maishuren.top/tags/Java/"/>
     
-      <category term="Javascript" scheme="http://yoursite.com/tags/Javascript/"/>
+      <category term="Javascript" scheme="http://blog.maishuren.top/tags/Javascript/"/>
     
   </entry>
   
