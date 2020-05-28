@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Second</title>
-    <url>/2020/05/28/Second/</url>
-    <content><![CDATA[<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3>]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>web</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>welcome to my blog</title>
     <url>/2020/05/27/hello-world/</url>
     <content><![CDATA[<h2 id="快速开始：使用hexo编写博客"><a href="#快速开始：使用hexo编写博客" class="headerlink" title="快速开始：使用hexo编写博客"></a>快速开始：使用hexo编写博客</h2><h3 id="新建一个post"><a href="#新建一个post" class="headerlink" title="新建一个post"></a>新建一个post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
@@ -32,8 +20,20 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>Javascript</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Second</title>
+    <url>/2020/05/28/Second/</url>
+    <content><![CDATA[<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3>]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>web</tag>
       </tags>
   </entry>
 </search>
