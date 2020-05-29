@@ -5,16 +5,16 @@
   <subtitle>maishuren blog</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://blog.maishuren.top/"/>
+  <link href="http://www.maishuren.top/"/>
   <updated>2020-05-29T12:20:18.438Z</updated>
-  <id>http://blog.maishuren.top/</id>
+  <id>http://www.maishuren.top/</id>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
     <title>设计模式之委派模式</title>
-    <link href="http://blog.maishuren.top/posts/design-patterns/202005291815-index.html"/>
-    <id>http://blog.maishuren.top/posts/design-patterns/202005291815-index.html</id>
+    <link href="http://www.maishuren.top/posts/design-patterns/202005291815-index.html"/>
+    <id>http://www.maishuren.top/posts/design-patterns/202005291815-index.html</id>
     <published>2020-05-29T10:15:57.000Z</published>
     <updated>2020-05-29T12:20:18.438Z</updated>
     
@@ -27,19 +27,19 @@
     </summary>
     
     
-      <category term="设计模式" scheme="http://blog.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="http://www.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="委派模式" scheme="http://blog.maishuren.top/tags/%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%BC%8F/"/>
+      <category term="委派模式" scheme="http://www.maishuren.top/tags/%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="内功心法，面试" scheme="http://blog.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95%EF%BC%8C%E9%9D%A2%E8%AF%95/"/>
+      <category term="内功心法，面试" scheme="http://www.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95%EF%BC%8C%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之单列模式</title>
-    <link href="http://blog.maishuren.top/posts/design-patterns/202005282106-index.html"/>
-    <id>http://blog.maishuren.top/posts/design-patterns/202005282106-index.html</id>
+    <link href="http://www.maishuren.top/posts/design-patterns/202005282106-index.html"/>
+    <id>http://www.maishuren.top/posts/design-patterns/202005282106-index.html</id>
     <published>2020-05-28T13:06:37.000Z</published>
     <updated>2020-05-29T12:19:18.625Z</updated>
     
@@ -52,19 +52,19 @@
     </summary>
     
     
-      <category term="设计模式" scheme="http://blog.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="http://www.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="内功心法，面试" scheme="http://blog.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95%EF%BC%8C%E9%9D%A2%E8%AF%95/"/>
+      <category term="内功心法，面试" scheme="http://www.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95%EF%BC%8C%E9%9D%A2%E8%AF%95/"/>
     
-      <category term="单例模式" scheme="http://blog.maishuren.top/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+      <category term="单例模式" scheme="http://www.maishuren.top/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>SpringBoot系列一：浅析SpringBoot自动装配</title>
-    <link href="http://blog.maishuren.top/posts/springboot/202005281915-index.html"/>
-    <id>http://blog.maishuren.top/posts/springboot/202005281915-index.html</id>
+    <link href="http://www.maishuren.top/posts/springboot/202005281915-index.html"/>
+    <id>http://www.maishuren.top/posts/springboot/202005281915-index.html</id>
     <published>2020-05-28T11:15:36.000Z</published>
     <updated>2020-05-29T02:17:22.441Z</updated>
     
@@ -77,12 +77,12 @@
     </summary>
     
     
-      <category term="后端" scheme="http://blog.maishuren.top/categories/%E5%90%8E%E7%AB%AF/"/>
+      <category term="后端" scheme="http://www.maishuren.top/categories/%E5%90%8E%E7%AB%AF/"/>
     
     
-      <category term="springboot" scheme="http://blog.maishuren.top/tags/springboot/"/>
+      <category term="springboot" scheme="http://www.maishuren.top/tags/springboot/"/>
     
-      <category term="java" scheme="http://blog.maishuren.top/tags/java/"/>
+      <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
     
   </entry>
   
