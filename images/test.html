@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  <link rel="alternate" href="/atom.xml" title="maiBlog" type="application/atom+xml">
+</head>
+  <body>
+    <script>
+      var countImg = 1;
+      document.body.style.background =
+        "url('" + "./back/blogbanner" + countImg + ".jpg')";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundAttachment = "fixed";
+      document.body.style.backgroundPositionX = "100%";
+      document.body.style.backgroundPositionY = "100%";
+      document.body.style.backgroundSize = "100%";
+      var changeImg = self.setInterval("change()", 1000);
+      function change() {
+        document.body.style.background =
+          "url('" + "./back/blogbanner" + countImg + ".jpg')";
+        // document.body.style.background = "url('./blogbanner2.jpg')";
+        document.body.style.backgroundRepeat = "no-repeat";
+        document.body.style.backgroundAttachment = "fixed";
+        document.body.style.backgroundPositionX = "100%";
+        document.body.style.backgroundPositionY = "100%";
+        document.body.style.backgroundSize = "100%";
+        if (countImg == 20) {
+          window.clearInterval(changeImg);
+          console.log("背景图换完啦！！！！！你看了也太久了吧！");
+        }
+        countImg = countImg + 1;
+      }
+    </script>
+  </body>
+</html>
