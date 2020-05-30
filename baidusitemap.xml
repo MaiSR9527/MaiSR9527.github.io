@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.maishuren.top/posts/springboot/202005281915-index.html</loc>
+    <lastmod>2020-05-30</lastmod>
+  </url>  <url>
     <loc>http://www.maishuren.top/posts/design-patterns/202005282106-index.html</loc>
     <lastmod>2020-05-30</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/design-patterns/202005291815-index.html</loc>
-    <lastmod>2020-05-29</lastmod>
-  </url>  <url>
-    <loc>http://www.maishuren.top/posts/springboot/202005281915-index.html</loc>
     <lastmod>2020-05-29</lastmod>
   </url>
 </urlset>
