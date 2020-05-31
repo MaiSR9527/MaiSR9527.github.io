@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.maishuren.top/posts/design-patterns/202005311442-index.html</loc>
+    
+    <lastmod>2020-05-31T12:04:36.131Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.maishuren.top/posts/springboot/202005281915-index.html</loc>
     
     <lastmod>2020-05-31T10:24:29.114Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://www.maishuren.top/playlist/index.html</loc>
     
     <lastmod>2020-05-31T10:16:42.055Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.maishuren.top/posts/design-patterns/202005311442-index.html</loc>
-    
-    <lastmod>2020-05-31T08:31:28.293Z</lastmod>
     
   </url>
   
