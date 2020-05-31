@@ -1316,7 +1316,7 @@ img:hover {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #6fe274;
+  background: #1affa6;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2736,4 +2736,7 @@ ul.breadcrumb li + li:last-child {
 }
 .popup {
   opacity: 0.9;
+}
+.footer-inner {
+  color: #2e1f21;
 }
