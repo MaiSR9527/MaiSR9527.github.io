@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.maishuren.top/"/>
-  <updated>2020-05-31T12:04:36.131Z</updated>
+  <updated>2020-06-01T06:52:38.663Z</updated>
   <id>http://www.maishuren.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>并发编程之线程的状态</title>
+    <link href="http://www.maishuren.top/posts/java-concurrent-programing/202006011351-index.html"/>
+    <id>http://www.maishuren.top/posts/java-concurrent-programing/202006011351-index.html</id>
+    <published>2020-06-01T05:51:25.000Z</published>
+    <updated>2020-06-01T06:52:38.663Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="Java中线程的状态"><a href="#Java中线程的状态" class="headerlink" title="Java中线程的状态"></a>Java中线程的状态</h2><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/thread-state.png" alt="thread-state"></p><p>新建状态：新创建一个线程对象之后，还没有对用start()方法</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyThread());<span class="comment">//新建状态</span></span><br></pre></td></tr></table></figure><p>就绪状态：线程对象在调用start()之后进入就绪状态，等待CPU调度</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thread.start();</span><br></pre></td></tr></table></figure><p>运行状态：线程得到CPU调度，获得CPU的执行时间</p><p>阻塞状态：遇到需要获得锁的代码块，而线程没能获得锁，进入阻塞状态</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>&#123;</span><br><span class="line">···</span><br><span class="line">&#125;</span><br><span class="line">or</span><br><span class="line">ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><p>等待状态：调用了wait()方法，线程进入等待时间。而且会释放当前的锁，需要唤醒才能重新进入就绪状态(notify() or notifyAll())，等待CPU调度</p><p>超时等待状态：在调用sleep(time)之后进入超时等待状态，在time时间内过后会再次运行，并且在等待的过程中并不会释放锁。使用不当可能会造成事故</p><p>终止状态：线程正常执行完毕(run()方法执行完)或者主线程的main()方法执行完毕，线程进入终止状态</p><p>注意：</p><p>wait()和notify()/notifyAll()需要在synchronized代码块内使用</p><p>notify()/notifyAll()是随机唤醒</p><p>await()和signal()/signalAll()需要在lock内执行</p><p>signal()可以做到精确唤醒</p>]]></content>
+    
+    <summary type="html">
+    
+      java并发编程的开始，线程的状态，述说线程的&quot;生老病死&quot;
+    
+    </summary>
+    
+    
+      <category term="并发编程" scheme="http://www.maishuren.top/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="juc" scheme="http://www.maishuren.top/tags/juc/"/>
+    
+      <category term="多线程" scheme="http://www.maishuren.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
+    
+      <category term="高并发" scheme="http://www.maishuren.top/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式之工厂模式</title>
@@ -35,9 +64,9 @@
       <category term="设计模式" scheme="http://www.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
-    
       <category term="内功心法" scheme="http://www.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95/"/>
+    
+      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
     
   </entry>
   
@@ -60,9 +89,9 @@
       <category term="设计模式" scheme="http://www.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
-    
       <category term="内功心法" scheme="http://www.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95/"/>
+    
+      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
     
   </entry>
   
@@ -85,9 +114,9 @@
       <category term="设计模式" scheme="http://www.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
-    
       <category term="内功心法" scheme="http://www.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95/"/>
+    
+      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
     
   </entry>
   
@@ -110,9 +139,9 @@
       <category term="后端" scheme="http://www.maishuren.top/categories/%E5%90%8E%E7%AB%AF/"/>
     
     
-      <category term="springboot" scheme="http://www.maishuren.top/tags/springboot/"/>
-    
       <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
+    
+      <category term="springboot" scheme="http://www.maishuren.top/tags/springboot/"/>
     
   </entry>
   
