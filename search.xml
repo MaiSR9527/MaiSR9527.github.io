@@ -341,8 +341,25 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
         <tag>内功心法</tag>
+        <tag>面试必备</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java并发编程之多线程带来的安全风险问题</title>
+    <url>/posts/java-concurrent-programing/202006011815-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="活跃性问题"><a href="#活跃性问题" class="headerlink" title="活跃性问题"></a>活跃性问题</h2><h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>所谓死锁，是指多个进程在运行过程中因争夺资源而造成的一种僵局，当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。</p>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/thread-dead-lock.png" alt="thread-dead-lock"></p>
+<h3 id="饥饿"><a href="#饥饿" class="headerlink" title="饥饿"></a>饥饿</h3><h3 id="活锁"><a href="#活锁" class="headerlink" title="活锁"></a>活锁</h3><h2 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h2><p>多线程必然处在线程的上下文切换</p>
+<h2 id="线程安全性问题"><a href="#线程安全性问题" class="headerlink" title="线程安全性问题"></a>线程安全性问题</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
+      <categories>
+        <category>并发编程</category>
+      </categories>
+      <tags>
+        <tag>juc</tag>
+        <tag>多线程</tag>
+        <tag>高并发</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -426,8 +443,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
         <tag>内功心法</tag>
+        <tag>面试必备</tag>
       </tags>
   </entry>
   <entry>
@@ -460,8 +477,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
         <tag>内功心法</tag>
+        <tag>面试必备</tag>
       </tags>
   </entry>
 </search>

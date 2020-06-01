@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.maishuren.top/"/>
-  <updated>2020-06-01T10:09:14.463Z</updated>
+  <updated>2020-06-01T11:33:29.508Z</updated>
   <id>http://www.maishuren.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java并发编程之多线程带来的安全风险问题</title>
+    <link href="http://www.maishuren.top/posts/java-concurrent-programing/202006011815-index.html"/>
+    <id>http://www.maishuren.top/posts/java-concurrent-programing/202006011815-index.html</id>
+    <published>2020-06-01T10:15:00.000Z</published>
+    <updated>2020-06-01T11:33:29.508Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="活跃性问题"><a href="#活跃性问题" class="headerlink" title="活跃性问题"></a>活跃性问题</h2><h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>所谓死锁，是指多个进程在运行过程中因争夺资源而造成的一种僵局，当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。</p><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/thread-dead-lock.png" alt="thread-dead-lock"></p><h3 id="饥饿"><a href="#饥饿" class="headerlink" title="饥饿"></a>饥饿</h3><h3 id="活锁"><a href="#活锁" class="headerlink" title="活锁"></a>活锁</h3><h2 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h2><p>多线程必然处在线程的上下文切换</p><h2 id="线程安全性问题"><a href="#线程安全性问题" class="headerlink" title="线程安全性问题"></a>线程安全性问题</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
+    
+    <summary type="html">
+    
+      多线程编程虽然用起来很爽，同时也会带来一些问题
+    
+    </summary>
+    
+    
+      <category term="并发编程" scheme="http://www.maishuren.top/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="juc" scheme="http://www.maishuren.top/tags/juc/"/>
+    
+      <category term="多线程" scheme="http://www.maishuren.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="高并发" scheme="http://www.maishuren.top/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/"/>
+    
+      <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>java并发编程之线程的创建</title>
@@ -93,9 +122,9 @@
       <category term="设计模式" scheme="http://www.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
-    
       <category term="内功心法" scheme="http://www.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95/"/>
+    
+      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
     
   </entry>
   
@@ -118,9 +147,9 @@
       <category term="设计模式" scheme="http://www.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
-    
       <category term="内功心法" scheme="http://www.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95/"/>
+    
+      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
     
   </entry>
   
@@ -143,9 +172,9 @@
       <category term="设计模式" scheme="http://www.maishuren.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
-    
       <category term="内功心法" scheme="http://www.maishuren.top/tags/%E5%86%85%E5%8A%9F%E5%BF%83%E6%B3%95/"/>
+    
+      <category term="面试必备" scheme="http://www.maishuren.top/tags/%E9%9D%A2%E8%AF%95%E5%BF%85%E5%A4%87/"/>
     
   </entry>
   
