@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.maishuren.top/posts/bug-log/202006071737-index.html</loc>
+    <lastmod>2020-06-11</lastmod>
+  </url>  <url>
     <loc>http://www.maishuren.top/posts/golang/202006111106-index.html</loc>
     <lastmod>2020-06-11</lastmod>
   </url>  <url>
@@ -12,9 +15,6 @@
   </url>  <url>
     <loc>http://www.maishuren.top/posts/distributed/202006081357-index.html</loc>
     <lastmod>2020-06-08</lastmod>
-  </url>  <url>
-    <loc>http://www.maishuren.top/posts/bug-log/202006071737-index.html</loc>
-    <lastmod>2020-06-07</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/java-concurrent-programing/202006022138-index.html</loc>
     <lastmod>2020-06-07</lastmod>
