@@ -341,20 +341,251 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
         <tag>内功心法</tag>
+        <tag>面试必备</tag>
       </tags>
   </entry>
   <entry>
+    <title>golang学习一：从环境配置开始到HelloWorld入门</title>
+    <url>/posts/golang/202006111106-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Golang介绍"><a href="#Golang介绍" class="headerlink" title="Golang介绍"></a>Golang介绍</h1><ul>
+<li>Go语言是谷歌公司于2009年11月发布的编程语言,其发明人Robert Griesemer、Rob Pike、Ken Thompson<ul>
+<li>Robert Griesemer:罗伯特·格瑞史莫参与开发Java的Hotspot编译器和Javascript V8引擎</li>
+<li>Rob Pike:罗布·派克曾是Unix团队成员,与Thompson一起创造了UTF-8</li>
+<li>Ken Thompson:肯·汤普森,IT行业殿堂级人物.1983年图灵奖和1998年美国国家技术奖.创造出C语言和Unix系统</li>
+</ul>
+</li>
+<li>官方解释:Go语言是一种开源的程序设计语言,它的目的使得开发者可以方便地构建简单、可靠、高效的软件<h2 id="Go语言优势"><a href="#Go语言优势" class="headerlink" title="Go语言优势"></a>Go语言优势</h2></li>
+<li>语法简单<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a,b=<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">a,b=b,a</span><br><span class="line">fmt.Println(a,b)</span><br></pre></td></tr></table></figure></li>
+<li>可以直接编译成机器码</li>
+<li>静态数据类型和编译语言<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">a:=<span class="number">1</span></span><br><span class="line">b:=<span class="literal">false</span></span><br></pre></td></tr></table></figure></li>
+<li>内置支持并发<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//do something</span></span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure></li>
+<li>内置垃圾回收</li>
+<li>部署简单</li>
+<li>强大的标准库</li>
+</ul>
+<h2 id="Go语言适用场景"><a href="#Go语言适用场景" class="headerlink" title="Go语言适用场景"></a>Go语言适用场景</h2><ul>
+<li>服务器编程.实现日志处理,虚拟机处理,文件处理等</li>
+<li>分布式系统或数据库代理</li>
+<li>网络编程,包含web应用</li>
+<li>云平台</li>
+</ul>
+<h2 id="市场占有率"><a href="#市场占有率" class="headerlink" title="市场占有率"></a>市场占有率</h2><ul>
+<li>根据Tiobe中Go语言的排行在逐年上升.</li>
+</ul>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/Tiobe2019-2020.jpeg" alt="tiobe"></p>
+<h1 id="环境配置—windows"><a href="#环境配置—windows" class="headerlink" title="环境配置—windows"></a>环境配置—windows</h1><h2 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h2><ul>
+<li>由于Google退出中国,所以国内无法直接访问到Go语言的官网</li>
+<li>但是可以通过Go语言中文网进行加载资源和交流Go语言技术<blockquote>
+<p><a href="https://studygolang.com/" target="_blank" rel="noopener">https://studygolang.com/</a></p>
+</blockquote>
+<h2 id="下载步骤"><a href="#下载步骤" class="headerlink" title="下载步骤"></a>下载步骤</h2></li>
+<li>直接进入到Go语言中文网下载页面</li>
+</ul>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/goxiazai.png" alt="进入下载页面"></p>
+<ul>
+<li>选择要下载的版本<ul>
+<li>首先要确定版本号,本套视频使用的Go1.10.1</li>
+<li>然后确定自己的操作系统,windows或linux等,本阶段使用Window操作系统进行讲解</li>
+<li>如果是windows确定自己系统位数,32位系统选择386,64位系统选择amd64</li>
+<li>扩展名.msi表示安装版.zip为解压版(推荐使用解压版,所有的配置都自己操作,心中有数)</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/goxuanzebanben.png" alt="进入下载页面"></p>
+<h2 id="Go语言库文件夹解释"><a href="#Go语言库文件夹解释" class="headerlink" title="Go语言库文件夹解释"></a>Go语言库文件夹解释</h2><ul>
+<li><strong>api</strong> : 每个版本更新说明</li>
+<li><strong>bin</strong> : 自带工具. <strong>重点记忆</strong></li>
+<li><strong>blog</strong>:博客</li>
+<li><strong>doc</strong>:文档</li>
+<li><strong>misc</strong>: 代码配置</li>
+<li><strong>lib</strong>:额外引用</li>
+<li><strong>src</strong>:标准库源码,以后第三方库放入到这个文件夹中. <strong>重点记忆</strong></li>
+<li><strong>test</strong>:测试</li>
+</ul>
+<h2 id="配置步骤-Windows举例"><a href="#配置步骤-Windows举例" class="headerlink" title="配置步骤(Windows举例)"></a>配置步骤(Windows举例)</h2><ul>
+<li>把下载好的go1.10.1.windows-amd64进行解压,解压后出现go文件夹</li>
+</ul>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/goanzhuangbaojieya.png" alt=""></p>
+<ul>
+<li>把解压后的go文件夹复制到任意非中文目录中(例如: D:\mysoftware\go\soft\go)<ul>
+<li>如果没有配置环境变量默认去C:\go找Go语言库  </li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/jieyacunfang.png" alt=""></p>
+<ul>
+<li>配置环境变量<ul>
+<li>“我的电脑” –&gt; 右键”属性”–&gt; “高级” –&gt; “环境变量” –&gt; “系统变量”–&gt; “新建”按钮后输入</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/goroot.png" alt=""></p>
+<ul>
+<li>在”系统变量”中PATH属性里面添加<code>%GOROOT%\bin;</code></li>
+</ul>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/gopath.png" alt=""></p>
+<ul>
+<li>启动”命令行”输入<code>go version</code>如果出现下面效果说明配置成功<ul>
+<li>也可以使用<code>go env</code>命令查看全部环境</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/jieguo.png" alt=""></p>
+<h2 id="环境变量参数解释"><a href="#环境变量参数解释" class="headerlink" title="环境变量参数解释"></a>环境变量参数解释</h2><ul>
+<li><strong>GOROOT</strong> 表示Go语言库的根目录的完整路径</li>
+<li><strong>PATH</strong> 中配置内容方便在命令行快速调用Go语言库中工具</li>
+<li><strong>GOPATH</strong> 可以先不配置,在做项目时需要配置,表示项目路径</li>
+</ul>
+<h1 id="Hello-World入门"><a href="#Hello-World入门" class="headerlink" title="Hello World入门"></a>Hello World入门</h1><p>程序员的Hello World情怀，学习一门新语言第一行输出代码：Hello World！</p>
+<ul>
+<li>新建txt文件,并修改扩展名后名称为<strong>main.go</strong></li>
+<li>在文件中输入以下代码<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"Hello World"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用Windows命令行工具,在go文件所在的目录下，输入以下命令运行观察结果<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure></li>
+<li>程序结果应该是输出<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此Golang的入门就到这了，今后还有漫长的Golang之旅要去探索！</p>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring源码学习：Spring运行原理分析</title>
+    <url>/posts/spring/202006081449-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Spring模块组成"><a href="#Spring模块组成" class="headerlink" title="Spring模块组成"></a>Spring模块组成</h1><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/springframework.jpg" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>模块名称</th>
+<th>主要功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>spring-core</td>
+<td>依赖注入IOC与DI的最基本实现</td>
+</tr>
+<tr>
+<td>spring-beans</td>
+<td>Bean工厂与Bean的装配</td>
+</tr>
+<tr>
+<td>spring-context</td>
+<td>定义基础的Spring的Context上下文即IOC容器</td>
+</tr>
+<tr>
+<td>spring-context-support</td>
+<td>对Spring IOC容器的扩展支持，以及IOC子容器</td>
+</tr>
+<tr>
+<td>spring-context-indexer</td>
+<td>Spring的类管理组件和Classpath扫描</td>
+</tr>
+<tr>
+<td>spring-expression</td>
+<td>Spring表达式语言</td>
+</tr>
+<tr>
+<td>spring-aop</td>
+<td>面向切面编程的应用模块，整合Asm，CGLIb、JDKProxy</td>
+</tr>
+<tr>
+<td>spring-aspects</td>
+<td>集成AspectJ，AOP应用框架</td>
+</tr>
+<tr>
+<td>spring-instrument</td>
+<td>动态Class Loading模块</td>
+</tr>
+<tr>
+<td>spring-jdbc</td>
+<td>Spring 提供的JDBC抽象框架的主要实现模块，用于简化Spring JDBC操作</td>
+</tr>
+<tr>
+<td>spring-tx</td>
+<td>Spring JDBC事务控制实现模块</td>
+</tr>
+<tr>
+<td>spring-orm</td>
+<td>主要集成 Hibernate, Java Persistence API (JPA) 和 Java Data Objects (JDO)</td>
+</tr>
+<tr>
+<td>spring-oxm</td>
+<td>将Java对象映射成XML数据，或者将XML数据映射成Java对象</td>
+</tr>
+<tr>
+<td>spring-jms</td>
+<td>Java Messaging Service能够发送和接收信息</td>
+</tr>
+<tr>
+<td>spring-web</td>
+<td>提供了最基础Web支持，主要建立于核心容器之上，通过Servlet或者Listeners来初始化IOC容器</td>
+</tr>
+<tr>
+<td>spring-webmvc</td>
+<td>实现了Spring MVC（model-view-Controller）的Web应用</td>
+</tr>
+<tr>
+<td>spring-websocket</td>
+<td>主要是与Web前端的全双工通讯的协议</td>
+</tr>
+<tr>
+<td>spring-webflux</td>
+<td>一个新的非堵塞函数式 Reactive Web 框架，可以用来建立异步的，非阻塞，事件驱动的服务</td>
+</tr>
+<tr>
+<td>spring-messaging</td>
+<td>从Spring4开始新加入的一个模块，主要职责是为Spring 框架集成一些基础的报文传送应用</td>
+</tr>
+<tr>
+<td>spring-test</td>
+<td>主要为测试提供支持的</td>
+</tr>
+<tr>
+<td>spring-framework-bom</td>
+<td>Bill of Materials.解决Spring的不同模块依赖版本不同问题</td>
+</tr>
+</tbody></table>
+<h1 id="Spring各模块之间的依赖"><a href="#Spring各模块之间的依赖" class="headerlink" title="Spring各模块之间的依赖"></a>Spring各模块之间的依赖</h1><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/springmodel.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+        <tag>源码学习</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot系列二：理解SpringBoot中的@SpringApplication</title>
+    <url>/posts/springboot/202006081425-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
+  </entry>
+  <entry>
+    <title>分布式锁的实现</title>
+    <url>/posts/distributed/202006081357-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
+  </entry>
+  <entry>
+    <title>Docker下部署的SpringBoot应用发送邮件失败</title>
+    <url>/posts/bug-log/202006071737-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
+  </entry>
+  <entry>
     <title>java并发编程之锁</title>
-    <url>/posts/java-concurrent-programing/202006021311-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="解决线程安全问题"><a href="#解决线程安全问题" class="headerlink" title="解决线程安全问题"></a>解决线程安全问题</h2><p>1.不可变：在Java1.5之后，不可变对象是绝对安全的，无论是对象的方法实现还是方法的调用者，都不需要再进行任何线程安全保障措施。只要一个不可变的对象被正确地构建出来，那其外部的可见状态永远都不会改变，永远都不会看到它在多个线程之中处于不一致的状态。“不可变”带来的安全性是最直接、最纯粹的。如果多线程共享的数据是一个基本数据类型，final关键字修饰之后就可以保证它的不可变性。如果共享的数据是一个对象，由于Java语言目前暂时还没有提供值类型的支持，那就需要对象自行保证其行为不会对其状态产生任何影响才行</p>
-<p>2.TODO</p>
-<p>在上一篇的线程的安全问题提到了synchronized来解决线程安全问题。</p>
+    <url>/posts/java-concurrent-programing/202006071311-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="synchronized的使用"><a href="#synchronized的使用" class="headerlink" title="synchronized的使用"></a>synchronized的使用</h2><p>在上一篇的线程的安全问题提到了synchronized来解决线程安全问题。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.msr.study.concurrent.threadsafe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadUnsafe</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Ticket ticket = <span class="keyword">new</span> Ticket();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            Thread thread = <span class="keyword">new</span> Thread(ticket);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ticket</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> ticketNum = <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ticketNum &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    TimeUnit.MILLISECONDS.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" sale a ticket,current:"</span> + saleTicket());</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">saleTicket</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ticketNum--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>synchronized是java中的锁，它修饰的方法或者代码块在同一时刻只能有一个线程去执行方法或代码块。synchronized修改之后会自动加锁，执行完毕之后，会自动解锁，是依靠底层JVM中的Monitor对象。</p>
-<h2 id="synchronized的使用"><a href="#synchronized的使用" class="headerlink" title="synchronized的使用"></a>synchronized的使用</h2><ol>
+<p>主要的用法：</p>
+<ol>
 <li>普通同步方法（实例方法），锁是当前实例对象 ，进入同步代码前要获得当前实例的锁。Thread2要等两秒才执行，说明要等Thread1释放锁，虽然他们调用的方法不一样但是，synchronized修饰的都是实例方法，锁的是当前实例。</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.msr.study.concurrent.lock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MaiShuRen</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> v1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/2 13:27</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedLock</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName()+<span class="string">":send email"</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">2</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">phone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName()+<span class="string">":phone"</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">2</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SynchronizedLock lock1 = <span class="keyword">new</span> SynchronizedLock();</span><br><span class="line">        SynchronizedLock lock2 = <span class="keyword">new</span> SynchronizedLock();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            lock1.phone();</span><br><span class="line">        &#125;,<span class="string">"Thread1"</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            lock1.send();</span><br><span class="line">        &#125;,<span class="string">"Thread2"</span>).start();</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            lock1.phone();</span><br><span class="line">        &#125;,<span class="string">"Thread1"</span>).start();</span><br><span class="line">        <span class="comment">//Thread2不用等两秒</span></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            lock2.send();</span><br><span class="line">        &#125;,<span class="string">"Thread2"</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -420,11 +651,64 @@
         <category>并发编程</category>
       </categories>
       <tags>
+        <tag>java</tag>
         <tag>juc</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
-        <tag>java</tag>
         <tag>java锁</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java并发编程基础</title>
+    <url>/posts/java-concurrent-programing/202006022138-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h1><p>在说线程之前，就要先说一下什么是进程，因为线程是进程中的一个实体，线程并不会独立而存在的。进程是代码在数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，线程是进程的一个执行路径，一个进程中至少含有一个线程，进程中的多个线程是共享进程的资源。</p>
+<p>操作系统把CPU资源分配给进程，但是真正占用CPU的线程，所以才会说线程是CPU分配的基本单位。在我们启动java中的main函数时，就是启动了一个进程，而main函数所在的线程就是这个进程中的一个线程，这个线程也被称为主线程。</p>
+<h1 id="Java中线程的状态"><a href="#Java中线程的状态" class="headerlink" title="Java中线程的状态"></a>Java中线程的状态</h1><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/thread-state.png" alt="thread-state"></p>
+<p>新建状态：新创建一个线程对象之后，还没有对用start()方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyThread());<span class="comment">//新建状态</span></span><br></pre></td></tr></table></figure>
+
+<p>就绪状态：线程对象在调用start()之后进入就绪状态，等待CPU调度</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thread.start();</span><br></pre></td></tr></table></figure>
+
+<p>运行状态：线程得到CPU调度，获得CPU的执行时间</p>
+<p>阻塞状态：遇到需要获得锁的代码块，而线程没能获得锁，进入阻塞状态</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>&#123;</span><br><span class="line">···</span><br><span class="line">&#125;</span><br><span class="line">or</span><br><span class="line">ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>等待状态：调用了wait()方法，线程进入等待时间。而且会释放当前的锁，需要唤醒才能重新进入就绪状态(notify() or notifyAll())，等待CPU调度</p>
+<p>超时等待状态：在调用sleep(time)之后进入超时等待状态，在time时间内过后会再次运行，并且在等待的过程中并不会释放锁。使用不当可能会造成事故</p>
+<p>终止状态：线程正常执行完毕(run()方法执行完)或者主线程的main()方法执行完毕，线程进入终止状态</p>
+<p>注意：</p>
+<p>wait()和notify()/notifyAll()需要在synchronized代码块内使用</p>
+<p>notify()/notifyAll()是随机唤醒</p>
+<p>await()和signal()/signalAll()需要在lock内执行</p>
+<p>signal()可以做到精确唤醒</p>
+<h1 id="线程的创建"><a href="#线程的创建" class="headerlink" title="线程的创建"></a>线程的创建</h1><h2 id="继承Thread类，重写run-方法"><a href="#继承Thread类，重写run-方法" class="headerlink" title="继承Thread类，重写run()方法"></a>继承Thread类，重写run()方法</h2><p>因为Thread的构造参数是要求传入Runnable类型，所以可以传入继承了Thread的类，因为Thread就已经实现Runnable接口，只要自定义的类再去重写run()方法即可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread1</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"thread run by extends Thread"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> CreateThread1());</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现Runnable接口"><a href="#实现Runnable接口" class="headerlink" title="实现Runnable接口"></a>实现Runnable接口</h2><p>也可以传入一个实现了Runnable接口的类，重写完run()方法之后便可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread2</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Thread run by implements Runnable"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> CreateThread2());</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>更加直接的就是直接使用匿名内部类，有比较传统的写法和jdk1.8之后的lambda写法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread3</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"Thread run by inner class"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">        <span class="comment">//lambda写法</span></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt; System.out.println(<span class="string">"Thread run by inner class"</span>)).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="带返回值的Future接口"><a href="#带返回值的Future接口" class="headerlink" title="带返回值的Future接口"></a>带返回值的Future接口</h2><p>因为Thread构造函数需要一个Runnable的接口，而非Future类型，而RunnableFuture接口是同时继承了Runnable和Callable接口，所以对于Thread构造函数我们还可以传入RunnableFuture类型的参数，因为RunnableFuture是接口，所以传入一个实现了RunnableFuture接口的类即可。Jdk中就有已经实现了RunnableFuture接口的类，直接使用就行了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread4</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        FutureTask&lt;Integer&gt; task = <span class="keyword">new</span> FutureTask&lt;&gt;(() -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" start"</span>);</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" end"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> + <span class="number">1</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(task);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" "</span>+task.get());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName()+<span class="string">" 结束"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出结果：</span></span><br><span class="line">Thread-<span class="number">0</span> start</span><br><span class="line">Thread-<span class="number">0</span> end</span><br><span class="line">main <span class="number">2</span></span><br><span class="line">main 结束</span><br></pre></td></tr></table></figure>
+
+<h2 id="线程池获取线程"><a href="#线程池获取线程" class="headerlink" title="线程池获取线程"></a>线程池获取线程</h2><p>本章节只是实列线程池获取线程，后面的文章会详细讲解Jdk中的线程池</p>
+<p>Executors是一个线程池的工具类，在这里面有一些Jdk已经定义好的线程池，我们可以直接拿来用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread5</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ExecutorService threadPool = Executors.newCachedThreadPool();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            threadPool.execute(() -&gt;System.out.println(Thread.currentThread().getName()));</span><br><span class="line">        &#125;</span><br><span class="line">        threadPool.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出结果：</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">4</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">3</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">2</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Timer定时器"><a href="#使用Timer定时器" class="headerlink" title="使用Timer定时器"></a>使用Timer定时器</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread6</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer();</span><br><span class="line">        timer.schedule(<span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">" timertask is run"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">0</span>, <span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出结果：</span></span><br><span class="line">Timer-<span class="number">0</span> timertask is run</span><br><span class="line">Timer-<span class="number">0</span> timertask is run</span><br><span class="line">Timer-<span class="number">0</span> timertask is run</span><br><span class="line">Timer-<span class="number">0</span> timertask is run</span><br></pre></td></tr></table></figure>
+
+<p>很明显Timer在执行定时任务时只会创建一个线程，所以如果存在多个任务，且任务时间过长，超过了两个任务的间隔时间，就会出现问题。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimerTest</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> start;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		TimerTask task1 = <span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="comment">//timer1开始</span></span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">" task1 start: "</span> + (System.currentTimeMillis() - start));</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">//线程休眠3秒</span></span><br><span class="line">                    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        TimerTask task2 = <span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">" task2 start: "</span>+ (System.currentTimeMillis() - start));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer();</span><br><span class="line">        start = System.currentTimeMillis();</span><br><span class="line">        timer.schedule(task1, <span class="number">1000</span>);</span><br><span class="line">        timer.schedule(task2, <span class="number">3000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出结果：</span></span><br><span class="line">Timer-<span class="number">0</span> task1 start: <span class="number">1000</span></span><br><span class="line">Timer-<span class="number">0</span> task2 start: <span class="number">4000</span></span><br></pre></td></tr></table></figure>
+
+<p>很明显第二个定时器是第四秒才开始执行的。这个很好理解嘛，只有一个线程，第一个线程如果执行时间过长，第二个线程就无法在预期的时间内开始执行。其是可以使用Executors中的ScheduledExecutorService来取代Timer做定时的任务。ScheduledExecutorService是基于线程池的，不像Timer只有单个线程。但是真正的生产开发中Executors中的线程池却是一个都不能用，有可能会发生OOM，关于线程池后面会单独开一篇文章来说一下</p>
+]]></content>
+      <tags>
+        <tag>java</tag>
+        <tag>多线程</tag>
+        <tag>高并发</tag>
       </tags>
   </entry>
   <entry>
@@ -471,80 +755,10 @@
         <category>并发编程</category>
       </categories>
       <tags>
+        <tag>java</tag>
         <tag>juc</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java并发编程之线程的创建</title>
-    <url>/posts/java-concurrent-programing/202006011456-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="继承Thread类，重写run-方法"><a href="#继承Thread类，重写run-方法" class="headerlink" title="继承Thread类，重写run()方法"></a>继承Thread类，重写run()方法</h2><p>因为Thread的构造参数是要求传入Runnable类型，所以可以传入继承了Thread的类，因为Thread就已经实现Runnable接口，只要自定义的类再去重写run()方法即可</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread1</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"thread run by extends Thread"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> CreateThread1());</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="实现Runnable接口"><a href="#实现Runnable接口" class="headerlink" title="实现Runnable接口"></a>实现Runnable接口</h2><p>也可以传入一个实现了Runnable接口的类，重写完run()方法之后便可</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread2</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Thread run by implements Runnable"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> CreateThread2());</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>更加直接的就是直接使用匿名内部类，有比较传统的写法和jdk1.8之后的lambda写法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread3</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"Thread run by inner class"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">        <span class="comment">//lambda写法</span></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt; System.out.println(<span class="string">"Thread run by inner class"</span>)).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="带返回值的Future接口"><a href="#带返回值的Future接口" class="headerlink" title="带返回值的Future接口"></a>带返回值的Future接口</h2><p>因为Thread构造函数需要一个Runnable的接口，而非Future类型，而RunnableFuture接口是同时继承了Runnable和Callable接口，所以对于Thread构造函数我们还可以传入RunnableFuture类型的参数，因为RunnableFuture是接口，所以传入一个实现了RunnableFuture接口的类即可。Jdk中就有已经实现了RunnableFuture接口的类，直接使用就行了</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread4</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        FutureTask&lt;Integer&gt; task = <span class="keyword">new</span> FutureTask&lt;&gt;(() -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" start"</span>);</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" end"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> + <span class="number">1</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(task);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" "</span>+task.get());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName()+<span class="string">" 结束"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出结果：</span></span><br><span class="line">Thread-<span class="number">0</span> start</span><br><span class="line">Thread-<span class="number">0</span> end</span><br><span class="line">main <span class="number">2</span></span><br><span class="line">main 结束</span><br></pre></td></tr></table></figure>
-
-<h2 id="线程池获取线程"><a href="#线程池获取线程" class="headerlink" title="线程池获取线程"></a>线程池获取线程</h2><p>本章节只是实列线程池获取线程，后面的文章会详细讲解Jdk中的线程池</p>
-<p>Executors是一个线程池的工具类，在这里面有一些Jdk已经定义好的线程池，我们可以直接拿来用</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread5</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ExecutorService threadPool = Executors.newCachedThreadPool();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            threadPool.execute(() -&gt;System.out.println(Thread.currentThread().getName()));</span><br><span class="line">        &#125;</span><br><span class="line">        threadPool.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出结果：</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">4</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">3</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">2</span></span><br><span class="line">pool-<span class="number">1</span>-thread-<span class="number">5</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="使用Timer定时器"><a href="#使用Timer定时器" class="headerlink" title="使用Timer定时器"></a>使用Timer定时器</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread6</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer();</span><br><span class="line">        timer.schedule(<span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">" timertask is run"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">0</span>, <span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出结果：</span></span><br><span class="line">Timer-<span class="number">0</span> timertask is run</span><br><span class="line">Timer-<span class="number">0</span> timertask is run</span><br><span class="line">Timer-<span class="number">0</span> timertask is run</span><br><span class="line">Timer-<span class="number">0</span> timertask is run</span><br></pre></td></tr></table></figure>
-
-<p>很明显Timer在执行定时任务时只会创建一个线程，所以如果存在多个任务，且任务时间过长，超过了两个任务的间隔时间，就会出现问题。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimerTest</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> start;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		TimerTask task1 = <span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="comment">//timer1开始</span></span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">" task1 start: "</span> + (System.currentTimeMillis() - start));</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">//线程休眠3秒</span></span><br><span class="line">                    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        TimerTask task2 = <span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">" task2 start: "</span>+ (System.currentTimeMillis() - start));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer();</span><br><span class="line">        start = System.currentTimeMillis();</span><br><span class="line">        timer.schedule(task1, <span class="number">1000</span>);</span><br><span class="line">        timer.schedule(task2, <span class="number">3000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出结果：</span></span><br><span class="line">Timer-<span class="number">0</span> task1 start: <span class="number">1000</span></span><br><span class="line">Timer-<span class="number">0</span> task2 start: <span class="number">4000</span></span><br></pre></td></tr></table></figure>
-
-<p>很明显第二个定时器是第四秒才开始执行的。这个很好理解嘛，只有一个线程，第一个线程如果执行时间过长，第二个线程就无法在预期的时间内开始执行。其是可以使用Executors中的ScheduledExecutorService来取代Timer做定时的任务。ScheduledExecutorService是基于线程池的，不像Timer只有单个线程。但是真正的生产开发中Executors中的线程池却是一个都不能用，有可能会发生OOM，关于线程池后面会单独开一篇文章来说一下</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然去获取线程的方法有很多，在生产环境中是不能直接new Thread()，这样不利于管理，频繁地new会很大地浪费内存，可能会频繁地出发GC。所以还是得要用”自定义的线程池”，所以说线程池还是很重要的</p>
-]]></content>
-      <categories>
-        <category>并发编程</category>
-      </categories>
-      <tags>
-        <tag>juc</tag>
-        <tag>多线程</tag>
-        <tag>高并发</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java并发编程之线程的状态</title>
-    <url>/posts/java-concurrent-programing/202006011351-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="Java中线程的状态"><a href="#Java中线程的状态" class="headerlink" title="Java中线程的状态"></a>Java中线程的状态</h2><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/thread-state.png" alt="thread-state"></p>
-<p>新建状态：新创建一个线程对象之后，还没有对用start()方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyThread());<span class="comment">//新建状态</span></span><br></pre></td></tr></table></figure>
-
-<p>就绪状态：线程对象在调用start()之后进入就绪状态，等待CPU调度</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thread.start();</span><br></pre></td></tr></table></figure>
-
-<p>运行状态：线程得到CPU调度，获得CPU的执行时间</p>
-<p>阻塞状态：遇到需要获得锁的代码块，而线程没能获得锁，进入阻塞状态</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>&#123;</span><br><span class="line">···</span><br><span class="line">&#125;</span><br><span class="line">or</span><br><span class="line">ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>等待状态：调用了wait()方法，线程进入等待时间。而且会释放当前的锁，需要唤醒才能重新进入就绪状态(notify() or notifyAll())，等待CPU调度</p>
-<p>超时等待状态：在调用sleep(time)之后进入超时等待状态，在time时间内过后会再次运行，并且在等待的过程中并不会释放锁。使用不当可能会造成事故</p>
-<p>终止状态：线程正常执行完毕(run()方法执行完)或者主线程的main()方法执行完毕，线程进入终止状态</p>
-<p>注意：</p>
-<p>wait()和notify()/notifyAll()需要在synchronized代码块内使用</p>
-<p>notify()/notifyAll()是随机唤醒</p>
-<p>await()和signal()/signalAll()需要在lock内执行</p>
-<p>signal()可以做到精确唤醒</p>
-]]></content>
-      <categories>
-        <category>并发编程</category>
-      </categories>
-      <tags>
-        <tag>juc</tag>
-        <tag>多线程</tag>
-        <tag>高并发</tag>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -558,8 +772,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
         <tag>内功心法</tag>
+        <tag>面试必备</tag>
       </tags>
   </entry>
   <entry>
@@ -592,8 +806,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
         <tag>内功心法</tag>
+        <tag>面试必备</tag>
       </tags>
   </entry>
 </search>
