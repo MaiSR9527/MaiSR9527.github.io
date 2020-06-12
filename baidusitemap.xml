@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.maishuren.top/posts/spring/202006081449-index.html</loc>
+    <lastmod>2020-06-12</lastmod>
+  </url>  <url>
     <loc>http://www.maishuren.top/posts/bug-log/202006071737-index.html</loc>
     <lastmod>2020-06-11</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/golang/202006111106-index.html</loc>
     <lastmod>2020-06-11</lastmod>
-  </url>  <url>
-    <loc>http://www.maishuren.top/posts/spring/202006081449-index.html</loc>
-    <lastmod>2020-06-08</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/springboot/202006081425-index.html</loc>
     <lastmod>2020-06-08</lastmod>
