@@ -346,6 +346,849 @@
       </tags>
   </entry>
   <entry>
+    <title>golang学习三：golang基础语法</title>
+    <url>/posts/golang/202006122240-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="打印输出"><a href="#打印输出" class="headerlink" title="打印输出"></a>打印输出</h1><ul>
+<li>在程序中输出使用频率很高,使用输出语句可以在程序执行过程中把一些结果输出到控制台中,程序员通过控制台中输出结果判断是否符合预期</li>
+<li>在Go语言中有多种输出方式,不同的输出适用场景不同.归纳起来三种,每种还分为3种方式(原内容,原内容+ln,原内容+f)<ul>
+<li>PrintXX()</li>
+<li>FprintXX()</li>
+<li>SprintXX()<h2 id="FprintXX"><a href="#FprintXX" class="headerlink" title="FprintXX"></a>FprintXX</h2></li>
+</ul>
+</li>
+<li>FprintXX在Go Web中使用比较多,把内容写到响应流中.</li>
+<li>以Fprintln()举例,源码如下<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Fprintln formats using the default formats for its operands and writes to w.</span></span><br><span class="line"><span class="comment">// Spaces are always added between operands and a newline is appended.</span></span><br><span class="line"><span class="comment">// It returns the number of bytes  written and any write error encountered.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Fprintln</span><span class="params">(w io.Writer, a ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</span><br><span class="line">	p := newPrinter()</span><br><span class="line">	p.doPrintln(a)</span><br><span class="line">	n, err = w.Write(p.buf)</span><br><span class="line">	p.free()</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>函数参数中第一个参数是输出流,后面参数是内容,表示把内容写入到输出流中</li>
+<li>第一个返回值表示输出内容长度(字节数),第二个返回值表示错误,如果没有错误取值nil<ul>
+<li>Fprintln()输出后会添加换行符,所以长度比内容多1个</li>
+<li>Fprintln()源码中p.doPrintln(a)的源码<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// doPrintln is like doPrint but always adds a space between arguments</span></span><br><span class="line"><span class="comment">// and a newline after the last argument.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *pp)</span> <span class="title">doPrintln</span><span class="params">(a []<span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> argNum, arg := <span class="keyword">range</span> a &#123;</span><br><span class="line">		<span class="keyword">if</span> argNum &gt; <span class="number">0</span> &#123;</span><br><span class="line">			p.buf.WriteByte(<span class="string">' '</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		p.printArg(arg, <span class="string">'v'</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	p.buf.WriteByte(<span class="string">'\n'</span>)<span class="comment">//此处多添加了换行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>FprintXX()支持下面三种方式<ul>
+<li>os.Stdout 表示控制台输出流<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Fprint(os.Stdout, <span class="string">"内容1"</span>)<span class="comment">//向流中写入内容,多个内容之间没有空格</span></span><br><span class="line">	fmt.Fprintln(os.Stdout, <span class="string">"内容2"</span>)<span class="comment">//向流中写入内容后额外写入换行符,多个内容之间空格分割</span></span><br><span class="line">	fmt.Fprintf(os.Stdout, <span class="string">"%s"</span>, <span class="string">"内容3"</span>)<span class="comment">//根据verb格式向流中写入内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="PrintXX"><a href="#PrintXX" class="headerlink" title="PrintXX"></a>PrintXX</h2></li>
+</ul>
+</li>
+<li>PrintXX支持下面三种方式<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"内容"</span>,<span class="string">"内容"</span>)<span class="comment">//输出内容后换行</span></span><br><span class="line">	fmt.Print(<span class="string">"内容"</span>,<span class="string">"内容"</span>)<span class="comment">//输出内容后不换行</span></span><br><span class="line">	fmt.Printf(<span class="string">"verb"</span>,<span class="string">"内容"</span>)<span class="comment">//根据verb输出指定格式内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>以Println()举例,源码如下<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Println formats using the default formats for its operands and writes to standard output.</span></span><br><span class="line"><span class="comment">// Spaces are always added between operands and a newline is appended.</span></span><br><span class="line"><span class="comment">// It returns the number of bytes written and any write error encountered.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Println</span><span class="params">(a ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> Fprintln(os.Stdout, a...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>可以看出Println()底层实际是Fprintln(),返回值依然是内容长度和错误信息<h2 id="SPrintXX"><a href="#SPrintXX" class="headerlink" title="SPrintXX"></a>SPrintXX</h2></li>
+<li>以Sprintln()举例,和Println()主要的区别是:<ul>
+<li>Sprintln()把形成结果以字符串返回,并没有打印到控制台</li>
+<li>Println()把结果打印到控制台,返回内容长度和错误</li>
+</ul>
+</li>
+<li>所以从严格意义角度讲SprintXX不是打印输出,而更像字符串转换</li>
+<li>源码如下<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Sprintln formats using the default formats for its operands and returns the resulting string.</span></span><br><span class="line"><span class="comment">// Spaces are always added between operands and a newline is appended.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sprintln</span><span class="params">(a ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	p := newPrinter()</span><br><span class="line">	p.doPrintln(a)</span><br><span class="line">	s := <span class="keyword">string</span>(p.buf)</span><br><span class="line">	p.free()</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>依然支持三种写法<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Sprint(<span class="string">"内容1"</span>, <span class="string">"内容12"</span>)</span><br><span class="line">	fmt.Sprintln(<span class="string">"内容2"</span>)</span><br><span class="line">	fmt.Sprintf(<span class="string">"%s"</span>, <span class="string">"内容3"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h1><ul>
+<li><p>在Go语言中可以使用<code>%+特定字母</code>或<code>/+特定字母</code>形成转义字符,这个表示特定含义的组合称为转义字符.</p>
+</li>
+<li><p>在Go语言中又称为verb</p>
+</li>
+<li><p>转义字符在Go语言中在以下两种情况使用频率较高</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">fmt.Printf(<span class="string">"verb"</span>,内容)<span class="comment">//输出</span></span><br><span class="line">fmt.Scanf(<span class="string">"verb"</span>,接收变量)<span class="comment">//输入</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="进制简述"><a href="#进制简述" class="headerlink" title="进制简述"></a>进制简述</h2><ul>
+<li>进制数在编程中经常遇见,进制数分为二进制,八进制,十进制和十六进制.其中十进制就是平时我们接触最多的</li>
+<li>X进制数都满足:<ul>
+<li>满X进一位</li>
+<li>每位最大为X-1</li>
+<li>第N位代表的X的(N-1)次方</li>
+</ul>
+</li>
+<li>其中十六进制中a=10,b=11,c=12,d=13,e=14,f=15</li>
+<li>举例<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">十进制 18</span><br><span class="line">二进制 10010</span><br><span class="line">八进制 22</span><br><span class="line">十六进制 12</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="常用转义字符汇总"><a href="#常用转义字符汇总" class="headerlink" title="常用转义字符汇总"></a>常用转义字符汇总</h2><ul>
+<li>以下为常用转义字符</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>verb</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%d</td>
+<td align="center">十进制整数</td>
+</tr>
+<tr>
+<td>%x,%X</td>
+<td align="center">大小写方式显示十六进制整数</td>
+</tr>
+<tr>
+<td>%o</td>
+<td align="center">八进制整数</td>
+</tr>
+<tr>
+<td>%b</td>
+<td align="center">二进制整数</td>
+</tr>
+<tr>
+<td>%f,%g,%e</td>
+<td align="center">浮点数</td>
+</tr>
+<tr>
+<td>%t</td>
+<td align="center">布尔值</td>
+</tr>
+<tr>
+<td>%c</td>
+<td align="center">字符</td>
+</tr>
+<tr>
+<td>%s</td>
+<td align="center">字符串</td>
+</tr>
+<tr>
+<td>%q</td>
+<td align="center">带双引号字符串</td>
+</tr>
+<tr>
+<td>%v</td>
+<td align="center">内置格式内容</td>
+</tr>
+<tr>
+<td>%T</td>
+<td align="center">类型</td>
+</tr>
+<tr>
+<td>%p</td>
+<td align="center">内存地址</td>
+</tr>
+<tr>
+<td>%%</td>
+<td align="center">字符%</td>
+</tr>
+<tr>
+<td>\n</td>
+<td align="center">换行</td>
+</tr>
+<tr>
+<td>\t</td>
+<td align="center">缩进</td>
+</tr>
+</tbody></table>
+<h1 id="用户输入简介"><a href="#用户输入简介" class="headerlink" title="用户输入简介"></a>用户输入简介</h1><ul>
+<li><p>用户输入在平时练习中使用频率较高.</p>
+</li>
+<li><p>程序运行时,运行到接收用户输入语句,程序阻塞,用户在控制台输入内容后,把内容赋值给对应的变量,程序继续运行.</p>
+</li>
+<li><p>在Go语言中有多种接收用户输入的方式,其中使用fmt包的Scan函数使用最简单</p>
+<h2 id="接收用户输入的几种方式"><a href="#接收用户输入的几种方式" class="headerlink" title="接收用户输入的几种方式"></a>接收用户输入的几种方式</h2></li>
+<li><p>使用<code>Scanln(&amp;变量名,&amp;变量名)</code>的方式接收.</p>
+<ul>
+<li>输入的内容必须都在同一行</li>
+<li>每个内容之间使用空格分割</li>
+<li>回车换行后表示停止输入.</li>
+<li>如果希望接收3个值,而在控制台只输入2个值,回车后也停止接收</li>
+<li>如果希望接收2个值,而在控制台输入3个,回车后只能接收两个值<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> name, age <span class="keyword">string</span> <span class="comment">//声明两个字符串变量,变量在本章节后面讲解</span></span><br><span class="line">	fmt.Print(<span class="string">"请输入姓名和姓名:"</span>)</span><br><span class="line">	fmt.Scanln(&amp;name, &amp;age) <span class="comment">//此处&amp;变量名是地址.指针地址在后面章节境界</span></span><br><span class="line">	fmt.Println(<span class="string">"接收到内容为:"</span>, name, age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>也可以使用<code>fmt.Scanf(verb,&amp;变量)</code>按照特定的格式进行输入.</p>
+<ul>
+<li>下面例子演示的每次换行输入一个内容<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a,b <span class="keyword">string</span></span><br><span class="line">	fmt.Scanf(<span class="string">"%s\n%s"</span>,&amp;a,&amp;b);</span><br><span class="line">	fmt.Printf(<span class="string">"%s\n%s"</span>,a,b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>需要注意,如果同行输入两个字符串,中间使用空格,否则编译器无法对输入内容拆分</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">string</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">string</span></span><br><span class="line">	<span class="comment">//输入时必须输入: aaa bbb</span></span><br><span class="line">	<span class="comment">//如果中间没有空格则把所有内容都赋值给了a</span></span><br><span class="line">	fmt.Scanf(<span class="string">"%s%s"</span>,&amp;a,&amp;b)</span><br><span class="line">	fmt.Println(a,b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="静态语言和动态语言"><a href="#静态语言和动态语言" class="headerlink" title="静态语言和动态语言"></a>静态语言和动态语言</h1><ul>
+<li>静态类型语言和强类型语言是同一个意思,表示在编译期就确定了类型,而且类型是不可以改变的</li>
+<li>动态类型语言和弱类型语言是同一个意思,表示在运行过程中才能确定,且内容是什么类型变量类型跟随变化</li>
+</ul>
+<h2 id="Go语言变量简介"><a href="#Go语言变量简介" class="headerlink" title="Go语言变量简介"></a>Go语言变量简介</h2><ul>
+<li><p>Go语言和其他语言一样都有基本存储容器.可以存储一个或多个值在程序中,方便程序中多次使用容器中内容,这个容器称为:<strong>变量</strong></p>
+</li>
+<li><p>Go语言虽然是静态类型语言,但是支持动态类型语言语法,因为Go语言希望程序员少声明变量,增加GC效率</p>
+<h2 id="变量命名规则"><a href="#变量命名规则" class="headerlink" title="变量命名规则"></a>变量命名规则</h2></li>
+<li><p>以字母或下划线开头(Go语言中多不以_开头)</p>
+</li>
+<li><p>后面可以是任意数量的字符、数字和下划线</p>
+</li>
+<li><p>区分大小写</p>
+</li>
+<li><p>不能是关键字(关键字具备特定含义),下面是Go语言的关键字</p>
+<table>
+<thead>
+<tr>
+<th align="center">关键字如下</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">break</td>
+<td align="center">default</td>
+<td align="center">func</td>
+<td align="center">interface</td>
+<td align="center">select</td>
+</tr>
+<tr>
+<td align="center">case</td>
+<td align="center">defer</td>
+<td align="center">go</td>
+<td align="center">map</td>
+<td align="center">struct</td>
+</tr>
+<tr>
+<td align="center">chan</td>
+<td align="center">else</td>
+<td align="center">goto</td>
+<td align="center">package</td>
+<td align="center">switch</td>
+</tr>
+<tr>
+<td align="center">const</td>
+<td align="center">fallthrough</td>
+<td align="center">if</td>
+<td align="center">range</td>
+<td align="center">type</td>
+</tr>
+<tr>
+<td align="center">continue</td>
+<td align="center">for</td>
+<td align="center">import</td>
+<td align="center">return</td>
+<td align="center">var</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>可以是保留字,但是建议不使用保留字做为变量名,下面是Go语言的保留字</p>
+<table>
+<thead>
+<tr>
+<th align="center">保留字如下</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">true</td>
+<td align="center">false</td>
+<td align="center">iota</td>
+<td align="center">nil</td>
+<td align="center">int</td>
+</tr>
+<tr>
+<td align="center">int8</td>
+<td align="center">int16</td>
+<td align="center">int32</td>
+<td align="center">int64</td>
+<td align="center">unit</td>
+</tr>
+<tr>
+<td align="center">unit8</td>
+<td align="center">unit16</td>
+<td align="center">unit32</td>
+<td align="center">unitptr</td>
+<td align="center">float32</td>
+</tr>
+<tr>
+<td align="center">float64</td>
+<td align="center">complex128</td>
+<td align="center">complex64</td>
+<td align="center">bool</td>
+<td align="center">byte</td>
+</tr>
+<tr>
+<td align="center">rune</td>
+<td align="center">string</td>
+<td align="center">error</td>
+<td align="center">make</td>
+<td align="center">len</td>
+</tr>
+<tr>
+<td align="center">cap</td>
+<td align="center">new</td>
+<td align="center">append</td>
+<td align="center">copy</td>
+<td align="center">close</td>
+</tr>
+<tr>
+<td align="center">deletecomplex</td>
+<td align="center">real</td>
+<td align="center">imag</td>
+<td align="center">panic</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">recover</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>在同一范围内不允许出现同名变量</p>
+</li>
+<li><p>Go语言要求变量声明后至少使用一次(赋值不属于使用)</p>
+</li>
+</ul>
+<h2 id="单个变量声明及赋值"><a href="#单个变量声明及赋值" class="headerlink" title="单个变量声明及赋值"></a>单个变量声明及赋值</h2><ul>
+<li>先声明后赋值(声明后开辟内存,不同类型变量都有不同初值)<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//语法:</span></span><br><span class="line"><span class="comment">//1. 声明</span></span><br><span class="line"><span class="keyword">var</span> 变量名 类型</span><br><span class="line"><span class="comment">//2. 赋值</span></span><br><span class="line">变量名=值</span><br><span class="line"></span><br><span class="line"><span class="comment">//示例:</span></span><br><span class="line"><span class="keyword">var</span> smallming <span class="keyword">string</span></span><br><span class="line">smallming = <span class="string">"英文名"</span></span><br></pre></td></tr></table></figure></li>
+<li>声明并赋值(此方式不建议)<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//语法:</span></span><br><span class="line"><span class="keyword">var</span> 变量名 类型 = 值</span><br><span class="line"></span><br><span class="line"><span class="comment">//示例</span></span><br><span class="line"><span class="keyword">var</span> smallming <span class="keyword">string</span> = <span class="string">"英文名"</span></span><br></pre></td></tr></table></figure></li>
+<li>声明并赋值(省略类型,变量类型取决于值的类型)<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//语法:</span></span><br><span class="line"><span class="keyword">var</span> 变量名 = 值</span><br><span class="line"></span><br><span class="line"><span class="comment">//示例:</span></span><br><span class="line"><span class="keyword">var</span> smallming = <span class="string">"英文名"</span></span><br></pre></td></tr></table></figure></li>
+<li>短变量(只能在函数内使用)<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//语法:</span></span><br><span class="line">变量名 := 值</span><br><span class="line"></span><br><span class="line"><span class="comment">//示例:</span></span><br><span class="line">smallming := <span class="string">"英文名"</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="声明多个变量和赋值"><a href="#声明多个变量和赋值" class="headerlink" title="声明多个变量和赋值"></a>声明多个变量和赋值</h2><ul>
+<li>先声明后赋值</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a, b, c <span class="keyword">int</span></span><br><span class="line">	a, b, c = <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">	fmt.Println(a, b, c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>声明时赋值</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a, b, c, d = <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="literal">false</span></span><br><span class="line">	fmt.Println(a, b, c, d)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>声明并赋值,推荐方式</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> (</span><br><span class="line">		a = <span class="number">1</span></span><br><span class="line">		b = <span class="literal">true</span></span><br><span class="line">		c = <span class="string">"测试"</span></span><br><span class="line">	)</span><br><span class="line">	fmt.Println(a, b, c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用短变量给多个变量赋值时,必须要保证至少有个变量是没有声明的</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> (</span><br><span class="line">		a = <span class="number">1</span></span><br><span class="line">		b = <span class="literal">true</span></span><br><span class="line">		c = <span class="string">"测试"</span></span><br><span class="line">	)</span><br><span class="line">	<span class="comment">//短变量操作多个值时只要保证里面至少有一个新变量</span></span><br><span class="line">	b, c, d := <span class="literal">false</span>, <span class="string">"smallming"</span>, <span class="number">3</span></span><br><span class="line">	fmt.Println(a, b, c, d)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h1><h2 id="整型概述"><a href="#整型概述" class="headerlink" title="整型概述"></a>整型概述</h2><ul>
+<li>在Go语言中可以进行<strong>数学运算</strong>的类型分为整型和浮点型</li>
+<li>所有的整数数字存储到整型中就可以进行数学运算<ul>
+<li>整型和整型运算的结果还是整型.(5/2=2)</li>
+<li>都是整型,但是int8和int16之间不可以进行运算,必须进行类型转换</li>
+</ul>
+</li>
+<li>整型分为有符号整型和无符号整型<ul>
+<li>有符号整型有正数和负数.其二进制最高位表示符号,0为正数1为负数.int和intx为有符号整型<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;int8 举例</span><br><span class="line">0000 0010&#x3D;2</span><br><span class="line">1000 0010&#x3D;-2</span><br></pre></td></tr></table></figure></li>
+<li>无符号整型只能取大于等于0的整数.其二进制最高位表示真实数字.unit和unitx为无符号整型<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;uint8 举例</span><br><span class="line">0000 0010&#x3D;2</span><br><span class="line">1000 0010&#x3D;130</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>整型取值范围和作用<ul>
+<li>有符号整数统一公式为:-2的n-1次幂到2的n-1次幂减一</li>
+<li>无符号整数统一公式为:0到2的n次幂减一<table>
+<thead>
+<tr>
+<th align="right">类型</th>
+<th align="left">取值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">int8</td>
+<td align="left">[-128 , 127]</td>
+</tr>
+<tr>
+<td align="right">int16</td>
+<td align="left">[-32768 , 32767]</td>
+</tr>
+<tr>
+<td align="right">int32</td>
+<td align="left">[-2147483648 , 2147483647] Go语言中没有字符类型,所有字符都使用int32存储</td>
+</tr>
+<tr>
+<td align="right">int64</td>
+<td align="left">[-9223372036854775808 , 9223372036854775807]</td>
+</tr>
+<tr>
+<td align="right">int</td>
+<td align="left">受限于计算机系统,系统是多少位,int为多少位</td>
+</tr>
+<tr>
+<td align="right">uint8</td>
+<td align="left">[0 , 255]</td>
+</tr>
+<tr>
+<td align="right">uint16</td>
+<td align="left">[0 , 65535]</td>
+</tr>
+<tr>
+<td align="right">uint32</td>
+<td align="left">[0 , 4294967295]</td>
+</tr>
+<tr>
+<td align="right">uint64</td>
+<td align="left">[0 , 18446744073709551615]</td>
+</tr>
+<tr>
+<td align="right">uint</td>
+<td align="left">受限于计算机系统,系统是多少位,uint为多少位</td>
+</tr>
+<tr>
+<td align="right">rune</td>
+<td align="left">与int32类似,常用在获取值的Unicode码</td>
+</tr>
+<tr>
+<td align="right">byte</td>
+<td align="left">与uint8类似.强调值为原始数据.一个字节占用8个二进制</td>
+</tr>
+<tr>
+<td align="right">uintptr</td>
+<td align="left">大小不确定,类型取决于底层编程</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><ul>
+<li><p>Go语言是静态类型语言,并且不具备低精度向高精度自动转换功能,所以不同类型变量之间相互赋值需要进行类型转换.</p>
+</li>
+<li><p>例如:</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//声明3个类型变量</span></span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">int</span> = <span class="number">1</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">int32</span> = <span class="number">2</span></span><br><span class="line">	<span class="keyword">var</span> c <span class="keyword">int64</span> = <span class="number">3</span></span><br><span class="line">	fmt.Println(a, b, c)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//把int32转换为int64</span></span><br><span class="line">	a = <span class="keyword">int</span>(b)</span><br><span class="line">	fmt.Println(a, b)</span><br><span class="line">	a = <span class="number">1</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//把int64转换成int32</span></span><br><span class="line">	b = <span class="keyword">int32</span>(c)</span><br><span class="line">	fmt.Println(b, c)</span><br><span class="line">	b = <span class="number">2</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//把int转换为int64</span></span><br><span class="line">	c = <span class="keyword">int64</span>(a)</span><br><span class="line">	fmt.Println(a, c)</span><br><span class="line">	c = <span class="number">3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="不同进制整数"><a href="#不同进制整数" class="headerlink" title="不同进制整数"></a>不同进制整数</h2></li>
+<li><p>支持八进制,十进制,十六进制数字创建整型,最后由系统转换为十进制</p>
+</li>
+<li><p>不支持二进制值</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//默认表示十进制</span></span><br><span class="line">	d := <span class="number">17</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//0开头表示八进制</span></span><br><span class="line">	o := <span class="number">021</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//0x开头表示十六进制</span></span><br><span class="line">	x := <span class="number">0x11</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//e2表示10的2次方</span></span><br><span class="line">	e := <span class="number">11e2</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//输出</span></span><br><span class="line">	fmt.Println(d, o, x, e)</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//把变量d中内容转换为二进制</span></span><br><span class="line">	b := fmt.Sprintf(<span class="string">"%b"</span>, d)</span><br><span class="line">	fmt.Println(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h1><h2 id="字符型概述"><a href="#字符型概述" class="headerlink" title="字符型概述"></a>字符型概述</h2><ul>
+<li>字符型存放单个字母或单个文字</li>
+<li>Go语言不支持字符类型,在Go语言中所有字符值都转换为对应的编码表中int32值</li>
+<li>Go语言默认使用UTF-8编码<h2 id="编码发展历史"><a href="#编码发展历史" class="headerlink" title="编码发展历史"></a>编码发展历史</h2></li>
+<li>最开始使用8个可开合晶体管表示世界万物,这就是<strong>字节</strong>的由来.后来生产出可以控制字节的机器,出现了<strong>计算机</strong></li>
+<li>把字节中32以下情况称为<strong>控制码</strong>,后在控制码基础上添加空格、标点符号、数字、大小写字母等直到127,最终形成了<strong>ANSI</strong>的ASCII码(American Standard Code for Information Interchange，美国信息交换标准代码),这时已经较好的支持英文了</li>
+<li>随机计算机在全球的应用,在原ASCII基础上添加了新的字母、符号、横线竖线等直到255号,从128到255被称为<strong>扩展字符集</strong>但是此时计算机还是在只支持英文</li>
+<li>等中国开始使用计算机,为了支持中文,保留了前127号,称这些为<strong>半角</strong>,把后面的内容以两个字节拼接形成中文汉字和表单符号,这后半部分就是<strong>全角</strong>,其中汉字6763个满足中文大部分情况的要求,称这个编码为<strong>GB2312</strong></li>
+<li>随着计算机在中国的普及,使用GB2312时有的汉字无法打出,又在GB2312基础上添加了近20000个汉字(包括繁体和符号等)形成<strong>GBK</strong>,后来为支持少数民族又在GBK基础上推出<strong>GB18080</strong></li>
+<li>全球中每个国家都有着自己的一套编码,ISO国际为了统一标准,重新定义一套编码,希望包含全球所有的文字和符号,俗称<strong>Unicode</strong></li>
+<li>随着互联网的快速发展,为解决Unicode网络传输中流浪浪费问题,出现了<strong>UTF</strong>编码,有UTF-8(8位传输)和UTF-16(16为传输)两种.其中UTF-8使用最多,为变长编码方式,中文占3个自己.</li>
+</ul>
+<h2 id="字符示例"><a href="#字符示例" class="headerlink" title="字符示例"></a>字符示例</h2><ul>
+<li>示例<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//定义数字</span></span><br><span class="line">	<span class="keyword">var</span> i <span class="keyword">rune</span>=<span class="string">`1 //0x5F20</span></span><br><span class="line"><span class="string">	fmt.Println(i)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	//输出汉字张</span></span><br><span class="line"><span class="string">	fmt.Printf("%c\n",i)</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	//获取转换后的内容</span></span><br><span class="line"><span class="string">	c:=fmt.Sprintf("%c",i)</span></span><br><span class="line"><span class="string">	fmt.Println(c)</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>也可以使用单引号表示一个字符类型,但是本质还是正数<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	c := <span class="string">'张'</span></span><br><span class="line">	fmt.Println(c)      <span class="comment">//24352</span></span><br><span class="line">	fmt.Printf(<span class="string">"%T"</span>, c) <span class="comment">//int32</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h1><h2 id="浮点数概述"><a href="#浮点数概述" class="headerlink" title="浮点数概述"></a>浮点数概述</h2><ul>
+<li><p>浮点类型用于存储带有小数点的数字</p>
+</li>
+<li><p>一个整数数值可以赋值给浮点类型但是一个整型变量不可以赋值给浮点类型</p>
+</li>
+<li><p>浮点数进行运算的结果是浮点数</p>
+</li>
+<li><p>Go语言中浮点类型有两个</p>
+<ul>
+<li>float32</li>
+<li>float64<h2 id="浮点数取值范围"><a href="#浮点数取值范围" class="headerlink" title="浮点数取值范围"></a>浮点数取值范围</h2></li>
+</ul>
+</li>
+<li><p>float32和float64取值范围</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">取值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">float32</td>
+<td align="center">3.40282346638528859811704183484516925440e+38</td>
+</tr>
+<tr>
+<td align="center">float64</td>
+<td align="center">1.797693134862315708145274237317043567981e+308</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>可以通过math或中常量快速获取浮点数的最大值</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"math"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(math.MaxFloat32)</span><br><span class="line">	fmt.Println(math.MaxFloat64)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="浮点运算"><a href="#浮点运算" class="headerlink" title="浮点运算"></a>浮点运算</h2></li>
+<li><p>float32和float64之间不可以相互运算,需要进行类型转换</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">float32</span> = <span class="number">1.5</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">float64</span> = <span class="number">3.3</span>         <span class="comment">//默认是float64类型</span></span><br><span class="line">	fmt.Println(a + <span class="keyword">float32</span>(b)) <span class="comment">//float64向float32转换</span></span><br><span class="line">	fmt.Println(<span class="keyword">float64</span>(a) + b) <span class="comment">//float32向float64转换</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>建议使用float64,虽然占用空间多,但是float32在累计运算时可能出现误差</p>
+</li>
+<li><p>整型运算和浮点型运算结果类型为本身类型</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a, b <span class="keyword">int</span> = <span class="number">3</span>, <span class="number">2</span></span><br><span class="line">	<span class="keyword">var</span> c, d <span class="keyword">float64</span> = <span class="number">3</span>, <span class="number">2</span></span><br><span class="line">	fmt.Println(a / b) <span class="comment">//结果为int,舍去小数部分(向下取整)</span></span><br><span class="line">	fmt.Println(c / d) <span class="comment">//结果为float64</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="布尔类型"><a href="#布尔类型" class="headerlink" title="布尔类型"></a>布尔类型</h1><h2 id="布尔类型介绍"><a href="#布尔类型介绍" class="headerlink" title="布尔类型介绍"></a>布尔类型介绍</h2><ul>
+<li>布尔类型关键字<strong>bool</strong></li>
+<li>布尔类型可取值只有两个<ul>
+<li>true :代表真,表示成立,二进制表示时1表示真</li>
+<li>false:代表假,表示不成立,二进制表示时0表示假</li>
+</ul>
+</li>
+<li>布尔类型不能与其他类型相互转换</li>
+<li>布尔类型占用1个byte</li>
+<li>布尔类型单独使用较少,多用在判断中<h2 id="布尔类型代码示例"><a href="#布尔类型代码示例" class="headerlink" title="布尔类型代码示例"></a>布尔类型代码示例</h2></li>
+<li>创建bool类型变量<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">bool</span> = <span class="literal">true</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">bool</span> = <span class="literal">false</span></span><br><span class="line">	<span class="keyword">var</span> c = <span class="literal">true</span></span><br><span class="line">	d := <span class="literal">false</span></span><br><span class="line">	fmt.Println(a, b, c, d)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用unsafe包下的Sizeof()可以查看类型占用字节<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="literal">false</span></span><br><span class="line">	fmt.Println(unsafe.Sizeof(a))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>虽然bool类型占用一个byte,但是bool不能和byte或int8相互转换<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">int8</span> = <span class="number">1</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">byte</span> = <span class="number">0</span></span><br><span class="line">	<span class="keyword">var</span> c <span class="keyword">bool</span> = <span class="literal">false</span></span><br><span class="line">	fmt.Println(a, b, c)</span><br><span class="line">	a = <span class="keyword">int8</span>(c) <span class="comment">//cannot convert c (type bool) to type int8</span></span><br><span class="line">	b = <span class="keyword">byte</span>(c) <span class="comment">//cannot convert c (type bool) to type byte</span></span><br><span class="line">	c = <span class="keyword">bool</span>(a) <span class="comment">//cannot convert a (type int8) to type bool</span></span><br><span class="line">	c = <span class="keyword">bool</span>(b) <span class="comment">//cannot convert b (type byte) to type bool</span></span><br><span class="line">	b = <span class="keyword">byte</span>(a) <span class="comment">//可以</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>布尔类型除了直接赋值true或false以外,还是可以表达式赋值,借助比较运算符、逻辑运算符等<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="number">5</span> &gt; <span class="number">3</span></span><br><span class="line">	fmt.Println(a)      <span class="comment">//输出:true</span></span><br><span class="line">	fmt.Printf(<span class="string">"%T"</span>, a) <span class="comment">//输出:bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><h2 id="运算符概述"><a href="#运算符概述" class="headerlink" title="运算符概述"></a>运算符概述</h2><ul>
+<li>Go语言支持运算符,算数运算符、比较运算符、逻辑运算符、赋值运算符、关系运算符、位运算符等</li>
+<li>不同的运算符使用场景不同,运算符一起使用时还需要注意优先级问题</li>
+</ul>
+<h2 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h2><ul>
+<li>算数运算符对浮点类型和整型进行数学运算</li>
+<li>乘法、除法优先级高于取余,取余高于加法、减法<table>
+<thead>
+<tr>
+<th align="right">运算符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">+</td>
+<td align="left">加法</td>
+</tr>
+<tr>
+<td align="right">-</td>
+<td align="left">减法</td>
+</tr>
+<tr>
+<td align="right">*</td>
+<td align="left">乘法</td>
+</tr>
+<tr>
+<td align="right">/</td>
+<td align="left">除法</td>
+</tr>
+<tr>
+<td align="right">%</td>
+<td align="left">取余. 例如 12%5=2  8%4=0</td>
+</tr>
+<tr>
+<td align="right">++</td>
+<td align="left">自增一,只能单独使用,没有返回值</td>
+</tr>
+<tr>
+<td align="right">–</td>
+<td align="left">自减一,和++语法相同</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h2><ul>
+<li>比较运算符用于比较两个内容的大小,判断和分支中使用频率较高<table>
+<thead>
+<tr>
+<th align="right">运算符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">==</td>
+<td align="left">是否等于,返回值为bool类型,判断是否成立</td>
+</tr>
+<tr>
+<td align="right">!=</td>
+<td align="left">不等于</td>
+</tr>
+<tr>
+<td align="right">&gt;</td>
+<td align="left">大于</td>
+</tr>
+<tr>
+<td align="right">&gt;=</td>
+<td align="left">大于等于</td>
+</tr>
+<tr>
+<td align="right">&lt;</td>
+<td align="left">小于</td>
+</tr>
+<tr>
+<td align="right">&lt;=</td>
+<td align="left">小于等于</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><ul>
+<li>逻辑运算符在判断和分支中使用频率较高<table>
+<thead>
+<tr>
+<th align="right">运算符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">!</td>
+<td align="left">逻辑非,取结果的反</td>
+</tr>
+<tr>
+<td align="right">&amp;&amp;</td>
+<td align="left">逻辑与,只有两侧同时为真时总体结果为真</td>
+</tr>
+<tr>
+<td align="right">||</td>
+<td align="left">逻辑或,两侧只要有一个为真时整体为真</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h2><ul>
+<li>赋值运算符目的给变量赋值</li>
+<li>提供了很多运算的简单方式<table>
+<thead>
+<tr>
+<th align="right">运算符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">=</td>
+<td align="left">右侧内容赋值给左侧变量.例如:A=B 把B赋值给A</td>
+</tr>
+<tr>
+<td align="right">+=</td>
+<td align="left">A+=B 相当于 A=A+B</td>
+</tr>
+<tr>
+<td align="right">-+</td>
+<td align="left">A-=B 相当于 A=A-B</td>
+</tr>
+<tr>
+<td align="right">*=</td>
+<td align="left">A *= B相当于 A等于A乘以B</td>
+</tr>
+<tr>
+<td align="right">/=</td>
+<td align="left">A/=B 相当于A=A/B</td>
+</tr>
+<tr>
+<td align="right">%=</td>
+<td align="left">A%=B 相当于 A=A%B</td>
+</tr>
+<tr>
+<td align="right">&lt;&lt;=</td>
+<td align="left">A&lt;&lt;=B 相当于 A=A&lt;&lt;B</td>
+</tr>
+<tr>
+<td align="right">&gt;&gt;=</td>
+<td align="left">A&gt;&gt;=B 相当于 A=A&gt;&gt;B</td>
+</tr>
+<tr>
+<td align="right">&amp;=</td>
+<td align="left">A&amp;=B 相当于 A=A&amp;B</td>
+</tr>
+<tr>
+<td align="right">|=</td>
+<td align="left">A|=B 相当于 A=A|B</td>
+</tr>
+<tr>
+<td align="right">^=</td>
+<td align="left">A^=B 相当于 A=A^B</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h2><h3 id="原码、反码、补码"><a href="#原码、反码、补码" class="headerlink" title="原码、反码、补码"></a>原码、反码、补码</h3><ul>
+<li><p>位运算时,需要知道几个概念,原码、反码、补码.正数在计算机中二进制还是原值,负数在计算机中存储的是补码</p>
+</li>
+<li><p>原码</p>
+<ul>
+<li>正数的原码还是正数</li>
+<li>负数的原码是负数绝对值的二进制表示</li>
+<li>以8位二进制方式表示<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//原码为:0000 0011</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">int8</span>=<span class="number">3</span></span><br><span class="line"><span class="comment">//原码为:0000 0010</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">int8</span>=<span class="number">-2</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>反码</p>
+<ul>
+<li>正数的反码还是正数</li>
+<li>负数的反码是所有位取反<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//反码为:0000 0011</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">int8</span>=<span class="number">3</span></span><br><span class="line"><span class="comment">//反码为:1111 1101</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">int8</span>=<span class="number">-2</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>补码</p>
+<ul>
+<li>正数的补码还是正数</li>
+<li>负数的补码为负数的反码加一 . <strong>负数的补码就是负数在计算机中二进制表示方式</strong></li>
+<li>想要知道负数二进制对应十进制数字就是补码–&gt;反码–&gt;原码–&gt;添加负号</li>
+<li>如果是16位只需要在负数前面添加8个1 ,正数前面添加8个零<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//补码为:0000 0011</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">int8</span>=<span class="number">3</span></span><br><span class="line"><span class="comment">//补码为:1111 1110</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">int8</span>=<span class="number">-2</span></span><br></pre></td></tr></table></figure>
+<h3 id="Go语言中位运算符"><a href="#Go语言中位运算符" class="headerlink" title="Go语言中位运算符"></a>Go语言中位运算符</h3></li>
+</ul>
+</li>
+<li><p>位运算在算法中使用频率较高</p>
+</li>
+<li><p>区块链学习中密码学部分的很多算法都是使用的位运算</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="right">运算符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">&lt;&lt;</td>
+<td align="left">二进制左移</td>
+</tr>
+<tr>
+<td align="right">&gt;&gt;</td>
+<td align="left">二进制右移</td>
+</tr>
+<tr>
+<td align="right">|</td>
+<td align="left">位运算或OR,有1取1”</td>
+</tr>
+<tr>
+<td align="right">&amp;</td>
+<td align="left">位运算与AND.转换二进制,都为1取1</td>
+</tr>
+<tr>
+<td align="right">^</td>
+<td align="left">位运算异或XOR,二阶运算相同为0不同为1.一阶运算加一后正数交互(正数变负数,负数变正数)</td>
+</tr>
+<tr>
+<td align="right">&amp;^</td>
+<td align="left">位清空(AND NOT),如果右侧0左侧不变,如果右侧为1,左侧一定清零.a&amp;^b=a&amp;(^b)</td>
+</tr>
+</tbody></table>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="字符串概述"><a href="#字符串概述" class="headerlink" title="字符串概述"></a>字符串概述</h2><ul>
+<li>字符串是一段不可变的字符序列.内容是任意内容,可以是一段文字也可以是一串数字,但是字符串类型数字不能进行数学运算,必须转换成整型或浮点型</li>
+<li>字符串类型关键字:string</li>
+<li>创建字符串类型变量<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s <span class="keyword">string</span> = <span class="string">"smallming"</span></span><br><span class="line">s1 := <span class="string">"smallming"</span></span><br></pre></td></tr></table></figure></li>
+<li>字符串类型的值使用双引号””扩上,内容支持转义字符串.两侧使用反单引号时原格式输出<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">"a\tbc"</span></span><br><span class="line">	b := <span class="string">`a\tbc`</span></span><br><span class="line">	fmt.Println(a) <span class="comment">//输出:a	abc</span></span><br><span class="line">	fmt.Println(b) <span class="comment">//输出a\tabc</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="字符串和数值转换"><a href="#字符串和数值转换" class="headerlink" title="字符串和数值转换"></a>字符串和数值转换</h2><ul>
+<li><p>包strconv提供了字符串和其他类型相互转换的函数,下面以字符串和数值类型转换为例</p>
+</li>
+<li><p>int和string相互转换</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"11"</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	第一个参数:需要转换的字符串变量</span></span><br><span class="line"><span class="comment">	第二个参数:这个数字是几进制,常用取值:2,8,10,16</span></span><br><span class="line"><span class="comment">	第三个参数:认为这个数字的整数类型.可取值:0,8,16,32,64.</span></span><br><span class="line"><span class="comment">	但是由于方法最后返回值是int64,所以第三个参数无论设置什么最终结果都是int64</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	i, _ := strconv.ParseInt(s, <span class="number">10</span>, <span class="number">8</span>)</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">	fmt.Printf(<span class="string">"%T\n"</span>, i)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//简单写法,相当于strconv.ParseInt(s,10,64)</span></span><br><span class="line">	i1, _ := strconv.Atoi(s)</span><br><span class="line">	fmt.Println(i1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Int转换成string</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	i := <span class="number">11</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	第一个参数:必须是int64类型</span></span><br><span class="line"><span class="comment">	第二个参数:进制数</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	s := strconv.FormatInt(<span class="keyword">int64</span>(i), <span class="number">10</span>)</span><br><span class="line">	fmt.Println(s)        <span class="comment">//输出:11</span></span><br><span class="line">	fmt.Printf(<span class="string">"%T\n"</span>, s) <span class="comment">//输出:string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	由于平时常用int,且使用短变量时整数默认是int类型</span></span><br><span class="line"><span class="comment">	所以下面方式较常用,把int转换为string</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	s1 := strconv.Itoa(i)</span><br><span class="line">	fmt.Println(s1)      <span class="comment">//输出:11</span></span><br><span class="line">	fmt.Printf(<span class="string">"%T"</span>, s1) <span class="comment">//输出:string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>string转换为floatXX类型</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"1.5"</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	把字符串转换为指定类型</span></span><br><span class="line"><span class="comment">	第一个参数:字符串</span></span><br><span class="line"><span class="comment">	第二个参数:可取值为32和64,分别表示float32和float64</span></span><br><span class="line"><span class="comment">	返回值是float64</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	f, _ := strconv.ParseFloat(s, <span class="number">64</span>)</span><br><span class="line">	fmt.Println(f)</span><br><span class="line">	fmt.Printf(<span class="string">"%T"</span>, f)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>floatXX转换为string类型</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	f := <span class="number">1.5</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	把浮点型转换为字符串类型</span></span><br><span class="line"><span class="comment">	第一个参数:浮点型变量</span></span><br><span class="line"><span class="comment">	第二个参数:</span></span><br><span class="line"><span class="comment">		'f'（-ddd.dddd）</span></span><br><span class="line"><span class="comment">		'b'（-ddddp±ddd，指数为二进制）</span></span><br><span class="line"><span class="comment">		'e'（-d.dddde±dd，十进制指数）</span></span><br><span class="line"><span class="comment">		'E'（-d.ddddE±dd，十进制指数）</span></span><br><span class="line"><span class="comment">		'g'（指数很大时用'e'格式，否则'f'格式）</span></span><br><span class="line"><span class="comment">		'G'（指数很大时用'E'格式，否则'f'格式）</span></span><br><span class="line"><span class="comment">	第三个参数:小数点精度,精度不够使用0补全,超出精度四舍五入</span></span><br><span class="line"><span class="comment">	第四个参数:浮点型变量类型,64表示float64,32表示float32</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	s := strconv.FormatFloat(f, <span class="string">'g'</span>, <span class="number">5</span>, <span class="number">64</span>)</span><br><span class="line"></span><br><span class="line">	fmt.Println(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="字符串截取"><a href="#字符串截取" class="headerlink" title="字符串截取"></a>字符串截取</h2><ul>
+<li>可以使用<strong>len(字符串变量)</strong>获取字符串的字节长度,其中英文占1个字节长度,中文占用3个字节长度</li>
+<li>可以使用<strong>变量名[n]</strong>获取到字符串第n+1个字节,返回这个字节对应的Unicode码值(uint8类型).注意n的取值范围是[0,长度)</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"smallming张"</span></span><br><span class="line">	a := s[<span class="number">0</span>]</span><br><span class="line">	fmt.Println(a)        <span class="comment">//输出:115</span></span><br><span class="line">	fmt.Printf(<span class="string">"%T\n"</span>, a) <span class="comment">//输出uint8</span></span><br><span class="line">	b := fmt.Sprintf(<span class="string">"%c"</span>, a)</span><br><span class="line">	fmt.Printf(<span class="string">"%T\n"</span>, b) <span class="comment">//输出:string</span></span><br><span class="line">	fmt.Println(b)        <span class="comment">//输出s</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>可以使用变量名[n:m]取出大于等于n小于m的字符序列</p>
+<ul>
+<li>n和m都可以省略,省略时认为n为0,m为长度</li>
+<li>因为中文占用三个字节,如果没有把中文完整取出,会出现乱码<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"smallming张"</span></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(s)) <span class="comment">//输出:12,字节长度</span></span><br><span class="line">	fmt.Println(s[<span class="number">1</span>:<span class="number">4</span>]) <span class="comment">//输出:mal</span></span><br><span class="line">	fmt.Println(s[:<span class="number">2</span>])  <span class="comment">//输出:sm</span></span><br><span class="line">	fmt.Println(s[<span class="number">5</span>:])  <span class="comment">//输出:ming张</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>可以通过把字符串转换为切片获取长度,并获取里面内容. 也可以直接使用for循环结合range获取</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"smallming张"</span></span><br><span class="line">	s1 := []<span class="keyword">rune</span>(s)</span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(s1))    <span class="comment">//输出:10</span></span><br><span class="line">	fmt.Println(s1[<span class="number">9</span>])      <span class="comment">//输出24352</span></span><br><span class="line">	fmt.Printf(<span class="string">"%c"</span>, s1[<span class="number">9</span>]) <span class="comment">//输出:张</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//遍历字符串中内容</span></span><br><span class="line">	<span class="keyword">for</span> i, n := <span class="keyword">range</span> s &#123;</span><br><span class="line">		fmt.Println(i, n)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2></li>
+<li><p>在strings包中提供了字符串常用的函数</p>
+</li>
+<li><p>常用函数整理如下</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"smallming"</span></span><br><span class="line">	<span class="comment">//第一次出现的索引</span></span><br><span class="line">	fmt.Println(strings.Index(s, <span class="string">"l"</span>))</span><br><span class="line">	<span class="comment">//最后一次出现的索引</span></span><br><span class="line">	fmt.Println(strings.LastIndex(s, <span class="string">"l"</span>))</span><br><span class="line">	<span class="comment">//是否以指定内容开头</span></span><br><span class="line">	fmt.Println(strings.HasPrefix(s, <span class="string">"small"</span>))</span><br><span class="line">	<span class="comment">//是否以指定内容结尾</span></span><br><span class="line">	fmt.Println(strings.HasSuffix(s, <span class="string">"ming"</span>))</span><br><span class="line">	<span class="comment">//是否包含指定字符串</span></span><br><span class="line">	fmt.Println(strings.Contains(s, <span class="string">"mi"</span>))</span><br><span class="line">	<span class="comment">//全变小写</span></span><br><span class="line">	fmt.Println(strings.ToLower(s))</span><br><span class="line">	<span class="comment">//全大写</span></span><br><span class="line">	fmt.Println(strings.ToUpper(s))</span><br><span class="line">	<span class="comment">//把字符串中前n个old子字符串替换成new字符串,如果n小于0表示全部替换.</span></span><br><span class="line">	<span class="comment">//如果n大于old个数也表示全部替换</span></span><br><span class="line">	fmt.Println(strings.Replace(s, <span class="string">"m"</span>, <span class="string">"k"</span>, <span class="number">-1</span>))</span><br><span class="line">	<span class="comment">//把字符串重复count遍</span></span><br><span class="line">	fmt.Println(strings.Repeat(s, <span class="number">2</span>))</span><br><span class="line">	<span class="comment">//去掉字符串前后指定字符</span></span><br><span class="line">	fmt.Println(strings.Trim(s, <span class="string">" "</span>)) <span class="comment">//去空格可以使用strings.TrimSpace(s)</span></span><br><span class="line">	<span class="comment">//根据指定字符把字符串拆分成切片</span></span><br><span class="line">	fmt.Println(strings.Split(s, <span class="string">"m"</span>))</span><br><span class="line">	<span class="comment">//使用指定分隔符把切片内容合并成字符串</span></span><br><span class="line">	arr := []<span class="keyword">string</span>&#123;<span class="string">"small"</span>, <span class="string">"ming"</span>&#125;</span><br><span class="line">	fmt.Println(strings.Join(arr, <span class="string">""</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="常量和iota"><a href="#常量和iota" class="headerlink" title="常量和iota"></a>常量和iota</h1><h2 id="常量概述"><a href="#常量概述" class="headerlink" title="常量概述"></a>常量概述</h2><ul>
+<li><p>常量是一个固定值,在编译器就确定结果.声明时必须赋值且结果不可以改变.</p>
+</li>
+<li><p>因为常量在编译器就确定,可以防止程序运行过程中意外修改</p>
+</li>
+<li><p>常量关键字const</p>
+</li>
+<li><p>常量定义完可以不使用</p>
+</li>
+<li><p>Go语言中常量定义没有明确语法要求,可以不全大写,驼峰即可.</p>
+</li>
+<li><p>很多内容可以定义成常量</p>
+<ul>
+<li>人名</li>
+<li>圆周率</li>
+<li>电话号</li>
+<li>等<h2 id="常量定义"><a href="#常量定义" class="headerlink" title="常量定义"></a>常量定义</h2></li>
+</ul>
+</li>
+<li><p>定义常量时如果不是必须指定特定类型,可以省略类型,使用默认类型.且数值类型常量(不定义类型)可以直接进行运算</p>
+</li>
+<li><p>常量的值可以是表达式,但是不允许出现变量</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> a <span class="keyword">string</span> = <span class="string">"smallming"</span></span><br><span class="line">	<span class="keyword">const</span> b = <span class="number">123</span></span><br><span class="line">	<span class="keyword">const</span> c = <span class="number">3</span>*<span class="number">2</span> + <span class="number">5</span><span class="comment">//不要指定类型</span></span><br><span class="line">	<span class="keyword">const</span> d = <span class="number">1.5</span><span class="comment">//不要指定类型</span></span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"%T %T"</span>,c,d)<span class="comment">//int float</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(c+d)<span class="comment">//12.5</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//下面这种方式是错误的</span></span><br><span class="line">	i := <span class="number">3</span></span><br><span class="line">	<span class="keyword">const</span> e = i*<span class="number">2</span> + <span class="number">5</span> <span class="comment">//const initializer i * 2 + 5 is not a constant</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>当定义多个常量时官方推荐的方式</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	a = <span class="number">1</span></span><br><span class="line">	b = <span class="number">2</span></span><br><span class="line">	c = <span class="literal">true</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>定义多常量时后一个常量如果没有赋值,与前一个常量值相同.</p>
+<ul>
+<li>第一个常量必须赋值<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		a = <span class="number">1</span></span><br><span class="line">		b</span><br><span class="line">		c</span><br><span class="line">	)</span><br><span class="line">	fmt.Println(a,b,c)<span class="comment">//输出:1 1 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="常量生成器"><a href="#常量生成器" class="headerlink" title="常量生成器"></a>常量生成器</h2></li>
+</ul>
+</li>
+<li><p>当一组常量都是数值类型,可以使用常量生成器iota指定这组常量按照特定规则变化</p>
+</li>
+<li><p>iota起始值为0,每次增加1</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		a = <span class="literal">iota</span></span><br><span class="line">		b </span><br><span class="line">		c </span><br><span class="line">	)</span><br><span class="line">	fmt.Println(a, b, c) <span class="comment">//输出: 0 1 2</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		d = <span class="literal">iota</span> &lt;&lt; <span class="number">1</span></span><br><span class="line">		e </span><br><span class="line">		f </span><br><span class="line">	)</span><br><span class="line">	fmt.Println(d, e, f) <span class="comment">//输出:0 2 4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>无论是否使用iota,一组常量中每个的iota值是固定的,iota按照顺序自增1</p>
+</li>
+<li><p>每组iota之间无影响</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		a = <span class="number">5</span>    <span class="comment">//iota=0</span></span><br><span class="line">		b = <span class="number">3</span>    <span class="comment">//iota=1</span></span><br><span class="line">		c = <span class="literal">iota</span> <span class="comment">//iota=2</span></span><br><span class="line">		d        <span class="comment">//iota=3</span></span><br><span class="line">	)</span><br><span class="line">	fmt.Println(a, b, c, d) <span class="comment">//输出5 3 2 3</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		e = <span class="literal">iota</span> <span class="comment">//iota=0</span></span><br><span class="line">		f        <span class="comment">//iota=1</span></span><br><span class="line">		g = <span class="number">10</span>   <span class="comment">//iota=2</span></span><br><span class="line">		h        <span class="comment">//iota=3</span></span><br><span class="line">		i = <span class="literal">iota</span> <span class="comment">//iota=4</span></span><br><span class="line">		j        <span class="comment">//iota=5</span></span><br><span class="line">	)</span><br><span class="line">	fmt.Println(e, f, g, h, i, j) <span class="comment">// 0 1 10 10 4 5</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><h2 id="变量地址"><a href="#变量地址" class="headerlink" title="变量地址"></a>变量地址</h2><ul>
+<li>变量本质就是内存中一块数据的标记.把值存储到变量中实质是把值存储到内存中</li>
+<li>每次对变量重新赋值就是在修改变量地址中的内容</li>
+<li>在Go语言中可以通过 <code>&amp;+变量名</code> 获取到变量地址值</li>
+<li>重新创建一个非引用型变量(即使是把已有变量直接赋值给新变量)也会新开辟内存地址.<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="number">3</span></span><br><span class="line">	fmt.Println(&amp;a) <span class="comment">//输出:地址</span></span><br><span class="line">	a = <span class="number">4</span></span><br><span class="line">	fmt.Println(&amp;a) <span class="comment">//输出的地址不变</span></span><br><span class="line"></span><br><span class="line">	b := a</span><br><span class="line">	b = <span class="number">5</span></span><br><span class="line">	fmt.Println(&amp;b, &amp;a) <span class="comment">//两个值不相同</span></span><br><span class="line">	fmt.Println(b, a)   <span class="comment">//输出:5 4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="指针变量"><a href="#指针变量" class="headerlink" title="指针变量"></a>指针变量</h2><ul>
+<li>指针变量指向一个值的内存地址</li>
+<li>使用&amp;+变量 返回值就是一个指针类型</li>
+<li>使用<code>var 变量名 *类型</code> 声明指针类型变量</li>
+<li>声明指针不会开辟内存地址,只是准备要指向内存某个空间,而声明变量会开辟内存地址,准备存放内容.所以指针类型变量都是把一个变量的地址赋值给指针变量</li>
+<li>使用<code>*+指针</code>能够获取内存地址中的值.所以<code>*+指针</code>就和直接使用变量是相同的</li>
+<li>应用指针可以实现多个地方操作同一个内存地址的值(在方法参数应用指针较多)<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//创建变量</span></span><br><span class="line">	a := <span class="number">123</span></span><br><span class="line">	<span class="keyword">var</span> point *<span class="keyword">int</span></span><br><span class="line">	point = &amp;a <span class="comment">//此时point和&amp;a是相等的</span></span><br><span class="line">	fmt.Println(point)</span><br><span class="line">	*point = <span class="number">3</span>             <span class="comment">//等价于a=3</span></span><br><span class="line">	fmt.Println(*point, a) <span class="comment">//*point和a是相当的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="空指针"><a href="#空指针" class="headerlink" title="空指针"></a>空指针</h2></li>
+<li>指针目的就是指向内存中一块地址</li>
+<li>声明指针后指针不会指向任何内存地址,所以此时指针是空.在Go语言中空用nil表示<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a *<span class="keyword">int</span></span><br><span class="line">	fmt.Println(a)        <span class="comment">//输出:&lt;nil&gt;</span></span><br><span class="line">	fmt.Println(a == <span class="literal">nil</span>) <span class="comment">//输出true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="new函数"><a href="#new函数" class="headerlink" title="new函数"></a>new函数</h2><ul>
+<li><p>在上一小节中学习了指针,每次创建一个指针必须在额外创建一个变量,操作比较麻烦.</p>
+</li>
+<li><p>可以通过new函数直接创建一个类型的指针</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">变量名:&#x3D;new(Type)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用new函数创建的指针已有指向,可以使用<code>*指针对象</code>进行赋值.</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="built_in">new</span>(<span class="keyword">int</span>)</span><br><span class="line">	fmt.Println(a) <span class="comment">//输出:指针地址</span></span><br><span class="line">	*a = <span class="number">123</span></span><br><span class="line">	fmt.Println(*a) <span class="comment">//输出:123</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>只声明的指针变量不能直接赋值.</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a *<span class="keyword">int</span></span><br><span class="line">	*a = <span class="number">123</span></span><br><span class="line">	fmt.Println(*a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">panic: runtime error: invalid memory address or nil pointer dereference</span><br><span class="line">[signal 0xc0000005 code&#x3D;0x1 addr&#x3D;0x0 pc&#x3D;0x48b576]</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>golang学习二：golang自带的工具</title>
     <url>/posts/golang/202006122229-index.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="解压版Go语言安装包中自带工具"><a href="#解压版Go语言安装包中自带工具" class="headerlink" title="解压版Go语言安装包中自带工具"></a>解压版Go语言安装包中自带工具</h1><ul>
