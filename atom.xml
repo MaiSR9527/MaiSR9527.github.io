@@ -537,9 +537,9 @@
       <category term="后端" scheme="http://www.maishuren.top/categories/%E5%90%8E%E7%AB%AF/"/>
     
     
-      <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
-    
       <category term="springboot" scheme="http://www.maishuren.top/tags/springboot/"/>
+    
+      <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
     
   </entry>
   
