@@ -240,8 +240,8 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>springboot</tag>
         <tag>java</tag>
+        <tag>springboot</tag>
       </tags>
   </entry>
   <entry>
@@ -343,6 +343,84 @@
       <tags>
         <tag>内功心法</tag>
         <tag>面试必备</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang学习四：流程控制</title>
+    <url>/posts/golang/202006131013-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="条件判断if"><a href="#条件判断if" class="headerlink" title="条件判断if"></a>条件判断if</h1><ul>
+<li><p>在程序开发中经常需要判断.根据情况不同,程序执行的分支也不同.这个时候就可以使用if</p>
+</li>
+<li><p>if在程序中代表<strong>如果</strong>，如果条件成立就执行,否则就不执行</p>
+</li>
+<li><p>if的语法结构,在编译器中表达式两侧可以写小括号,但是通常省略</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;单独使用</span><br><span class="line">if 表达式 &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在if语法结构中所有表达式最终结果都是bool类型,true代表成立执行对应代码</p>
+</li>
+</ul>
+<h2 id="if单独使用"><a href="#if单独使用" class="headerlink" title="if单独使用"></a>if单独使用</h2><ul>
+<li>if单独使用时只影响到自己对应的代码块<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	score := <span class="number">65</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> score &gt;= <span class="number">60</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"及格"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>可以在if 表达式中声明变量,这个变量的范围只在if中能够使用<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> score:=<span class="number">60</span>; score&gt;=<span class="number">60</span>&#123;</span><br><span class="line">		fmt.Println(<span class="string">"及格了"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>多个单独if使用时相互没有影响<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	score := <span class="number">65</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> score &gt;= <span class="number">60</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"及格"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> score &lt; <span class="number">60</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"不及格"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="程序调试"><a href="#程序调试" class="headerlink" title="程序调试"></a>程序调试</h2></li>
+<li>程序调试,俗称:debug,通过特定的手段,一个语句一个语句的观察程序执行过程</li>
+<li>debug经常用在调错中,当结果不符合预期,代码又很多时,debug可以找出哪行出现问题</li>
+<li>程序调试步骤<ul>
+<li>在程序中某行前面单击出现红色圆形</li>
+<li>右键,选择Debug ‘文件名’</li>
+<li>通过点击按钮或使用快捷键选择:向下执行(F6),进入调用(F5),向上跳出(F7)观察程序 </li>
+</ul>
+</li>
+</ul>
+<h2 id="if-…-else-结构"><a href="#if-…-else-结构" class="headerlink" title="if … else 结构"></a>if … else 结构</h2><ul>
+<li><p>if 可以单独使用也可以结合else使用,当满足互斥条件时使用if…else结构</p>
+</li>
+<li><p>if..else结构中如果if成立执行if否则执行else</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	i := <span class="number">59</span></span><br><span class="line">	<span class="keyword">if</span> i &gt;= <span class="number">60</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"及格"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">"不及格"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="if多重嵌套"><a href="#if多重嵌套" class="headerlink" title="if多重嵌套"></a>if多重嵌套</h2></li>
+<li><p>if每种结构都可以相互嵌套</p>
+</li>
+<li><p>理论讲if可以很多层嵌套</p>
+</li>
+<li><p>两层嵌套代码示例</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	score := <span class="number">77</span></span><br><span class="line">	<span class="keyword">if</span> score &gt;= <span class="number">60</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> score &gt;= <span class="number">60</span> &amp;&amp; score &lt; <span class="number">70</span> &#123;</span><br><span class="line">			fmt.Println(<span class="string">"及格"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> score &gt;= <span class="number">70</span> &amp;&amp; score &lt; <span class="number">80</span> &#123;</span><br><span class="line">			fmt.Println(<span class="string">"中等"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> score &gt;= <span class="number">80</span> &amp;&amp; score &lt; <span class="number">90</span> &#123;</span><br><span class="line">			fmt.Println(<span class="string">"良好"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> score &gt;= <span class="number">90</span> &amp;&amp; score &lt;= <span class="number">100</span> &#123;</span><br><span class="line">			fmt.Println(<span class="string">"优秀"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"不及格"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="if-…-else-if-…-else结构"><a href="#if-…-else-if-…-else结构" class="headerlink" title="if … else if …. else结构"></a>if … else if …. else结构</h2></li>
+<li><p>当需要判断多个条件时使用这种结构</p>
+</li>
+<li><p>这个结构是一个整体.只要有一个条件成立后面的都不判断,立即结束</p>
+</li>
+<li><p>else可以没有</p>
+</li>
+<li><p>改写嵌套代码,修改如下</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	score := <span class="number">77</span></span><br><span class="line">	<span class="keyword">if</span> score &gt;= <span class="number">90</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"优秀"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> score &gt;= <span class="number">80</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"良好"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> score &gt;= <span class="number">70</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"中等"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> score &gt;= <span class="number">60</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"及格"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"不及格"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="switch条件判断"><a href="#switch条件判断" class="headerlink" title="switch条件判断"></a>switch条件判断</h1><h2 id="switch结构介绍"><a href="#switch结构介绍" class="headerlink" title="switch结构介绍"></a>switch结构介绍</h2><ul>
+<li>switch也属于条件判断的语句</li>
+<li>支持多种写法,和if .. else if …else 结构的功能类似,但是里面的细节需要注意的地方更多</li>
+<li>switch基本语法<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">switch [定义变量;] [变量]&#123;</span><br><span class="line">  case [条件&#x2F;具体值]:</span><br><span class="line">  	&#x2F;&#x2F;代码</span><br><span class="line">  case [条件&#x2F;具体值]:</span><br><span class="line">  	&#x2F;&#x2F;代码</span><br><span class="line">  default:</span><br><span class="line">    &#x2F;&#x2F;代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>switch每个case分支默认只执行一个且是从上向下执行</li>
+<li>default上下位置没有影响,当且仅当所有case都不成立时才执行default</li>
+</ul>
+<h2 id="switch用法-一"><a href="#switch用法-一" class="headerlink" title="switch用法(一)"></a>switch用法(一)</h2><ul>
+<li>当变量只有固定的几个值时可以使用switch结构<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	num := <span class="number">16</span></span><br><span class="line">	<span class="keyword">switch</span> num &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		fmt.Println(<span class="string">"2进制"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">		fmt.Println(<span class="string">"8进制"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">		fmt.Println(<span class="string">"10进制"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">16</span>:</span><br><span class="line">		fmt.Println(<span class="string">"16进制"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"内容不正确"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"程序结束"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>switch也支持在条件位置定义变量,变量有效范围为当前switch<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">switch</span> num := <span class="number">16</span>; num &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		fmt.Println(<span class="string">"2进制"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">		fmt.Println(<span class="string">"8进制"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">		fmt.Println(<span class="string">"10进制"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">16</span>:</span><br><span class="line">		fmt.Println(<span class="string">"16进制"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"内容不正确"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"程序结束"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="switch用法-二"><a href="#switch用法-二" class="headerlink" title="switch用法(二)"></a>switch用法(二)</h2></li>
+<li>当条件是范围而不是固定值时<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	score := <span class="number">71</span></span><br><span class="line">	<span class="keyword">switch</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> score &gt;= <span class="number">90</span>:</span><br><span class="line">		fmt.Println(<span class="string">"优秀"</span>)</span><br><span class="line">	<span class="keyword">case</span> score &gt;= <span class="number">80</span>:</span><br><span class="line">		fmt.Println(<span class="string">"良好"</span>)</span><br><span class="line">	<span class="keyword">case</span> score &gt;= <span class="number">70</span>:</span><br><span class="line">		fmt.Println(<span class="string">"中等"</span>)</span><br><span class="line">	<span class="keyword">case</span> score &gt;= <span class="number">60</span>:</span><br><span class="line">		fmt.Println(<span class="string">"及格"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"不及格"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"程序结束"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="switch用法-三"><a href="#switch用法-三" class="headerlink" title="switch用法(三)"></a>switch用法(三)</h2></li>
+<li>case条件支持多个值,每个值使用逗号分开<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	month := <span class="number">5</span></span><br><span class="line">	<span class="keyword">switch</span> month &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>:</span><br><span class="line">		fmt.Println(<span class="string">"31天"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		fmt.Println(<span class="string">"28或29天"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"30天"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"程序结束"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="穿透和中断"><a href="#穿透和中断" class="headerlink" title="穿透和中断"></a>穿透和中断</h2></li>
+<li>switch结构中某个最多只能执行一个case,使用fallthrough可以让下一个case/default继续执行<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">switch</span> num := <span class="number">1</span>; num &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">		fmt.Println(<span class="string">"1"</span>)</span><br><span class="line">		<span class="keyword">fallthrough</span></span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		fmt.Println(<span class="string">"2"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">		fmt.Println(<span class="string">"3"</span>)</span><br><span class="line">		<span class="keyword">fallthrough</span></span><br><span class="line">	<span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">		fmt.Println(<span class="string">"4"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"不是1,2,3,4"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"程序结束"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>break可以用在switch和循环中,表示立即结束,无论当前结构后面还有多少代码<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">switch</span> num := <span class="number">1</span>; num &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">		fmt.Println(<span class="string">"1"</span>)</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">		fmt.Println(<span class="string">"break后面代码都不执行"</span>)</span><br><span class="line">		<span class="keyword">fallthrough</span></span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		fmt.Println(<span class="string">"2"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">		fmt.Println(<span class="string">"3"</span>)</span><br><span class="line">		<span class="keyword">fallthrough</span></span><br><span class="line">	<span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">		fmt.Println(<span class="string">"4"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"不是1,2,3,4"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"程序结束"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>入门</tag>
       </tags>
   </entry>
   <entry>
@@ -1178,14 +1256,46 @@
 <li><p>只声明的指针变量不能直接赋值.</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a *<span class="keyword">int</span></span><br><span class="line">	*a = <span class="number">123</span></span><br><span class="line">	fmt.Println(*a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>结果</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">panic: runtime error: invalid memory address or nil pointer dereference</span><br><span class="line">[signal 0xc0000005 code&#x3D;0x1 addr&#x3D;0x0 pc&#x3D;0x48b576]</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">panic: runtime error: invalid memory address or nil pointer dereference</span><br><span class="line">[signal 0xc0000005 code&#x3D;0x1 addr&#x3D;0x0 pc&#x3D;0x48b576]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="时间类型"><a href="#时间类型" class="headerlink" title="时间类型"></a>时间类型</h1><h2 id="时间类型概述"><a href="#时间类型概述" class="headerlink" title="时间类型概述"></a>时间类型概述</h2><ul>
+<li>时间类型在实际开发中使用频率很高,代表现实世界的时间</li>
+<li>在Go语言中时间类型不是关键字而是使用time包下Time结构体</li>
+<li>时间类型默认显示为UTC,所以经常需要把时间类型转换为字符串,显示成我们所熟悉的格式</li>
+</ul>
+<h2 id="Time的使用"><a href="#Time的使用" class="headerlink" title="Time的使用"></a>Time的使用</h2><ul>
+<li><p>声明Time时,默认时间是无意义的</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> t time.Time</span><br><span class="line">	fmt.Println(t)<span class="comment">//输出:0001-01-01 00:00:00 +0000 UTC</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>可以通过time包下的Now()函数获取操作系统当前时间</p>
+<ul>
+<li>+0800 CST 表示北京时间,东八区<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">t := time.Now()</span><br><span class="line">fmt.Println(t) <span class="comment">//输出:年-月-日 小时:分钟:秒.纳秒 +0800 CST m=+0.003012301</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>也可以通过时间戳创建时间类型变量(距离1970年1月1日的纳秒差)</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">1秒(s)=1000毫秒(ms)</span></span><br><span class="line"><span class="comment">1秒(s)=1000000微秒(μs)</span></span><br><span class="line"><span class="comment">1秒(s)=1000000000纳秒(ns)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">t := time.Now()</span><br><span class="line">t1 := time.Unix(<span class="number">0</span>, t.UnixNano()) <span class="comment">//根据时间戳创建时间.第二个值[0, 999999999]外合法</span></span><br><span class="line">fmt.Println(t.String())</span><br><span class="line">fmt.Println(t1)</span><br></pre></td></tr></table></figure></li>
+<li><p>可以根据自己要求创建时间</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//time.Local取到本地时间位置对象,东八区</span></span><br><span class="line">t := time.Date(<span class="number">2020</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">0</span>, time.Local)</span><br><span class="line">fmt.Println(t) <span class="comment">//输出:2020-05-06 07:08:09 +0800 CST</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在time包下提供了大量的函数或方法获取时间的某一项</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">t := time.Now()</span><br><span class="line">fmt.Println(t)</span><br><span class="line">fmt.Println(t.Year())       <span class="comment">//年</span></span><br><span class="line">fmt.Println(<span class="keyword">int</span>(t.Month())) <span class="comment">//月</span></span><br><span class="line">fmt.Println(t.Day())        <span class="comment">//日</span></span><br><span class="line">fmt.Println(t.Date())       <span class="comment">//三个参数,分别是:年,月,日</span></span><br><span class="line">fmt.Println(t.Hour())       <span class="comment">//小时</span></span><br><span class="line">fmt.Println(t.Minute())     <span class="comment">//分钟</span></span><br><span class="line">fmt.Println(t.Second())     <span class="comment">//秒</span></span><br><span class="line">fmt.Println(t.Clock())      <span class="comment">//三个参数,分别是:小时,分钟,秒</span></span><br><span class="line">fmt.Println(t.Nanosecond()) <span class="comment">//纳秒</span></span><br><span class="line">fmt.Println(t.Unix())       <span class="comment">//秒差</span></span><br><span class="line">fmt.Println(t.UnixNano())   <span class="comment">//纳秒差</span></span><br></pre></td></tr></table></figure>
+<h2 id="时间和string相互转换"><a href="#时间和string相互转换" class="headerlink" title="时间和string相互转换"></a>时间和string相互转换</h2></li>
+<li><p>时间转换为string</p>
+<ul>
+<li>参数必须是这个时间,为Go语言出现时间<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">t := time.Now()</span><br><span class="line"><span class="comment">//参数必须是这个时间,格式任意</span></span><br><span class="line">s := t.Format(<span class="string">"2006-01-02 15:04:05"</span>, )</span><br><span class="line">fmt.Println(s)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>string转换为Time</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">s:=<span class="string">"2022-02-04 22:02:04"</span></span><br><span class="line">t,err:=time.Parse(<span class="string">"2006-01-02 15:04:05"</span>,s)</span><br><span class="line">fmt.Println(t,err)</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
-        <category>后端</category>
+        <category>后端端</category>
       </categories>
       <tags>
         <tag>golang</tag>
+        <tag>入门</tag>
       </tags>
   </entry>
   <entry>
@@ -1255,6 +1365,7 @@
       </categories>
       <tags>
         <tag>golang</tag>
+        <tag>入门</tag>
       </tags>
   </entry>
   <entry>
@@ -1365,6 +1476,7 @@
       </categories>
       <tags>
         <tag>golang</tag>
+        <tag>入门</tag>
       </tags>
   </entry>
   <entry>
@@ -1476,9 +1588,9 @@
         <category>后端</category>
       </categories>
       <tags>
+        <tag>java</tag>
         <tag>spring</tag>
         <tag>源码学习</tag>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
