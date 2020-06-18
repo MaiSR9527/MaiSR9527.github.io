@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>golang学习九：sort包、map、双向链表、双向循环链表 | maiBlog</title><meta name="description" content="sort包 Go语言标准库中sort提供了排序API sort包提供了多种排序算法,这些算法是内部实现的,每次使用sort包排序时,会自动选择最优算法实现 插入排序 快速排序 堆排   sort包中最上层是一个名称为Interface的接口,只要满足sort.Interface类型都可以排序123456789101112&#x2F;&#x2F; A type, typically a collection, that"><meta name="keywords" content="golang,入门"><meta name="author" content="maishuren"><meta name="copyright" content="maishuren"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/bitbug-favicon-32x32.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="golang学习九：sort包、map、双向链表、双向循环链表"><meta name="twitter:description" content="sort包 Go语言标准库中sort提供了排序API sort包提供了多种排序算法,这些算法是内部实现的,每次使用sort包排序时,会自动选择最优算法实现 插入排序 快速排序 堆排   sort包中最上层是一个名称为Interface的接口,只要满足sort.Interface类型都可以排序123456789101112&#x2F;&#x2F; A type, typically a collection, that"><meta name="twitter:image" content="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner27.jpg"><meta property="og:type" content="article"><meta property="og:title" content="golang学习九：sort包、map、双向链表、双向循环链表"><meta property="og:url" content="http://www.maishuren.top/posts/golang/202006182323-"><meta property="og:site_name" content="maiBlog"><meta property="og:description" content="sort包 Go语言标准库中sort提供了排序API sort包提供了多种排序算法,这些算法是内部实现的,每次使用sort包排序时,会自动选择最优算法实现 插入排序 快速排序 堆排   sort包中最上层是一个名称为Interface的接口,只要满足sort.Interface类型都可以排序123456789101112&#x2F;&#x2F; A type, typically a collection, that"><meta property="og:image" content="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner27.jpg"><meta property="article:published_time" content="2020-06-18T15:23:43.000Z"><meta property="article:modified_time" content="2020-06-18T15:33:37.972Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="http://www.maishuren.top/posts/golang/202006182323-"><link rel="prev" title="golang学习十：函数" href="http://www.maishuren.top/posts/golang/202006182334-index.html"><link rel="next" title="centos7安装docker" href="http://www.maishuren.top/posts/docker/202006161622-index.html"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0d6717a65ff7b5a1f6c9a03d9d87f2f4";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"24114IQSY6","apiKey":"23e75f7706699b252eafbc1378132bba","indexName":"maiBlog","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="maiBlog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://gitee.com/maishuren/blog-pic/raw/master/blog/newavatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 娱乐</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/playlist/"><i class="fa-fw fa fa-music"></i><span> /歌单</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sort包"><span class="toc-number">1.</span> <span class="toc-text">sort包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#排序实现"><span class="toc-number">2.</span> <span class="toc-text">排序实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map"><span class="toc-number">3.</span> <span class="toc-text">map</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实例化map的几种方式"><span class="toc-number">3.1.</span> <span class="toc-text">实例化map的几种方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作map中的元素"><span class="toc-number">3.2.</span> <span class="toc-text">操作map中的元素</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#双向链表概述"><span class="toc-number">4.</span> <span class="toc-text">双向链表概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#双向链表容器List"><span class="toc-number">4.1.</span> <span class="toc-text">双向链表容器List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作List"><span class="toc-number">4.2.</span> <span class="toc-text">操作List</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#双向循环链表"><span class="toc-number">5.</span> <span class="toc-text">双向循环链表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Go语言中的双向循环链表"><span class="toc-number">5.1.</span> <span class="toc-text">Go语言中的双向循环链表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码演示"><span class="toc-number">5.2.</span> <span class="toc-text">代码演示</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner27.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">maiBlog</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 娱乐</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/playlist/"><i class="fa-fw fa fa-music"></i><span> /歌单</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">golang学习九：sort包、map、双向链表、双向循环链表</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-18 23:23:43"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-06-18</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-18 23:33:37"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-18</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2.6k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 10 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/posts/golang/202006182323-index.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/posts/golang/202006182323-index.html" itemprop="commentCount"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="sort包"><a href="#sort包" class="headerlink" title="sort包"></a>sort包</h1><ul>
+<li>Go语言标准库中sort提供了排序API</li>
+<li>sort包提供了多种排序算法,这些算法是内部实现的,每次使用sort包排序时,会自动选择最优算法实现<ul>
+<li>插入排序</li>
+<li>快速排序</li>
+<li>堆排</li>
+</ul>
+</li>
+<li>sort包中最上层是一个名称为Interface的接口,只要满足sort.Interface类型都可以排序<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A type, typically a collection, that satisfies sort.Interface can be</span></span><br><span class="line"><span class="comment">// sorted by the routines in this package. The methods require that the</span></span><br><span class="line"><span class="comment">// elements of the collection be enumerated by an integer index.</span></span><br><span class="line"><span class="keyword">type</span> Interface <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">// Len is the number of elements in the collection.</span></span><br><span class="line">	Len() <span class="keyword">int</span></span><br><span class="line">	<span class="comment">// Less reports whether the element with</span></span><br><span class="line">	<span class="comment">// index i should sort before the element with index j.</span></span><br><span class="line">	Less(i, j <span class="keyword">int</span>) <span class="keyword">bool</span></span><br><span class="line">	<span class="comment">// Swap swaps the elements with indexes i and j.</span></span><br><span class="line">	Swap(i, j <span class="keyword">int</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Go语言标准库默认提供了对int、float64、string进行排序的API</li>
+<li>很多函数的参数都是sort包下类型,需要进行转换.</li>
+</ul>
+<h1 id="排序实现"><a href="#排序实现" class="headerlink" title="排序实现"></a>排序实现</h1><ul>
+<li>对int类型切片排序<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">num := [] <span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">6</span>&#125;</span><br><span class="line">sort.Ints(num) <span class="comment">//升序</span></span><br><span class="line">fmt.Println(num)</span><br><span class="line">sort.Sort(sort.Reverse(sort.IntSlice(num))) <span class="comment">//降序</span></span><br><span class="line">fmt.Println(num)</span><br></pre></td></tr></table></figure></li>
+<li>对float64类型切片排序<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f := [] <span class="keyword">float64</span>&#123;<span class="number">1.5</span>, <span class="number">7.2</span>, <span class="number">5.8</span>, <span class="number">2.3</span>, <span class="number">6.9</span>&#125;</span><br><span class="line">sort.Float64s(f) <span class="comment">//升序</span></span><br><span class="line">fmt.Println(f)</span><br><span class="line">sort.Sort(sort.Reverse(sort.Float64Slice(f))) <span class="comment">//降序</span></span><br><span class="line">fmt.Println(f)</span><br></pre></td></tr></table></figure></li>
+<li>对string类型切片排序<ul>
+<li>按照编码表数值进行排序</li>
+<li>多字符串中按照第一个字符进行比较</li>
+<li>如果第一个字符相同,比较第二个字符<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s := []<span class="keyword">string</span>&#123;<span class="string">"我"</span>, <span class="string">"我是Goer"</span>, <span class="string">"a"</span>, <span class="string">"d"</span>, <span class="string">"国家"</span>, <span class="string">"你"</span>, <span class="string">"我a"</span>&#125;</span><br><span class="line">sort.Sort(sort.StringSlice(s)) <span class="comment">//升序</span></span><br><span class="line">fmt.Println(s)</span><br><span class="line"><span class="comment">//查找内容的索引,如果不存在,返回内容应该在升序排序切片的哪个位置插入</span></span><br><span class="line">fmt.Println(sort.SearchStrings(s, <span class="string">"你是"</span>))</span><br><span class="line">sort.Sort(sort.Reverse(sort.StringSlice(s)))</span><br><span class="line">fmt.Println(s)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="map"><a href="#map" class="headerlink" title="map"></a>map</h1><ul>
+<li><p>map以散列表方式存储键值对集合</p>
+</li>
+<li><p>map中每个元素都是键值对</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map[key]Value</span><br></pre></td></tr></table></figure></li>
+<li><p>key是操作map的唯一标准.可以通过key对map中元素进行增加/删除/修改/查看</p>
+</li>
+<li><p>key是唯一的,添加重复的key会覆盖之前的元素.</p>
+</li>
+<li><p>map是值类型,只声明时为空指针(nil)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> m <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span></span><br><span class="line">fmt.Println(m == <span class="literal">nil</span>) <span class="comment">//输出:true</span></span><br><span class="line">fmt.Printf(<span class="string">"%p"</span>, m)   <span class="comment">//输出:0x0</span></span><br></pre></td></tr></table></figure></li>
+<li><p>map读写数据时并不是并发安全的,可以结合RWMutex保证并发安全(RWMutex在后面讲解)</p>
+</li>
+</ul>
+<h2 id="实例化map的几种方式"><a href="#实例化map的几种方式" class="headerlink" title="实例化map的几种方式"></a>实例化map的几种方式</h2><ul>
+<li>使用make函数实例化一个没有初始值的map<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)</span><br><span class="line">fmt.Println(m==<span class="literal">nil</span>)<span class="comment">//输出:false</span></span><br><span class="line">fmt.Printf(<span class="string">"%p"</span>, m)<span class="comment">//输出:内存地址</span></span><br></pre></td></tr></table></figure></li>
+<li>可以在声明map时直接给map赋初始值.注意初始值在一行和在多行写时的语法区别<ul>
+<li>map中元素键值对语法满足: key:value</li>
+<li>key和value的类型必须和map[key]value类型严格对应<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"name"</span>: <span class="string">"msr"</span>, <span class="string">"address"</span>: <span class="string">"中国广东"</span>&#125;</span><br><span class="line">m1 := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">	<span class="string">"name"</span>:     <span class="string">"msr"</span>,</span><br><span class="line">	<span class="string">"addresss"</span>: <span class="string">"中国广东"</span>,</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(m, m1)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="操作map中的元素"><a href="#操作map中的元素" class="headerlink" title="操作map中的元素"></a>操作map中的元素</h2><ul>
+<li>使用key判断,如果key不存在向map中新增数据,如果key存在会覆盖map中元素<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line">m[<span class="string">"money"</span>] = <span class="number">5</span></span><br><span class="line">fmt.Println(m) <span class="comment">//输出:map[money:5]</span></span><br><span class="line">m[<span class="string">"money"</span>] = <span class="number">6</span></span><br><span class="line">fmt.Println(m) <span class="comment">//map[money:6]</span></span><br></pre></td></tr></table></figure></li>
+<li>Go语言标准库中提供了对map元素删除的函数,使用顶层delete()即可完成删除<ul>
+<li>如果key存在执行删除元素</li>
+<li>如果key不存在,map中内容不变,也不会有错误<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line">m[<span class="string">"money"</span>] = <span class="number">5</span></span><br><span class="line"><span class="built_in">delete</span>(m, <span class="string">"没有的key"</span>)</span><br><span class="line">fmt.Println(m) <span class="comment">//输出:map[money:5]</span></span><br><span class="line"><span class="built_in">delete</span>(m, <span class="string">"money"</span>)</span><br><span class="line">fmt.Println(m) <span class="comment">//输出:map[]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>获取map中指定key对应的值<ul>
+<li>使用:map变量[key]获取key对应的值</li>
+<li>如果key不存在返回map[key]Value中Value类型的默认值.例如:Value是string类型就返回””</li>
+<li>返回值可以是一个,也可以是两个.<ul>
+<li>一个表示key对应的值</li>
+<li>两个分别表示:key对应的值和这个key是否存在<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"name"</span>: <span class="string">"msr"</span>, <span class="string">"address"</span>: <span class="string">"中国广东"</span>&#125;</span><br><span class="line">fmt.Println(m[<span class="string">"name"</span>]) <span class="comment">//输出:msr</span></span><br><span class="line">fmt.Println(m[<span class="string">"age"</span>])  <span class="comment">//输出:空字符串</span></span><br><span class="line">value, ok := m[<span class="string">"age"</span>]</span><br><span class="line">fmt.Println(value, ok) <span class="comment">//输出:空字符串 false</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果希望把map中所有元素都遍历,可以使用for结合range实现<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"name"</span>: <span class="string">"msr"</span>, <span class="string">"address"</span>: <span class="string">"中国广东"</span>&#125;</span><br><span class="line"><span class="comment">//range遍历map时返回值分别表示key和value</span></span><br><span class="line"><span class="keyword">for</span> key, value := <span class="keyword">range</span> m &#123;</span><br><span class="line">	fmt.Println(key, value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="双向链表概述"><a href="#双向链表概述" class="headerlink" title="双向链表概述"></a>双向链表概述</h1><ul>
+<li><p>双向链表结构如下<br><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/lianbiao.png" alt="双向链表"></p>
+</li>
+<li><p>双向链表结构中元素在内存中不是紧邻空间,而是每个元素中存放上一个元素和后一个元素的地址</p>
+<ul>
+<li>第一个元素称为头(head)元素,前连接(前置指针域)为nil</li>
+<li>最后一个元素称为尾(foot)元素,后连接(后置指针域)为nil</li>
+</ul>
+</li>
+<li><p>双向链表的优点:</p>
+<ul>
+<li>在执行新增元素或删除元素时效率高,获取任意一个元素,可以方便的在这个元素前后插入元素</li>
+<li>充分利用内存空间,实现内存灵活管理</li>
+<li>可实现正序和逆序遍历</li>
+<li>头元素和尾元素新增或删除时效率较高</li>
+</ul>
+</li>
+<li><p>双向链表的缺点</p>
+<ul>
+<li>链表增加了元素的指针域,空间开销比较大</li>
+<li>遍历时跳跃性查找内容,大量数据遍历性能低<h2 id="双向链表容器List"><a href="#双向链表容器List" class="headerlink" title="双向链表容器List"></a>双向链表容器List</h2></li>
+</ul>
+</li>
+<li><p>在Go语言标准库的container/list 包提供了双向链表List</p>
+</li>
+<li><p>List结构体定义如下</p>
+<ul>
+<li>root表示根元素</li>
+<li>len表示链表中有多少个元素<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// List represents a doubly linked list.</span></span><br><span class="line"><span class="comment">// The zero value for List is an empty list ready to use.</span></span><br><span class="line"><span class="keyword">type</span> List <span class="keyword">struct</span> &#123;</span><br><span class="line">	root Element <span class="comment">// sentinel list element, only &amp;root, root.prev, and root.next are used</span></span><br><span class="line">	<span class="built_in">len</span>  <span class="keyword">int</span>     <span class="comment">// current list length excluding (this) sentinel element</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>其中Element结构体定义如下</p>
+<ul>
+<li>next表示下一个元素,使用Next()可以获取到</li>
+<li>prev表示上一个元素,使用Prev()可以获取到</li>
+<li>list表示元素属于哪个链表</li>
+<li>Value表示元素的值,interface{}在Go语言中表示任意类型<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Element is an element of a linked list.</span></span><br><span class="line"><span class="keyword">type</span> Element <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// Next and previous pointers in the doubly-linked list of elements.</span></span><br><span class="line">	<span class="comment">// To simplify the implementation, internally a list l is implemented</span></span><br><span class="line">	<span class="comment">// as a ring, such that &amp;l.root is both the next element of the last</span></span><br><span class="line">	<span class="comment">// list element (l.Back()) and the previous element of the first list</span></span><br><span class="line">	<span class="comment">// element (l.Front()).</span></span><br><span class="line">	next, prev *Element</span><br><span class="line"></span><br><span class="line">	<span class="comment">// The list to which this element belongs.</span></span><br><span class="line">	list *List</span><br><span class="line"></span><br><span class="line">	<span class="comment">// The value stored with this element.</span></span><br><span class="line">	Value <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="操作List"><a href="#操作List" class="headerlink" title="操作List"></a>操作List</h2><ul>
+<li>直接使用container/list包下的New()新建一个空的List<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mylist := list.New()</span><br><span class="line">fmt.Println(mylist)       <span class="comment">//输出list中内容</span></span><br><span class="line">fmt.Println(mylist.Len()) <span class="comment">//查看链表中元素的个数</span></span><br><span class="line">fmt.Printf(<span class="string">"%p"</span>, mylist)  <span class="comment">//输出地址</span></span><br></pre></td></tr></table></figure></li>
+<li>Go语言标准库中提供了很多向双向链表中添加元素的函数<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加到最后,List["a"]</span></span><br><span class="line">mylist.PushBack(<span class="string">"a"</span>)</span><br><span class="line">   <span class="comment">//添加到最前面,List["b","a"]</span></span><br><span class="line">mylist.PushFront(<span class="string">"b"</span>) </span><br><span class="line"><span class="comment">//向第一个元素后面添加元素,List["b","c","a"]</span></span><br><span class="line">mylist.InsertAfter(<span class="string">"c"</span>, mylist.Front()) </span><br><span class="line"><span class="comment">//向最后一个元素前面添加元素,List["b","c","d","a"]</span></span><br><span class="line">mylist.InsertBefore(<span class="string">"d"</span>, mylist.Back())</span><br></pre></td></tr></table></figure></li>
+<li>取出链表中的元素<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">fmt.Println(mylist.Back().Value)  <span class="comment">//最后一个元素的值</span></span><br><span class="line">fmt.Println(mylist.Front().Value) <span class="comment">//第一个元素的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//只能从头向后找,或从后往前找,获取元素内容</span></span><br><span class="line">n := <span class="number">5</span></span><br><span class="line"><span class="keyword">var</span> curr *list.Element</span><br><span class="line"><span class="keyword">if</span> n &gt; <span class="number">0</span> &amp;&amp; n &lt;= mylist.Len() &#123;</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">1</span> &#123;</span><br><span class="line">		curr = mylist.Front()</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> n == mylist.Len() &#123;</span><br><span class="line">		curr = mylist.Back()</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		curr = mylist.Front()</span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">1</span>; i &lt; n; i++ &#123;</span><br><span class="line">			curr = curr.Next()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"n的数值不对"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//遍历所有值</span></span><br><span class="line"><span class="keyword">for</span> e := mylist.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">	fmt.Println(e.Value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>移动元素的顺序<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mylist.MoveToBack(mylist.Front()) <span class="comment">//把第一个移动到后面</span></span><br><span class="line">mylist.MoveToFront(mylist.Back()) <span class="comment">//把最后一个移动到前面</span></span><br><span class="line">mylist.MoveAfter(mylist.Front(),mylist.Back())<span class="comment">//把第一个参数元素,移动到第二个参数元素后面</span></span><br><span class="line">mylist.MoveBefore(mylist.Front(),mylist.Back())<span class="comment">//把第一个参数元素,移动到第二个参数元素前面</span></span><br></pre></td></tr></table></figure></li>
+<li>删除元素<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mylist.Remove(mylist.Front())</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="双向循环链表"><a href="#双向循环链表" class="headerlink" title="双向循环链表"></a>双向循环链表</h1><ul>
+<li><p>循环链表特点是没有节点的指针域为nil,通过任何一个元素都可以找到其他元素</p>
+</li>
+<li><p>环形链表结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">	A --&gt;B	</span><br><span class="line">	B --&gt;C	</span><br><span class="line">	C --&gt;D	</span><br><span class="line">	D --&gt;E</span><br><span class="line">	E --&gt;D</span><br><span class="line">	A --&gt;E</span><br><span class="line">	E --&gt;A</span><br><span class="line">	D --&gt;C</span><br><span class="line">	C --&gt;B</span><br><span class="line">	B --&gt;A</span><br></pre></td></tr></table></figure></li>
+<li><p>双向循环链表和双向链表区别</p>
+<ul>
+<li>双向循环链表没有严格意义上的头元素和尾元素</li>
+<li>没有元素的前连接和后连接为nil</li>
+<li>一个长度为n的双向循环链表,通过某个元素向某个方向移动,在查找最多n-1次后一定会找到另一个元素</li>
+</ul>
+</li>
+</ul>
+<h2 id="Go语言中的双向循环链表"><a href="#Go语言中的双向循环链表" class="headerlink" title="Go语言中的双向循环链表"></a>Go语言中的双向循环链表</h2><ul>
+<li><p>在container/ring包下结构体Ring源码如下</p>
+<ul>
+<li>官方明确说明了Ring是循环链表的元素,又是环形链表.</li>
+<li>实际使用时Ring遍历就是环形链表第一个元素<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A Ring is an element of a circular list, or ring.</span></span><br><span class="line"><span class="comment">// Rings do not have a beginning or end; a pointer to any ring element</span></span><br><span class="line"><span class="comment">// serves as reference to the entire ring. Empty rings are represented</span></span><br><span class="line"><span class="comment">// as nil Ring pointers. The zero value for a Ring is a one-element</span></span><br><span class="line"><span class="comment">// ring with a nil Value.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">type</span> Ring <span class="keyword">struct</span> &#123;</span><br><span class="line">	next, prev *Ring</span><br><span class="line">	Value      <span class="keyword">interface</span>&#123;&#125; <span class="comment">// for use by client; untouched by this library</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Go语言标准库中对container/ring包提供的API如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Ring</span><br><span class="line">	<span class="comment">//实例化长度为n的环形链表</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(n <span class="keyword">int</span>)</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//长度</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span></span><br><span class="line">	<span class="comment">//下一个元素</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Next</span><span class="params">()</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//上一个元素</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Prev</span><span class="params">()</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//移动n次,支持负数</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Move</span><span class="params">(n <span class="keyword">int</span>)</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//合并s和r</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Link</span><span class="params">(s *Ring)</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//删除r后面n%r.Len()元素,删除多个,当前元素前面的不删除</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Unlink</span><span class="params">(n <span class="keyword">int</span>)</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//循环遍历,i是当前元素的值</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Do</span><span class="params">(f <span class="keyword">func</span>(<span class="keyword">interface</span>&#123;&#125;)</span>)</span></span><br></pre></td></tr></table></figure>
+<h2 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h2></li>
+<li><p>实例化、赋值、遍历</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">r := ring.New(<span class="number">3</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; r.Len(); i++ &#123;</span><br><span class="line">	r.Move(i).Value = i</span><br><span class="line">&#125;</span><br><span class="line">r.Do(<span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>实例化后的r就是链表中第一个创建的元素.可以找到元素的前后元素</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fmt.Println(r.Next().Value)<span class="comment">//输出:1</span></span><br><span class="line">fmt.Println(r.Next().Next().Value)<span class="comment">//输出:2</span></span><br><span class="line">fmt.Println(r.Next().Next().Next().Value)<span class="comment">//输出:0</span></span><br><span class="line">fmt.Println(r.Move(<span class="number">-1</span>).Value)<span class="comment">//输出:2</span></span><br><span class="line">fmt.Println(r.Prev().Value)<span class="comment">//输出:2</span></span><br></pre></td></tr></table></figure></li>
+<li><p>可以向环形链表添加或删除链表</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">s := ring.New(<span class="number">1</span>)</span><br><span class="line">s.Value = <span class="number">13</span></span><br><span class="line"><span class="comment">//r是哪个元素,就把新的链表添加到哪个元素后面</span></span><br><span class="line">r.Link(s)</span><br><span class="line">r.Do(<span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	fmt.Print(i, <span class="string">" "</span>)</span><br><span class="line">&#125;)</span><br><span class="line">fmt.Println(<span class="string">""</span>)</span><br><span class="line"><span class="comment">//从r元素向后,n/r.Len()个元素被删除,当前元素和前面的保留</span></span><br><span class="line">r.Unlink(<span class="number">1</span>)</span><br><span class="line">r.Do(<span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	fmt.Print(i, <span class="string">" "</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">maishuren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.maishuren.top/posts/golang/202006182323-index.html">http://www.maishuren.top/posts/golang/202006182323-index.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.maishuren.top" target="_blank">maiBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/golang/">golang</a><a class="post-meta__tags" href="/tags/%E5%85%A5%E9%97%A8/">入门</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner11.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="/img/pay-for-weichat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/posts/golang/202006182334-index.html"><img class="prev_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner27.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">golang学习十：函数</div></div></a></div><div class="next-post pull_right"><a href="/posts/docker/202006161622-index.html"><img class="next_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner9.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">centos7安装docker</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/golang/202006131027-index.html" title="golang学习五：常用数学函数与数组"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner17.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-13</div><div class="relatedPosts_title">golang学习五：常用数学函数与数组</div></div></a></div><div class="relatedPosts_item"><a href="/posts/golang/202006182355-index.html" title="golang学习十四：golang中的面向对象"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner11.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-18</div><div class="relatedPosts_title">golang学习十四：golang中的面向对象</div></div></a></div><div class="relatedPosts_item"><a href="/posts/gloang/202006182347-index.html" title="golang学习十二：值传递和引用传递"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner3.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-18</div><div class="relatedPosts_title">golang学习十二：值传递和引用传递</div></div></a></div><div class="relatedPosts_item"><a href="/posts/golang/202006182343-index.html" title="golang学习十一：包的访问权限、变量作用域、闭包"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner1.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-18</div><div class="relatedPosts_title">golang学习十一：包的访问权限、变量作用域、闭包</div></div></a></div><div class="relatedPosts_item"><a href="/posts/golang/202006182334-index.html" title="golang学习十：函数"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner27.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-18</div><div class="relatedPosts_title">golang学习十：函数</div></div></a></div><div class="relatedPosts_item"><a href="/posts/gloang/202006131039-index.html" title="golang学习八：切片"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner2.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-13</div><div class="relatedPosts_title">golang学习八：切片</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: '2i3wIjlONBKaR3lajGvjzAFG-gzGzoHsz',
+  appKey: 'TeeAbRVflEynyYLIloSk30Xe',
+  notify: false,
+  verify: false,
+  placeholder: 'Please leave your footprints',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'zh-CN',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: true,
+  requiredFields: requiredFields
+});</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By maishuren</div><div class="icp"><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"/><span>粤ICP备20006741号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@3/instantpage.min.js" type="module"></script><script src="/js/search/algolia.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>

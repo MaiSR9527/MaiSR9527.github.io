@@ -240,8 +240,8 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>springboot</tag>
         <tag>java</tag>
+        <tag>springboot</tag>
       </tags>
   </entry>
   <entry>
@@ -341,8 +341,481 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>内功心法</tag>
         <tag>面试必备</tag>
+        <tag>内功心法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang学习十四：golang中的面向对象</title>
+    <url>/posts/golang/202006182355-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1>]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang学习十三：结构体</title>
+    <url>/posts/golang/202006182349-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><ul>
+<li>结构体解释:将一个或多个变量组合到一起,形成新的类型.这个类型就是结构体</li>
+<li>Go语言中的结构体和C++结构体有点类似,而Java或C#中类本质就是结构体</li>
+<li>结构体是值类型</li>
+<li>结构体定义语法<ul>
+<li>通过语法可以看出,Go语言发明者明确认为结构体就是一种自定义类型<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> 结构体名称 <span class="keyword">struct</span>&#123;</span><br><span class="line">  名称 类型<span class="comment">//成员或属性</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><ul>
+<li><p>定义结构体</p>
+<ul>
+<li>结构体可以定义在函数内部或函数外部(与普通变量一样),定义位置影响到结构体的访问范围</li>
+<li>如果结构体定义在函数外面,结构体名称首字母是否大写影响到结构体是否能跨包访问</li>
+<li>如果结构体能跨包访问,属性首字母是否大写影响到属性是否跨包访问<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span></span><br><span class="line">	Age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>声明结构体变量</p>
+<ul>
+<li>由于结构体是值类型,所以声明后就会开辟内存空间</li>
+<li>所有成员为类型对应的初始值<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> peo People</span><br><span class="line">fmt.Print(peo)<span class="comment">//输出:&#123;0 &#125;</span></span><br><span class="line">fmt.Printf(<span class="string">"%p"</span>,&amp;peo)<span class="comment">//会打印内存地址值</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>可以直接给结构体多个属性赋值</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> peo People</span><br><span class="line"><span class="comment">//按照结构体中属性的顺序进行赋值,可以省略属性名称</span></span><br><span class="line">peo = People&#123;<span class="string">"msr"</span>, <span class="number">17</span>&#125;</span><br><span class="line">fmt.Println(peo)</span><br><span class="line"><span class="comment">//明确指定给哪些属性赋值.可以都赋值,也可以只给其中一部分赋值</span></span><br><span class="line">peo = People&#123;Age: <span class="number">18</span>, Name: <span class="string">"maishuren"</span>&#125;</span><br><span class="line">fmt.Println(peo)</span><br></pre></td></tr></table></figure></li>
+<li><p>也可以通过结构体变量名称获取到属性进行赋值或查看</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> peo People</span><br><span class="line">peo.Name=<span class="string">"msr"</span></span><br><span class="line">peo.Age=<span class="number">17</span></span><br><span class="line">fmt.Println(peo)</span><br><span class="line">fmt.Println(peo.Name)</span><br><span class="line">fmt.Println(peo.Age)</span><br></pre></td></tr></table></figure>
+<h2 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h2></li>
+<li><p>双等(==)判断结构体中内容是否相等</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">p1 := People&#123;<span class="string">"msr"</span>, <span class="number">17</span>&#125;</span><br><span class="line">p2 := People&#123;<span class="string">"msr"</span>, <span class="number">17</span>&#125;</span><br><span class="line">fmt.Printf(<span class="string">"%p %p\n"</span>, &amp;p1, &amp;p2) <span class="comment">//输出地址不同</span></span><br><span class="line">fmt.Println(p1 == p2)           <span class="comment">//输出:true</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="结构体指针"><a href="#结构体指针" class="headerlink" title="结构体指针"></a>结构体指针</h1><ul>
+<li>由于结构体是值类型,在方法传递时希望传递结构体地址,可以使用时结构体指针完成</li>
+<li>可以结合new(T)函数创建结构体指针<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">peo := <span class="built_in">new</span>(People)</span><br><span class="line"><span class="comment">//因为结构体本质是值类型,所以创建结构体指针时已经开辟了内存空间</span></span><br><span class="line">fmt.Println(peo == <span class="literal">nil</span>) <span class="comment">//输出:false</span></span><br><span class="line"><span class="comment">//由于结构体中属性并不是指针类型,所以可以直接调用</span></span><br><span class="line">peo.Name = <span class="string">"msr"</span></span><br><span class="line">fmt.Println(peo)<span class="comment">//输出:&amp;&#123;msr 0&#125;</span></span><br><span class="line">peo1:=peo</span><br><span class="line">peo1.Name=<span class="string">"maishuren"</span></span><br><span class="line">fmt.Println(peo1,peo)<span class="comment">//输出:&amp;&#123;maishuren 0&#125; &amp;&#123;maishuren 0&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>如果不想使用new(T)函数,可以直接声明结构体指针并赋值<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//声明结构体指针</span></span><br><span class="line"><span class="keyword">var</span> peo *People</span><br><span class="line"><span class="comment">//给结构体指针赋值</span></span><br><span class="line">peo = &amp;People&#123;<span class="string">"msr"</span>, <span class="number">17</span>&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">上面代码使用短变量方式如下</span></span><br><span class="line"><span class="comment">peo:= &amp;People&#123;"msr", 17&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">fmt.Println(peo)</span><br></pre></td></tr></table></figure>
+<h2 id="判断-1"><a href="#判断-1" class="headerlink" title="判断"></a>判断</h2></li>
+<li>结构体指针比较的是地址</li>
+<li>(*结构体指针)取出地址中对应的值<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">p1 := People&#123;<span class="string">"msr"</span>, <span class="number">17</span>&#125;</span><br><span class="line">p2 := People&#123;<span class="string">"msr"</span>, <span class="number">17</span>&#125;</span><br><span class="line">fmt.Printf(<span class="string">"%p %p\n"</span>, &amp;p1, &amp;p2) <span class="comment">//输出地址不同</span></span><br><span class="line">fmt.Println(p1 == p2)           <span class="comment">//输出:true</span></span><br><span class="line"></span><br><span class="line">p3 := <span class="built_in">new</span>(People)</span><br><span class="line">p3 = &amp;People&#123;<span class="string">"msr"</span>, <span class="number">17</span>&#125;</span><br><span class="line"><span class="comment">//结构体变量不能和指针比较,使用*指针取出地址中值</span></span><br><span class="line">fmt.Println(p1 == *p3) <span class="comment">//输出:true</span></span><br><span class="line"></span><br><span class="line">p4 := &amp;People&#123;<span class="string">"msr"</span>, <span class="number">17</span>&#125;</span><br><span class="line"><span class="comment">//指针比较的是地址</span></span><br><span class="line">fmt.Println(p3 == p4) <span class="comment">//输出:false</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><ul>
+<li><p>方法和函数语法比较像,区别是函数属于包,通过包调用函数,而方法属于结构体,通过结构体变量调用</p>
+</li>
+<li><p>默认是函数,隶属于包,所以需要添加标识.告诉编译器这个方法属性哪个结构体</p>
+<ul>
+<li>调用方法时就把调用者赋值给接收者(下面的变量名就是接受者)<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(变量名 结构体类型)</span> 方法名<span class="params">(参数列表)</span> 返回值列表</span>&#123;</span><br><span class="line">  <span class="comment">//方法体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Go语言中已经有函数了,又添加了对方法的支持主要是保证Go语言是面向对象的.Go语言官方对面向对象的解释</p>
+<ul>
+<li>翻译如下:虽然面向对象没有统一的定义，但是对于我们来说对象仅仅是一个有着方法的值或变量,而方法就是一个属于特定类型的函数</li>
+</ul>
+<p><img src="images/2_7_3_method.png" alt=""></p>
+</li>
+<li><p>从上面的解释可以看出,官方给出可明确说明,方法类似于函数.方法归属于特定类型</p>
+</li>
+</ul>
+<h2 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h2><ul>
+<li>定义一个People类型结构体,在对People结构体定义个run()方法<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span><span class="comment">//姓名</span></span><br><span class="line">	Weight	<span class="keyword">float64</span><span class="comment">//体重.单位斤</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p People)</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(p.Name,<span class="string">"正在跑步"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	peo:=People&#123;<span class="string">"张三"</span>,<span class="number">17</span>&#125;</span><br><span class="line">	peo.run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如果设定需求,在每次跑步后体重都减少0.1斤.上面代码就需要修改了.因为结构体是值类型,修改方法中结构体变量p的值,主函数中peo的值不会改变,因为传递的是值副本.所以修改方法中结构体类型为结构体指针类型就可以完成设定需求<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span><span class="comment">//姓名</span></span><br><span class="line">	Weight	<span class="keyword">float64</span><span class="comment">//体重.单位斤</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(p.Name,<span class="string">"正在跑步,体重为:"</span>,p.Weight)<span class="comment">//输出:张三 正在跑步,体重为: 17</span></span><br><span class="line">	p.Weight-=<span class="number">0.1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	peo:=&amp;People&#123;<span class="string">"张三"</span>,<span class="number">17</span>&#125;</span><br><span class="line">	peo.run()</span><br><span class="line">	fmt.Println(peo.Name,<span class="string">"跑完步后的体重是"</span>,peo.Weight)<span class="comment">//输出:张三 跑完步后的体重是 16.9</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang学习十二：值传递和引用传递</title>
+    <url>/posts/gloang/202006182347-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
+<li>讨论值传递和引用传递时,其实就是看值类型变量和引用类型变量作为函数参数时,修改形参是否会影响到实参</li>
+<li>在Go语言中五个引用类型变量,其他都是值类型<ul>
+<li>slice</li>
+<li>map</li>
+<li>channel</li>
+<li>interface</li>
+<li>func()</li>
+</ul>
+</li>
+<li>引用类型作为参数时,称为浅拷贝,形参改变,实参数跟随变化.因为传递的是地址,形参和实参都指向同一块地址</li>
+<li>值类型作为参数时,称为深拷贝,形参改变,实参不变,因为传递的是值的副本,形参会新开辟一块空间,与实参指向不同</li>
+<li>如果希望值类型数据在修改形参时实参跟随变化,可以把参数设置为指针类型</li>
+</ul>
+<h1 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h1><ul>
+<li>值类型作为参数代码演示<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo</span><span class="params">(i <span class="keyword">int</span>, s <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	i = <span class="number">5</span></span><br><span class="line">	s = <span class="string">"改变"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	i := <span class="number">1</span></span><br><span class="line">	s := <span class="string">"原值"</span></span><br><span class="line">	demo(i, s)</span><br><span class="line">	fmt.Println(i, s) <span class="comment">//输出:1 原值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>引用传递代码示例<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo</span><span class="params">(arg []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">   arg[<span class="built_in">len</span>(arg)<span class="number">-1</span>] = <span class="number">110</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   s := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">   demo(s)</span><br><span class="line">   fmt.Println(s) <span class="comment">//输出:[1 2 110]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如果希望值类型实参跟随形参变化,可以把值类型指针作为参数<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//行参指针类型</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo</span><span class="params">(i *<span class="keyword">int</span>, s <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">   <span class="comment">//需要在变量前面带有*表示指针变量</span></span><br><span class="line">   *i = <span class="number">5</span></span><br><span class="line">   s = <span class="string">"改变"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   i := <span class="number">1</span></span><br><span class="line">   s := <span class="string">"原值"</span></span><br><span class="line">   <span class="comment">//注意此处第一个参数是i的地址,前面&amp;</span></span><br><span class="line">   <span class="comment">//s保留为值类型</span></span><br><span class="line">   demo(&amp;i, s)</span><br><span class="line">   fmt.Println(i, s) <span class="comment">//输出:5 原值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang学习十一：包的访问权限、变量作用域、闭包</title>
+    <url>/posts/golang/202006182343-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="包概述"><a href="#包概述" class="headerlink" title="包概述"></a>包概述</h1><ul>
+<li>包(package)是Go语言中组织单元.包是逻辑上的分组.而物理上的分组是不同的文件夹,文件夹和包一般是对应的</li>
+<li>把多个文件放入同一个文件夹中,这些文件就是在同一个包中.</li>
+<li>虽然允许源码文件的package和文件夹名不同但是最终编译后都会把文件的package编译成文件夹名称.所以为防止错误最好把文件的package和文件夹名称设置成相同的</li>
+<li>一个Go语言项目必须要有main包,其他自定义名称的包个数任意,根据自己的需求即可.</li>
+<li>Go语言在寻找包时会从GOPATH/src 路径中寻找包,如果不存在去GOROOT/src(Go语言标准库源码所在文件夹)下找</li>
+<li>不同包下资源可以相互访问,在导入其他包后,可以访问包下首字母大写的内容</li>
+<li>同包下不同文件中全局资源可以随意访问</li>
+</ul>
+<h1 id="自定义包"><a href="#自定义包" class="headerlink" title="自定义包"></a>自定义包</h1><ul>
+<li>新建项目后在项目下新建src文件夹,在src文件夹中新建demo文件</li>
+<li>在demo文件中新建demo1.go和demo2.go文件</li>
+<li>demo1.go文件源码如下<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> demo<span class="comment">//包为demo</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo1</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">"执行demo1"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>demo2.go文件源码如下<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> demo<span class="comment">//包为demo</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Demo2</span><span class="params">()</span></span>  &#123;<span class="comment">//函数名大写才能被其他包访问</span></span><br><span class="line">	fmt.Println(<span class="string">"执行demo2"</span>)</span><br><span class="line">	demo1()<span class="comment">//同包下内容任意访问</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在项目根目录下新建main.go,源码如下<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"demo"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	demo.Demo2()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>运行整个项目后,发现可以正常调用Demo2()函数</li>
+<li>整个程序目录结构如下<br><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/project.png" alt=""></li>
+</ul>
+<h1 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h1><ul>
+<li>变量声明位置决定了变量的可访问范围(哪里能调用到变量)</li>
+<li>Go语言中变量的有效范围如下<ul>
+<li>函数级别:变量声明在函数内部,只有在函数内部才能访问,称变量为局部变量</li>
+<li>package 包级别,在当前包下都可以访问.称变量为全局变量.变量声明在函数外面</li>
+<li>应用级别,在整个应用下任何包内都可以访问.通过首字母大小写控制</li>
+</ul>
+</li>
+</ul>
+<h2 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h2><ul>
+<li>局部变量一定是在函数内部</li>
+<li>在哪个{}内部声明,只能在哪个{}内部访问<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test1</span><span class="params">()</span></span> &#123;</span><br><span class="line">	i := <span class="number">2</span> <span class="comment">//从此处开始到test1结束&#125;任何位置都能调用i</span></span><br><span class="line">	<span class="keyword">if</span> i&gt;=<span class="number">2</span>&#123;</span><br><span class="line">		j:=<span class="number">3</span></span><br><span class="line">		fmt.Println(i+j)<span class="comment">//此处可以访问i</span></span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">	<span class="comment">//fmt.Println(j)//此处不能调用j,超出声明j时&#123;&#125;外</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test2</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(i) <span class="comment">//此处无法调用test1()中的i</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2></li>
+<li>全局变量声明到函数外部,整个包都可以访问</li>
+<li>如果全局变量首字母大写,跨包也可以访问.</li>
+<li>声明全局变量时规范是<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	变量名</span><br><span class="line">	变量名=值</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>全局变量代码示例<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	name = <span class="string">"smallming"</span></span><br><span class="line">	age  = <span class="number">17</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo1</span><span class="params">()</span></span> &#123;</span><br><span class="line">  	fmt.Println(<span class="string">"名字:"</span>,name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo2</span><span class="params">()</span></span> &#123;</span><br><span class="line">  	fmt.Println(<span class="string">"年龄:"</span>,age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="闭包概述"><a href="#闭包概述" class="headerlink" title="闭包概述"></a>闭包概述</h1><ul>
+<li>闭包不是Go语言独有的概念,在很多编程语言中都有闭包</li>
+<li>闭包就是解决局部变量不能被外部访问一种解决方案</li>
+<li>是把函数当作返回值的一种应用</li>
+</ul>
+<h2 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h2><ul>
+<li>总体思想为:在函数内部定义局部变量,把另一个函数当作返回值,局部变量对于返回值函数就相当于全局变量,所以多次调用返回值函数局部变量的值跟随变化<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//res其实就是test1返回值函数,和之前匿名函数变量一个道理</span></span><br><span class="line">	res := test1()</span><br><span class="line">	fmt.Println(res()) <span class="comment">//输出2</span></span><br><span class="line">	fmt.Println(res()) <span class="comment">//输出3</span></span><br><span class="line">	fmt.Println(res()) <span class="comment">//输出4</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//注意此处,返回值类型是func int</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test1</span><span class="params">()</span> <span class="title">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	i := <span class="number">1</span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">		i = i + <span class="number">1</span></span><br><span class="line">		<span class="keyword">return</span> i</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如果重新调用test1()会重新声明及赋值局部变量i<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	f := test1()</span><br><span class="line">	fmt.Println(<span class="string">"f的地址"</span>, f) <span class="comment">//输出匿名函数地址</span></span><br><span class="line">	fmt.Println(<span class="string">"f:"</span>, f()) <span class="comment">//调用匿名函数输出2</span></span><br><span class="line">	fmt.Println(<span class="string">"f:"</span>, f()) <span class="comment">//调用匿名函数输出3</span></span><br><span class="line">	k := test1()</span><br><span class="line">	fmt.Println(<span class="string">"k的地址"</span>, k) <span class="comment">//输出匿名函数地址,与f相等</span></span><br><span class="line">	fmt.Println(<span class="string">"k:"</span>, k()) <span class="comment">//调用匿名函数输出2</span></span><br><span class="line">	fmt.Println(<span class="string">"f:"</span>, f()) <span class="comment">//输出:4</span></span><br><span class="line">	fmt.Println(<span class="string">"k:"</span>, k()) <span class="comment">//输出:3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test1</span><span class="params">()</span> <span class="title">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	i := <span class="number">1</span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">		i++</span><br><span class="line">		<span class="comment">// 每调用一次test1()输出的地址不一样</span></span><br><span class="line">		fmt.Println(<span class="string">"i的地址:"</span>, &amp;i)</span><br><span class="line">		<span class="keyword">return</span> i</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang学习十：函数</title>
+    <url>/posts/golang/202006182334-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ul>
+<li>函数:一段代码块</li>
+<li>所有的流程控制代码和业务代码都只能写在函数内部</li>
+<li>为什么使用函数:<ul>
+<li>把一个功能提出作为一个函数便于后期维护,结构清晰</li>
+</ul>
+</li>
+<li>函数声明的语法<ul>
+<li>函数声明后不会执行,必须调用后才会执行<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> 函数名<span class="params">(参数列表)</span> 返回值</span>&#123;</span><br><span class="line">  <span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>函数调用的语法<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">返回值:=函数名(参数)</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h1 id="无参数无返回值函数"><a href="#无参数无返回值函数" class="headerlink" title="无参数无返回值函数"></a>无参数无返回值函数</h1><ul>
+<li><p>函数可以有参数也可以没有参数,可以有返回值也可以没有返回值</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	demo1()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo1</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">"执行demo1函数"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面代码等同于</span></span><br><span class="line"><span class="comment">//func main()&#123;</span></span><br><span class="line"><span class="comment">//	fmt.Println("执行demo1函数")</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="有参数函数"><a href="#有参数函数" class="headerlink" title="有参数函数"></a>有参数函数</h1></li>
+<li><p>函数的参数可以有多个,且每个参数类型都可以不同</p>
+</li>
+<li><p>参数表示调用函数方想要给函数内部传递的值,给函数使用的.</p>
+</li>
+<li><p>声明函数时的参数叫做形参数,调用函数时参数叫做实参</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	i:=<span class="number">5</span></span><br><span class="line">	s:=<span class="string">"msr"</span></span><br><span class="line">	show(s,i)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(name <span class="keyword">string</span>,age <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">"姓名:"</span>,name,<span class="string">"年龄"</span>,age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="有返回值函数"><a href="#有返回值函数" class="headerlink" title="有返回值函数"></a>有返回值函数</h1></li>
+<li><p>函数的返回值是给调用方返回的数据,给调用方使用的.</p>
+</li>
+<li><p>具有返回值的函数,必须要有return</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a, b := <span class="number">1</span>, <span class="number">2</span></span><br><span class="line">	fmt.Println(add(a,b))</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(c, d <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> c + d</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>也可以在返回值类型前面添加变量,return关键字后不写内容,表示变量是什么返回值什么</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a, b := <span class="number">1</span>, <span class="number">2</span></span><br><span class="line">	fmt.Println(add2(a,b))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add2</span><span class="params">(c, d <span class="keyword">int</span>)</span> <span class="params">(sum <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	sum = c + d</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="多返回值函数"><a href="#多返回值函数" class="headerlink" title="多返回值函数"></a>多返回值函数</h1><ul>
+<li><p>在Go语言中每个函数声明时都可以定义成多返回值函数</p>
+</li>
+<li><p>Go语言中所有的错误都是通过返回值返回的</p>
+</li>
+<li><p>声明多返回值函数的语法</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> 函数名<span class="params">(参数列表)</span> <span class="params">(返回值,返回值)</span></span>&#123;</span><br><span class="line">  <span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>调用函数的语法</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">变量,变量:=函数名(参数)</span><br></pre></td></tr></table></figure></li>
+<li><p>调用函数时如果不想接收可以使用下划线占位</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">变量,_:=函数名(参数)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>理论上函数返回值个数可以无限多个,但是一般不去定义特别多个返回值(用结构体代替多返回值)</p>
+</li>
+</ul>
+<h2 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h2><ul>
+<li>函数的返回值可以不接收,表示执行函数</li>
+<li>函数的返回值如果接收,用于接收返回值的变量个数与返回值个数相同</li>
+<li>不想接收的使用占位符(_)占位<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//不接收函数返回值</span></span><br><span class="line">	demo()</span><br><span class="line"></span><br><span class="line">	<span class="comment">//每个返回值都接收</span></span><br><span class="line">	a, b := demo()</span><br><span class="line">	fmt.Println(a, b)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//不希望接收的返回值使用下划线占位</span></span><br><span class="line">	c, _ := demo()</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo</span><span class="params">()</span> <span class="params">(<span class="keyword">string</span>, <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"msr"</span>, <span class="number">17</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>多返回值函数也可以给返回值定义变量,return后面就不需要编写内容<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo</span><span class="params">()</span> <span class="params">(name <span class="keyword">string</span>, age <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	name = <span class="string">"nsr"</span></span><br><span class="line">	age = <span class="number">17</span></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="可变参数函数"><a href="#可变参数函数" class="headerlink" title="可变参数函数"></a>可变参数函数</h1><ul>
+<li>Go语言支持可变参数函数</li>
+<li>可变参数指调用参数时,参数的个数可以是任意个</li>
+<li>可变参数必须在参数列表最后的位置,在参数名和类型之间添加三个点表示可变参数函数<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> 函数<span class="params">(参数,参数,名称 ... 类型 )</span></span>&#123;</span><br><span class="line">	<span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>输出语句就是可变参数函数,源码如下<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Println</span><span class="params">(a ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> Fprintln(os.Stdout, a...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>声明函数时,在函数体把可变参数当作切片使用即可</li>
+</ul>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><ul>
+<li>声明可变参数声明与调用<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	demo(<span class="string">"看书"</span>, <span class="string">"写代码"</span>, <span class="string">"看抖音视频"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo</span><span class="params">(hover ... <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> a, b := <span class="keyword">range</span> hover &#123;</span><br><span class="line">		fmt.Println(a, b)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>可变参数必须存在其他参数后面,一个函数不能有多个可变参数.<ul>
+<li>因为前面普通参数个数是确定的,编译器知道,哪个实参给哪个形参<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	demo(<span class="string">"张三"</span>, <span class="string">"看书"</span>, <span class="string">"写代码"</span>, <span class="string">"看抖音视频"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo</span><span class="params">(name <span class="keyword">string</span>, hover ... <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Println(name, <span class="string">"的爱好是"</span>)</span><br><span class="line">	<span class="keyword">for</span> a, b := <span class="keyword">range</span> hover &#123;</span><br><span class="line">		fmt.Println(a, b)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h1><ul>
+<li><p>匿名函数就是没有名称的函数</p>
+</li>
+<li><p>正常函数可以通过名称多次调用,而匿名函数由于没有函数名,所以大部分情况都是在当前位置声明并立即调用(函数变量除外)</p>
+</li>
+<li><p>匿名函数声明完需要调用,在函数结束大括号后面紧跟小括号</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">()</span></span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;()<span class="comment">//括号表示调用</span></span><br></pre></td></tr></table></figure></li>
+<li><p>匿名函数都是声明在其他函数内部</p>
+<h2 id="匿名函数演示"><a href="#匿名函数演示" class="headerlink" title="匿名函数演示"></a>匿名函数演示</h2></li>
+<li><p>无参数匿名函数</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">      fmt.Println(<span class="string">"这是匿名函数"</span>)</span><br><span class="line">   &#125;()<span class="comment">//括号表示调用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>有参数匿名函数</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="function"><span class="keyword">func</span><span class="params">(s <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">      fmt.Println(s, <span class="string">"这是匿名函数"</span>)</span><br><span class="line">   &#125;(<span class="string">"传递参数"</span>) <span class="comment">//调用时传递参数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>有参数有返回值匿名函数<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := <span class="function"><span class="keyword">func</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">		fmt.Println(s, <span class="string">"这是匿名函数"</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">110</span></span><br><span class="line">	&#125;(<span class="string">"传递参数"</span>) <span class="comment">//调用时传递参数</span></span><br><span class="line">	fmt.Println(r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="函数变量"><a href="#函数变量" class="headerlink" title="函数变量"></a>函数变量</h1><ul>
+<li><p>在Go语言中函数也是一种类型,函数有多少种形式,函数变量就有多少种写法</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="function"><span class="keyword">func</span><span class="params">()</span>           //无参数无返回值</span></span><br><span class="line"><span class="keyword">var</span> b <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">int</span>)</span>        //有一个<span class="title">int</span>类型参数</span></span><br><span class="line"><span class="keyword">var</span> c <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">int</span>)</span> <span class="title">string</span> //有一个<span class="title">int</span>类型参数和<span class="title">string</span>类型返回值</span></span><br><span class="line">fmt.Println(a, b, c)   <span class="comment">//输出:&lt;nil&gt; &lt;nil&gt; &lt;nil&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>定义完函数变量后,可以使用匿名函数进行赋值.也可以使用已经定义好的函数进行赋值</p>
+</li>
+<li><p>函数变量定义以后与普通函数调用语法相同,变量名就是普通函数声明的函数名</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line">	a = <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"执行函数"</span>)</span><br><span class="line">	&#125;   <span class="comment">//注意此处没有括号,有括号表示调用函数,变量a就表示接收函数返回值</span></span><br><span class="line">	a() <span class="comment">//调用函数</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	也可以使用短变量方式定义函数变量</span></span><br><span class="line"><span class="comment">	等效于</span></span><br><span class="line"><span class="comment">	func b(s string)&#123;</span></span><br><span class="line"><span class="comment">		//...</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	b := <span class="function"><span class="keyword">func</span><span class="params">(s <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"执行第二个函数"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	b(<span class="string">"参数"</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用定义好的函数</span></span><br><span class="line">	d := c</span><br><span class="line">	d()</span><br><span class="line">	<span class="comment">//函数名称c也是一个变量</span></span><br><span class="line">	c()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">c</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"c函数"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>函数类型变量是除了slice、map、channel、interface外第五种引用类型</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line">	a = b</span><br><span class="line">	a()</span><br><span class="line">	<span class="keyword">var</span> c <span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line">	c = a</span><br><span class="line">	c()</span><br><span class="line">	fmt.Printf(<span class="string">"%p %p"</span>, a, c)<span class="comment">//输出地址相同</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">b</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"b"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="函数作为参数或返回值"><a href="#函数作为参数或返回值" class="headerlink" title="函数作为参数或返回值"></a>函数作为参数或返回值</h2></li>
+<li><p>变量可以作为函数的参数或返回值类型.而函数既然可以当做变量看待,函数变量也可以当做函数的参数或返回值</p>
+</li>
+<li><p>函数作为参数时,类型写成对应的类型即可</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a(<span class="function"><span class="keyword">func</span><span class="params">(s <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">		fmt.Println(s)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">a</span><span class="params">(b <span class="keyword">func</span>(s <span class="keyword">string</span>)</span>)</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"a执行"</span>)</span><br><span class="line">	b(<span class="string">"传递给s的内容"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>函数作为返回值</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//此时result指向返回值函数.</span></span><br><span class="line">	result := a()</span><br><span class="line">	<span class="comment">//调用函数,才能获取结果</span></span><br><span class="line">	fmt.Println(result())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">a</span><span class="params">()</span> <span class="title">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">110</span><span class="keyword">go</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang学习九：sort包、map、双向链表、双向循环链表</title>
+    <url>/posts/golang/202006182323-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="sort包"><a href="#sort包" class="headerlink" title="sort包"></a>sort包</h1><ul>
+<li>Go语言标准库中sort提供了排序API</li>
+<li>sort包提供了多种排序算法,这些算法是内部实现的,每次使用sort包排序时,会自动选择最优算法实现<ul>
+<li>插入排序</li>
+<li>快速排序</li>
+<li>堆排</li>
+</ul>
+</li>
+<li>sort包中最上层是一个名称为Interface的接口,只要满足sort.Interface类型都可以排序<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// A type, typically a collection, that satisfies sort.Interface can be</span></span><br><span class="line"><span class="comment">// sorted by the routines in this package. The methods require that the</span></span><br><span class="line"><span class="comment">// elements of the collection be enumerated by an integer index.</span></span><br><span class="line"><span class="keyword">type</span> Interface <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">// Len is the number of elements in the collection.</span></span><br><span class="line">	Len() <span class="keyword">int</span></span><br><span class="line">	<span class="comment">// Less reports whether the element with</span></span><br><span class="line">	<span class="comment">// index i should sort before the element with index j.</span></span><br><span class="line">	Less(i, j <span class="keyword">int</span>) <span class="keyword">bool</span></span><br><span class="line">	<span class="comment">// Swap swaps the elements with indexes i and j.</span></span><br><span class="line">	Swap(i, j <span class="keyword">int</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Go语言标准库默认提供了对int、float64、string进行排序的API</li>
+<li>很多函数的参数都是sort包下类型,需要进行转换.</li>
+</ul>
+<h1 id="排序实现"><a href="#排序实现" class="headerlink" title="排序实现"></a>排序实现</h1><ul>
+<li>对int类型切片排序<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">num := [] <span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">6</span>&#125;</span><br><span class="line">sort.Ints(num) <span class="comment">//升序</span></span><br><span class="line">fmt.Println(num)</span><br><span class="line">sort.Sort(sort.Reverse(sort.IntSlice(num))) <span class="comment">//降序</span></span><br><span class="line">fmt.Println(num)</span><br></pre></td></tr></table></figure></li>
+<li>对float64类型切片排序<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">f := [] <span class="keyword">float64</span>&#123;<span class="number">1.5</span>, <span class="number">7.2</span>, <span class="number">5.8</span>, <span class="number">2.3</span>, <span class="number">6.9</span>&#125;</span><br><span class="line">sort.Float64s(f) <span class="comment">//升序</span></span><br><span class="line">fmt.Println(f)</span><br><span class="line">sort.Sort(sort.Reverse(sort.Float64Slice(f))) <span class="comment">//降序</span></span><br><span class="line">fmt.Println(f)</span><br></pre></td></tr></table></figure></li>
+<li>对string类型切片排序<ul>
+<li>按照编码表数值进行排序</li>
+<li>多字符串中按照第一个字符进行比较</li>
+<li>如果第一个字符相同,比较第二个字符<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">s := []<span class="keyword">string</span>&#123;<span class="string">"我"</span>, <span class="string">"我是Goer"</span>, <span class="string">"a"</span>, <span class="string">"d"</span>, <span class="string">"国家"</span>, <span class="string">"你"</span>, <span class="string">"我a"</span>&#125;</span><br><span class="line">sort.Sort(sort.StringSlice(s)) <span class="comment">//升序</span></span><br><span class="line">fmt.Println(s)</span><br><span class="line"><span class="comment">//查找内容的索引,如果不存在,返回内容应该在升序排序切片的哪个位置插入</span></span><br><span class="line">fmt.Println(sort.SearchStrings(s, <span class="string">"你是"</span>))</span><br><span class="line">sort.Sort(sort.Reverse(sort.StringSlice(s)))</span><br><span class="line">fmt.Println(s)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="map"><a href="#map" class="headerlink" title="map"></a>map</h1><ul>
+<li><p>map以散列表方式存储键值对集合</p>
+</li>
+<li><p>map中每个元素都是键值对</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">map[key]Value</span><br></pre></td></tr></table></figure></li>
+<li><p>key是操作map的唯一标准.可以通过key对map中元素进行增加/删除/修改/查看</p>
+</li>
+<li><p>key是唯一的,添加重复的key会覆盖之前的元素.</p>
+</li>
+<li><p>map是值类型,只声明时为空指针(nil)</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> m <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span></span><br><span class="line">fmt.Println(m == <span class="literal">nil</span>) <span class="comment">//输出:true</span></span><br><span class="line">fmt.Printf(<span class="string">"%p"</span>, m)   <span class="comment">//输出:0x0</span></span><br></pre></td></tr></table></figure></li>
+<li><p>map读写数据时并不是并发安全的,可以结合RWMutex保证并发安全(RWMutex在后面讲解)</p>
+</li>
+</ul>
+<h2 id="实例化map的几种方式"><a href="#实例化map的几种方式" class="headerlink" title="实例化map的几种方式"></a>实例化map的几种方式</h2><ul>
+<li>使用make函数实例化一个没有初始值的map<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)</span><br><span class="line">fmt.Println(m==<span class="literal">nil</span>)<span class="comment">//输出:false</span></span><br><span class="line">fmt.Printf(<span class="string">"%p"</span>, m)<span class="comment">//输出:内存地址</span></span><br></pre></td></tr></table></figure></li>
+<li>可以在声明map时直接给map赋初始值.注意初始值在一行和在多行写时的语法区别<ul>
+<li>map中元素键值对语法满足: key:value</li>
+<li>key和value的类型必须和map[key]value类型严格对应<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"name"</span>: <span class="string">"msr"</span>, <span class="string">"address"</span>: <span class="string">"中国广东"</span>&#125;</span><br><span class="line">m1 := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">	<span class="string">"name"</span>:     <span class="string">"msr"</span>,</span><br><span class="line">	<span class="string">"addresss"</span>: <span class="string">"中国广东"</span>,</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(m, m1)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="操作map中的元素"><a href="#操作map中的元素" class="headerlink" title="操作map中的元素"></a>操作map中的元素</h2><ul>
+<li>使用key判断,如果key不存在向map中新增数据,如果key存在会覆盖map中元素<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line">m[<span class="string">"money"</span>] = <span class="number">5</span></span><br><span class="line">fmt.Println(m) <span class="comment">//输出:map[money:5]</span></span><br><span class="line">m[<span class="string">"money"</span>] = <span class="number">6</span></span><br><span class="line">fmt.Println(m) <span class="comment">//map[money:6]</span></span><br></pre></td></tr></table></figure></li>
+<li>Go语言标准库中提供了对map元素删除的函数,使用顶层delete()即可完成删除<ul>
+<li>如果key存在执行删除元素</li>
+<li>如果key不存在,map中内容不变,也不会有错误<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line">m[<span class="string">"money"</span>] = <span class="number">5</span></span><br><span class="line"><span class="built_in">delete</span>(m, <span class="string">"没有的key"</span>)</span><br><span class="line">fmt.Println(m) <span class="comment">//输出:map[money:5]</span></span><br><span class="line"><span class="built_in">delete</span>(m, <span class="string">"money"</span>)</span><br><span class="line">fmt.Println(m) <span class="comment">//输出:map[]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>获取map中指定key对应的值<ul>
+<li>使用:map变量[key]获取key对应的值</li>
+<li>如果key不存在返回map[key]Value中Value类型的默认值.例如:Value是string类型就返回””</li>
+<li>返回值可以是一个,也可以是两个.<ul>
+<li>一个表示key对应的值</li>
+<li>两个分别表示:key对应的值和这个key是否存在<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"name"</span>: <span class="string">"msr"</span>, <span class="string">"address"</span>: <span class="string">"中国广东"</span>&#125;</span><br><span class="line">fmt.Println(m[<span class="string">"name"</span>]) <span class="comment">//输出:msr</span></span><br><span class="line">fmt.Println(m[<span class="string">"age"</span>])  <span class="comment">//输出:空字符串</span></span><br><span class="line">value, ok := m[<span class="string">"age"</span>]</span><br><span class="line">fmt.Println(value, ok) <span class="comment">//输出:空字符串 false</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果希望把map中所有元素都遍历,可以使用for结合range实现<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"name"</span>: <span class="string">"msr"</span>, <span class="string">"address"</span>: <span class="string">"中国广东"</span>&#125;</span><br><span class="line"><span class="comment">//range遍历map时返回值分别表示key和value</span></span><br><span class="line"><span class="keyword">for</span> key, value := <span class="keyword">range</span> m &#123;</span><br><span class="line">	fmt.Println(key, value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="双向链表概述"><a href="#双向链表概述" class="headerlink" title="双向链表概述"></a>双向链表概述</h1><ul>
+<li><p>双向链表结构如下<br><img src="https://gitee.com/maishuren/blog-pic/raw/master/blog/lianbiao.png" alt="双向链表"></p>
+</li>
+<li><p>双向链表结构中元素在内存中不是紧邻空间,而是每个元素中存放上一个元素和后一个元素的地址</p>
+<ul>
+<li>第一个元素称为头(head)元素,前连接(前置指针域)为nil</li>
+<li>最后一个元素称为尾(foot)元素,后连接(后置指针域)为nil</li>
+</ul>
+</li>
+<li><p>双向链表的优点:</p>
+<ul>
+<li>在执行新增元素或删除元素时效率高,获取任意一个元素,可以方便的在这个元素前后插入元素</li>
+<li>充分利用内存空间,实现内存灵活管理</li>
+<li>可实现正序和逆序遍历</li>
+<li>头元素和尾元素新增或删除时效率较高</li>
+</ul>
+</li>
+<li><p>双向链表的缺点</p>
+<ul>
+<li>链表增加了元素的指针域,空间开销比较大</li>
+<li>遍历时跳跃性查找内容,大量数据遍历性能低<h2 id="双向链表容器List"><a href="#双向链表容器List" class="headerlink" title="双向链表容器List"></a>双向链表容器List</h2></li>
+</ul>
+</li>
+<li><p>在Go语言标准库的container/list 包提供了双向链表List</p>
+</li>
+<li><p>List结构体定义如下</p>
+<ul>
+<li>root表示根元素</li>
+<li>len表示链表中有多少个元素<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// List represents a doubly linked list.</span></span><br><span class="line"><span class="comment">// The zero value for List is an empty list ready to use.</span></span><br><span class="line"><span class="keyword">type</span> List <span class="keyword">struct</span> &#123;</span><br><span class="line">	root Element <span class="comment">// sentinel list element, only &amp;root, root.prev, and root.next are used</span></span><br><span class="line">	<span class="built_in">len</span>  <span class="keyword">int</span>     <span class="comment">// current list length excluding (this) sentinel element</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>其中Element结构体定义如下</p>
+<ul>
+<li>next表示下一个元素,使用Next()可以获取到</li>
+<li>prev表示上一个元素,使用Prev()可以获取到</li>
+<li>list表示元素属于哪个链表</li>
+<li>Value表示元素的值,interface{}在Go语言中表示任意类型<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Element is an element of a linked list.</span></span><br><span class="line"><span class="keyword">type</span> Element <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// Next and previous pointers in the doubly-linked list of elements.</span></span><br><span class="line">	<span class="comment">// To simplify the implementation, internally a list l is implemented</span></span><br><span class="line">	<span class="comment">// as a ring, such that &amp;l.root is both the next element of the last</span></span><br><span class="line">	<span class="comment">// list element (l.Back()) and the previous element of the first list</span></span><br><span class="line">	<span class="comment">// element (l.Front()).</span></span><br><span class="line">	next, prev *Element</span><br><span class="line"></span><br><span class="line">	<span class="comment">// The list to which this element belongs.</span></span><br><span class="line">	list *List</span><br><span class="line"></span><br><span class="line">	<span class="comment">// The value stored with this element.</span></span><br><span class="line">	Value <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="操作List"><a href="#操作List" class="headerlink" title="操作List"></a>操作List</h2><ul>
+<li>直接使用container/list包下的New()新建一个空的List<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">mylist := list.New()</span><br><span class="line">fmt.Println(mylist)       <span class="comment">//输出list中内容</span></span><br><span class="line">fmt.Println(mylist.Len()) <span class="comment">//查看链表中元素的个数</span></span><br><span class="line">fmt.Printf(<span class="string">"%p"</span>, mylist)  <span class="comment">//输出地址</span></span><br></pre></td></tr></table></figure></li>
+<li>Go语言标准库中提供了很多向双向链表中添加元素的函数<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//添加到最后,List["a"]</span></span><br><span class="line">mylist.PushBack(<span class="string">"a"</span>)</span><br><span class="line">   <span class="comment">//添加到最前面,List["b","a"]</span></span><br><span class="line">mylist.PushFront(<span class="string">"b"</span>) </span><br><span class="line"><span class="comment">//向第一个元素后面添加元素,List["b","c","a"]</span></span><br><span class="line">mylist.InsertAfter(<span class="string">"c"</span>, mylist.Front()) </span><br><span class="line"><span class="comment">//向最后一个元素前面添加元素,List["b","c","d","a"]</span></span><br><span class="line">mylist.InsertBefore(<span class="string">"d"</span>, mylist.Back())</span><br></pre></td></tr></table></figure></li>
+<li>取出链表中的元素<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">fmt.Println(mylist.Back().Value)  <span class="comment">//最后一个元素的值</span></span><br><span class="line">fmt.Println(mylist.Front().Value) <span class="comment">//第一个元素的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//只能从头向后找,或从后往前找,获取元素内容</span></span><br><span class="line">n := <span class="number">5</span></span><br><span class="line"><span class="keyword">var</span> curr *list.Element</span><br><span class="line"><span class="keyword">if</span> n &gt; <span class="number">0</span> &amp;&amp; n &lt;= mylist.Len() &#123;</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">1</span> &#123;</span><br><span class="line">		curr = mylist.Front()</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> n == mylist.Len() &#123;</span><br><span class="line">		curr = mylist.Back()</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		curr = mylist.Front()</span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">1</span>; i &lt; n; i++ &#123;</span><br><span class="line">			curr = curr.Next()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"n的数值不对"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//遍历所有值</span></span><br><span class="line"><span class="keyword">for</span> e := mylist.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">	fmt.Println(e.Value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>移动元素的顺序<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">mylist.MoveToBack(mylist.Front()) <span class="comment">//把第一个移动到后面</span></span><br><span class="line">mylist.MoveToFront(mylist.Back()) <span class="comment">//把最后一个移动到前面</span></span><br><span class="line">mylist.MoveAfter(mylist.Front(),mylist.Back())<span class="comment">//把第一个参数元素,移动到第二个参数元素后面</span></span><br><span class="line">mylist.MoveBefore(mylist.Front(),mylist.Back())<span class="comment">//把第一个参数元素,移动到第二个参数元素前面</span></span><br></pre></td></tr></table></figure></li>
+<li>删除元素<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">mylist.Remove(mylist.Front())</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="双向循环链表"><a href="#双向循环链表" class="headerlink" title="双向循环链表"></a>双向循环链表</h1><ul>
+<li><p>循环链表特点是没有节点的指针域为nil,通过任何一个元素都可以找到其他元素</p>
+</li>
+<li><p>环形链表结构如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">	A --&gt;B	</span><br><span class="line">	B --&gt;C	</span><br><span class="line">	C --&gt;D	</span><br><span class="line">	D --&gt;E</span><br><span class="line">	E --&gt;D</span><br><span class="line">	A --&gt;E</span><br><span class="line">	E --&gt;A</span><br><span class="line">	D --&gt;C</span><br><span class="line">	C --&gt;B</span><br><span class="line">	B --&gt;A</span><br></pre></td></tr></table></figure></li>
+<li><p>双向循环链表和双向链表区别</p>
+<ul>
+<li>双向循环链表没有严格意义上的头元素和尾元素</li>
+<li>没有元素的前连接和后连接为nil</li>
+<li>一个长度为n的双向循环链表,通过某个元素向某个方向移动,在查找最多n-1次后一定会找到另一个元素</li>
+</ul>
+</li>
+</ul>
+<h2 id="Go语言中的双向循环链表"><a href="#Go语言中的双向循环链表" class="headerlink" title="Go语言中的双向循环链表"></a>Go语言中的双向循环链表</h2><ul>
+<li><p>在container/ring包下结构体Ring源码如下</p>
+<ul>
+<li>官方明确说明了Ring是循环链表的元素,又是环形链表.</li>
+<li>实际使用时Ring遍历就是环形链表第一个元素<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// A Ring is an element of a circular list, or ring.</span></span><br><span class="line"><span class="comment">// Rings do not have a beginning or end; a pointer to any ring element</span></span><br><span class="line"><span class="comment">// serves as reference to the entire ring. Empty rings are represented</span></span><br><span class="line"><span class="comment">// as nil Ring pointers. The zero value for a Ring is a one-element</span></span><br><span class="line"><span class="comment">// ring with a nil Value.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">type</span> Ring <span class="keyword">struct</span> &#123;</span><br><span class="line">	next, prev *Ring</span><br><span class="line">	Value      <span class="keyword">interface</span>&#123;&#125; <span class="comment">// for use by client; untouched by this library</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Go语言标准库中对container/ring包提供的API如下</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Ring</span><br><span class="line">	<span class="comment">//实例化长度为n的环形链表</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(n <span class="keyword">int</span>)</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//长度</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span></span><br><span class="line">	<span class="comment">//下一个元素</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Next</span><span class="params">()</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//上一个元素</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Prev</span><span class="params">()</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//移动n次,支持负数</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Move</span><span class="params">(n <span class="keyword">int</span>)</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//合并s和r</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Link</span><span class="params">(s *Ring)</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//删除r后面n%r.Len()元素,删除多个,当前元素前面的不删除</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Unlink</span><span class="params">(n <span class="keyword">int</span>)</span> *<span class="title">Ring</span></span></span><br><span class="line">	<span class="comment">//循环遍历,i是当前元素的值</span></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="params">(r *Ring)</span> <span class="title">Do</span><span class="params">(f <span class="keyword">func</span>(<span class="keyword">interface</span>&#123;&#125;)</span>)</span></span><br></pre></td></tr></table></figure>
+<h2 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h2></li>
+<li><p>实例化、赋值、遍历</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">r := ring.New(<span class="number">3</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; r.Len(); i++ &#123;</span><br><span class="line">	r.Move(i).Value = i</span><br><span class="line">&#125;</span><br><span class="line">r.Do(<span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>实例化后的r就是链表中第一个创建的元素.可以找到元素的前后元素</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">fmt.Println(r.Next().Value)<span class="comment">//输出:1</span></span><br><span class="line">fmt.Println(r.Next().Next().Value)<span class="comment">//输出:2</span></span><br><span class="line">fmt.Println(r.Next().Next().Next().Value)<span class="comment">//输出:0</span></span><br><span class="line">fmt.Println(r.Move(<span class="number">-1</span>).Value)<span class="comment">//输出:2</span></span><br><span class="line">fmt.Println(r.Prev().Value)<span class="comment">//输出:2</span></span><br></pre></td></tr></table></figure></li>
+<li><p>可以向环形链表添加或删除链表</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">s := ring.New(<span class="number">1</span>)</span><br><span class="line">s.Value = <span class="number">13</span></span><br><span class="line"><span class="comment">//r是哪个元素,就把新的链表添加到哪个元素后面</span></span><br><span class="line">r.Link(s)</span><br><span class="line">r.Do(<span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	fmt.Print(i, <span class="string">" "</span>)</span><br><span class="line">&#125;)</span><br><span class="line">fmt.Println(<span class="string">""</span>)</span><br><span class="line"><span class="comment">//从r元素向后,n/r.Len()个元素被删除,当前元素和前面的保留</span></span><br><span class="line">r.Unlink(<span class="number">1</span>)</span><br><span class="line">r.Do(<span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	fmt.Print(i, <span class="string">" "</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>入门</tag>
       </tags>
   </entry>
   <entry>
@@ -388,8 +861,38 @@
   <entry>
     <title>nginx入门之配置语法</title>
     <url>/posts/nginx/202006161551-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="默认的配置文件"><a href="#默认的配置文件" class="headerlink" title="默认的配置文件"></a>默认的配置文件</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">                      '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">                      '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    #include /etc/nginx/conf.d/*.conf;</span><br><span class="line">    server &#123;</span><br><span class="line">    	listen       80;</span><br><span class="line">    	server_name  localhost;</span><br><span class="line"></span><br><span class="line">    	location / &#123;</span><br><span class="line">       		root   /usr/share/nginx/html;</span><br><span class="line">        	index  index.html index.htm;</span><br><span class="line">    	&#125;</span><br><span class="line">    	error_page   500 502 503 504 404  /50x.html;</span><br><span class="line">    	location = /50x.html &#123;</span><br><span class="line">        	root   /usr/share/nginx/html;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="默认的配置文件"><a href="#默认的配置文件" class="headerlink" title="默认的配置文件"></a>默认的配置文件</h1><p>   shell<br>user  nginx;<br>worker_processes  1;</p>
+<p>error_log  /var/log/nginx/error.log warn;<br>pid        /var/run/nginx.pid;</p>
+<p>events {<br>    worker_connections  1024;<br>}</p>
+<p>http {<br>    include       /etc/nginx/mime.types;<br>    default_type  application/octet-stream;</p>
+<pre><code>log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
+                  &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                  &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
 
+access_log  /var/log/nginx/access.log  main;
+
+sendfile        on;
+#tcp_nopush     on;
+
+keepalive_timeout  65;
+
+#gzip  on;
+
+#include /etc/nginx/conf.d/*.conf;
+server {
+    listen       80;
+    server_name  localhost;
+
+    location / {
+           root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+    error_page   500 502 503 504 404  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+}</code></pre><p>}</p>
 <ul>
 <li>user:设置nginx服务的系统使用用户</li>
 <li>worker_processes:工作进程数</li>
@@ -414,6 +917,279 @@
 <li>keepalive_timeout:客户端超时时间</li>
 <li>include /etc/nginx/conf.d/*.conf:引入配置文件，一般一个配置文件一个server</li>
 </ul>
+<h1 id="日志格式log-format"><a href="#日志格式log-format" class="headerlink" title="日志格式log_format"></a>日志格式log_format</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">默认配置</span></span><br><span class="line">log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">                      '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">                      '"$http_user_agent" "$http_x_forwarded_for"';</span><br></pre></td></tr></table></figure>
+
+<p>1.Http变量：arg_PARAMETER、http_HEADER、sent_http_HEADER</p>
+<p>​        eg:log_format  main ‘$arg_PARAMETER $http_HEADER $sent_http_HEADER’</p>
+<p>2.内置变量：</p>
+<p>​        内置变量存放在 ngx_http_core_module 模块中，变量的命名方式和apache 服务器变量是一致的。总而言之，这些变量代表着客户端请求头的内容。下面是nginx支持的内置变量：</p>
+<p><strong>$arg_name</strong></p>
+<p>请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name</p>
+<p><strong>$args</strong></p>
+<p>请求中的参数值</p>
+<p><strong>$binary_remote_addr</strong></p>
+<p>客户端地址的二进制形式, 固定长度为4个字节</p>
+<p><strong>$body_bytes_sent</strong></p>
+<p>传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的“%B”参数保持兼容</p>
+<p><strong>$bytes_sent</strong></p>
+<p>传输给客户端的字节数 (1.3.8, 1.2.5)</p>
+<p><strong>$connection</strong></p>
+<p>TCP连接的序列号 (1.3.8, 1.2.5)</p>
+<p><strong>$connection_requests</strong></p>
+<p>TCP连接当前的请求数量 (1.3.8, 1.2.5)</p>
+<p><strong>$content_length</strong></p>
+<p>“Content-Length” 请求头字段</p>
+<p><strong>$content_type</strong></p>
+<p>“Content-Type” 请求头字段</p>
+<p><strong>$cookie_name</strong></p>
+<p>cookie名称</p>
+<p><strong>$document_root</strong></p>
+<p>当前请求的文档根目录或别名</p>
+<p><strong>$document_uri</strong></p>
+<p>同 $uri</p>
+<p><strong>$host</strong></p>
+<p>优先级如下：HTTP请求行的主机名&gt;”HOST”请求头字段&gt;符合请求的服务器名</p>
+<p><strong>$hostname</strong></p>
+<p>主机名</p>
+<p><strong>$http_name</strong></p>
+<p>匹配任意请求头字段； 变量名中的后半部分“name”可以替换成任意请求头字段，如在配置文件中需要获取http请求头：“Accept-Language”，那么将“－”替换为下划线，大写字母替换为小写，形如：$http_accept_language即可。</p>
+<p>*<em>$https *</em></p>
+<p>如果开启了SSL安全模式，值为“on”，否则为空字符串。</p>
+<p><strong>$is_args</strong></p>
+<p>如果请求中有参数，值为“?”，否则为空字符串。</p>
+<p><strong>$limit_rate</strong></p>
+<p>用于设置响应的速度限制，详见 limit_rate。</p>
+<p><strong>$msec</strong></p>
+<p>当前的Unix时间戳 (1.3.9, 1.2.6)</p>
+<p><strong>$nginx_version</strong></p>
+<p>nginx版本</p>
+<p><strong>$pid</strong></p>
+<p>工作进程的PID</p>
+<p><strong>$pipe</strong></p>
+<p>如果请求来自管道通信，值为“p”，否则为“.” (1.3.12, 1.2.7)</p>
+<p><strong>$proxy_protocol_addr</strong></p>
+<p>获取代理访问服务器的客户端地址，如果是直接访问，该值为空字符串。(1.5.12)</p>
+<p><strong>$query_string</strong></p>
+<p>同 $args</p>
+<p><strong>$realpath_root</strong></p>
+<p>当前请求的文档根目录或别名的真实路径，会将所有符号连接转换为真实路径。</p>
+<p><strong>$remote_addr</strong></p>
+<p>客户端地址</p>
+<p><strong>$remote_port</strong></p>
+<p>客户端端口</p>
+<p><strong>$remote_user</strong></p>
+<p>用于HTTP基础认证服务的用户名</p>
+<p><strong>$request</strong></p>
+<p>代表客户端的请求地址</p>
+<p><strong>$request_body</strong></p>
+<p>客户端的请求主体</p>
+<p>此变量可在location中使用，将请求主体通过proxy_pass, fastcgi_pass, uwsgi_pass, 和 scgi_pass传递给下一级的代理服务器。</p>
+<p><strong>$request_body_file</strong></p>
+<p>将客户端请求主体保存在临时文件中。文件处理结束后，此文件需删除。如果需要之一开启此功能，需要设置client_body_in_file_only。如果将次文件传递给后端的代理服务器，需要禁用request body，即设置proxy_pass_request_body off，fastcgi_pass_request_body off, uwsgi_pass_request_body off, or scgi_pass_request_body off 。</p>
+<p><strong>$request_completion</strong></p>
+<p>如果请求成功，值为”OK”，如果请求未完成或者请求不是一个范围请求的最后一部分，则为空。</p>
+<p><strong>$request_filename</strong></p>
+<p>当前连接请求的文件路径，由root或alias指令与URI请求生成。</p>
+<p><strong>$request_length</strong></p>
+<p>请求的长度 (包括请求的地址, http请求头和请求主体) (1.3.12, 1.2.7)</p>
+<p><strong>$request_method</strong></p>
+<p>HTTP请求方法，通常为“GET”或“POST”</p>
+<p><strong>$request_time</strong></p>
+<p>处理客户端请求使用的时间 (1.3.9, 1.2.6); 从读取客户端的第一个字节开始计时。</p>
+<p><strong>$request_uri</strong></p>
+<p>这个变量等于包含一些客户端请求参数的原始URI，它无法修改，请查看$uri更改或重写URI，不包含主机名，例如：”/cnphp/test.php?arg=freemouse”。</p>
+<p><strong>$scheme</strong></p>
+<p>请求使用的Web协议, “http” 或 “https”</p>
+<p><strong>$sent_http_name</strong></p>
+<p>可以设置任意http响应头字段； 变量名中的后半部分“name”可以替换成任意响应头字段，如需要设置响应头Content-length，那么将“－”替换为下划线，大写字母替换为小写，形如：$sent_http_content_length 4096即可。</p>
+<p><strong>$server_addr</strong></p>
+<p>服务器端地址，需要注意的是：为了避免访问linux系统内核，应将ip地址提前设置在配置文件中。</p>
+<p><strong>$server_name</strong></p>
+<p>服务器名，<a href="http://www.cnphp.info" target="_blank" rel="noopener">www.cnphp.info</a></p>
+<p><strong>$server_port</strong></p>
+<p>服务器端口</p>
+<p><strong>$server_protocol</strong></p>
+<p>服务器的HTTP版本, 通常为 “HTTP/1.0” 或 “HTTP/1.1”</p>
+<p><strong>$status</strong></p>
+<p>HTTP响应代码 (1.3.2, 1.2.2)</p>
+<p><strong>$tcpinfo_rtt, $tcpinfo_rttvar, $tcpinfo_snd_cwnd, $tcpinfo_rcv_space</strong></p>
+<p>客户端TCP连接的具体信息</p>
+<p><strong>$time_iso8601</strong></p>
+<p>服务器时间的ISO 8610格式 (1.3.12, 1.2.7)</p>
+<p>*<em>$time_local $arg_name *</em></p>
+<p>请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name</p>
+<p><strong>$args</strong></p>
+<p>请求中的参数值</p>
+<p><strong>$binary_remote_addr</strong></p>
+<p>客户端地址的二进制形式, 固定长度为4个字节</p>
+<p><strong>$body_bytes_sent</strong></p>
+<p>传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的“%B”参数保持兼容</p>
+<p><strong>$bytes_sent</strong></p>
+<p>传输给客户端的字节数 (1.3.8, 1.2.5)</p>
+<p><strong>$connection</strong></p>
+<p>TCP连接的序列号 (1.3.8, 1.2.5)</p>
+<p><strong>$connection_requests</strong></p>
+<p>TCP连接当前的请求数量 (1.3.8, 1.2.5)</p>
+<p>*<em>$content_lengt *</em></p>
+<p>“Content-Length” 请求头字段</p>
+<p><strong>$content_type</strong></p>
+<p>“Content-Type” 请求头字段</p>
+<p>*<em>$cookie_name *</em></p>
+<p>cookie名称</p>
+<p><strong>$document_root</strong></p>
+<p>当前请求的文档根目录或别名</p>
+<p><strong>$document_uri</strong></p>
+<p>同 $uri</p>
+<p><strong>$host</strong></p>
+<p>优先级如下：HTTP请求行的主机名&gt;”HOST”请求头字段&gt;符合请求的服务器名</p>
+<p><strong>$hostname</strong></p>
+<p>主机名</p>
+<p><strong>$http_name</strong></p>
+<p>匹配任意请求头字段； 变量名中的后半部分“name”可以替换成任意请求头字段，如在配置文件中需要获取http请求头：“Accept-Language”，那么将“－”替换为下划线，大写字母替换为小写，形如：$http_accept_language即可。</p>
+<p><strong>$https</strong></p>
+<p>如果开启了SSL安全模式，值为“on”，否则为空字符串。</p>
+<p><strong>$is_args</strong></p>
+<p>如果请求中有参数，值为“?”，否则为空字符串。</p>
+<p><strong>$limit_rate</strong></p>
+<p>用于设置响应的速度限制，详见 limit_rate。</p>
+<p><strong>$msec</strong></p>
+<p>当前的Unix时间戳 (1.3.9, 1.2.6)</p>
+<p><strong>$nginx_version</strong></p>
+<p>nginx版本</p>
+<p><strong>$pid</strong></p>
+<p>工作进程的PID</p>
+<p><strong>$pipe</strong></p>
+<p>如果请求来自管道通信，值为“p”，否则为“.” (1.3.12, 1.2.7)</p>
+<p><strong>$proxy_protocol_addr</strong></p>
+<p>获取代理访问服务器的客户端地址，如果是直接访问，该值为空字符串。(1.5.12)</p>
+<p><strong>$query_string</strong></p>
+<p>同 $args</p>
+<p><strong>$realpath_root</strong></p>
+<p>当前请求的文档根目录或别名的真实路径，会将所有符号连接转换为真实路径。</p>
+<p><strong>$remote_addr</strong></p>
+<p>客户端地址</p>
+<p><strong>$remote_port</strong></p>
+<p>客户端端口</p>
+<p><strong>$remote_user</strong></p>
+<p>用于HTTP基础认证服务的用户名</p>
+<p><strong>$request</strong></p>
+<p>代表客户端的请求地址</p>
+<p><strong>$request_body</strong></p>
+<p>客户端的请求主体</p>
+<p>此变量可在location中使用，将请求主体通过proxy_pass, fastcgi_pass, uwsgi_pass, 和 scgi_pass传递给下一级的代理服务器。</p>
+<p><strong>$request_body_file</strong></p>
+<p>将客户端请求主体保存在临时文件中。文件处理结束后，此文件需删除。如果需要之一开启此功能，需要设置client_body_in_file_only。如果将次文件传递给后端的代理服务器，需要禁用request body，即设置proxy_pass_request_body off，fastcgi_pass_request_body off, uwsgi_pass_request_body off, or scgi_pass_request_body off 。</p>
+<p><strong>$request_completion</strong></p>
+<p>如果请求成功，值为”OK”，如果请求未完成或者请求不是一个范围请求的最后一部分，则为空。</p>
+<p><strong>$request_filename</strong></p>
+<p>当前连接请求的文件路径，由root或alias指令与URI请求生成。</p>
+<p><strong>$request_length</strong></p>
+<p>请求的长度 (包括请求的地址, http请求头和请求主体) (1.3.12, 1.2.7)</p>
+<p><strong>$request_method</strong></p>
+<p>HTTP请求方法，通常为“GET”或“POST”</p>
+<p><strong>$request_time</strong></p>
+<p>处理客户端请求使用的时间 (1.3.9, 1.2.6); 从读取客户端的第一个字节开始计时。</p>
+<p><strong>$request_uri</strong></p>
+<p>这个变量等于包含一些客户端请求参数的原始URI，它无法修改，请查看$uri更改或重写URI，不包含主机名，例如：”/cnphp/test.php?arg=freemouse”。</p>
+<p><strong>$scheme</strong></p>
+<p>请求使用的Web协议, “http” 或 “https”</p>
+<p><strong>$sent_http_name</strong></p>
+<p>可以设置任意http响应头字段； 变量名中的后半部分“name”可以替换成任意响应头字段，如需要设置响应头Content-length，那么将“－”替换为下划线，大写字母替换为小写，形如：$sent_http_content_length 4096即可。</p>
+<p><strong>$server_addr</strong></p>
+<p>服务器端地址，需要注意的是：为了避免访问linux系统内核，应将ip地址提前设置在配置文件中。</p>
+<p><strong>$server_name</strong></p>
+<p>服务器名如<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
+<p><strong>$server_port</strong></p>
+<p>服务器端口</p>
+<p><strong>$server_protocol</strong></p>
+<p>服务器的HTTP版本, 通常为 “HTTP/1.0” 或 “HTTP/1.1”</p>
+<p><strong>$status</strong></p>
+<p>HTTP响应代码 (1.3.2, 1.2.2)</p>
+<p><strong>$tcpinfo_rtt</strong>, $tcpinfo_rttvar, $tcpinfo_snd_cwnd, $tcpinfo_rcv_space</p>
+<p>客户端TCP连接的具体信息</p>
+<p><strong>$time_iso8601</strong></p>
+<p>服务器时间的ISO 8610格式 (1.3.12, 1.2.7)</p>
+<p><strong>$time_local</strong></p>
+<p>服务器时间（LOG Format 格式） (1.3.12, 1.2.7)</p>
+<p><strong>$uri</strong></p>
+<p>请求中的当前URI(不带请求参数，参数位于$args)，可以不同于浏览器传递的$request_uri的值，它可以通过内部重定向，或者使用index指令进行修改，$uri不包含主机名，如”/foo/bar.html”。</p>
+<p>服务器时间（LOG Format 格式） (1.3.12, 1.2.7)</p>
+<p><strong>$uri</strong></p>
+<p>请求中的当前URI(不带请求参数，参数位于$args)，可以不同于浏览器传递的$request_uri的值，它可以通过内部重定向，或者使用index指令进行修改，$uri不包含主机名，如”/foo/bar.html”。</p>
+<h1 id="监控模块http-stub-status-modules"><a href="#监控模块http-stub-status-modules" class="headerlink" title="监控模块http_stub_status_modules"></a>监控模块http_stub_status_modules</h1><p>作用：监控Nginx客户端状态</p>
+<p>作用域：server；location</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">查看配置参数</span><br><span class="line">root@3de922dd7a75:/usr/share/nginx/html# nginx -V </span><br><span class="line">nginx version: nginx/1.19.0</span><br><span class="line">built by gcc 8.3.0 (Debian 8.3.0-6) </span><br><span class="line">built with OpenSSL 1.1.1d  10 Sep 2019</span><br><span class="line">TLS SNI support enabled</span><br><span class="line">configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-g -O2 -fdebug-prefix-map=/data/builder/debuild/nginx-1.19.0/debian/debuild-base/nginx-1.19.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' --with-ld-opt='-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie'</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>配置语法：在一个server下配置</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location  /status &#123;</span><br><span class="line">	stub_status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改完之后，测试配置文件是否有错误</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@3de922dd7a75:/etc/nginx# nginx -tc ./nginx.conf </span><br><span class="line">nginx: the configuration file /etc/nginx/./nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /etc/nginx/./nginx.conf test is successful</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>重载配置文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@3de922dd7a75:/etc/nginx# nginx	-s reload /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>再访问htttp://ip/stasus，出现一下</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Active connections: 2 </span><br><span class="line">server accepts handled requests</span><br><span class="line"> 4 4 1 </span><br><span class="line">Reading: 0 Writing: 1 Waiting: 1</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>nginx_status详解</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Active connections: 1     </span><br><span class="line">##nginx正处理的活跃连接数　　</span><br><span class="line">server accepts handled requests</span><br><span class="line">##server  nginx启动到现在共处理了多少个连接</span><br><span class="line">##accepts  nginx启动到现在共创建了多少次握手，请求丢失数&#x3D;握手数-连接数</span><br><span class="line">##handled requests    总共处理了多少个请求</span><br><span class="line">Reading: 0 Writing: 1 Waiting: 0</span><br><span class="line">##Reading  nginx读取客户端 header 信息数</span><br><span class="line">##Writing  nginx返回给客户端的 hearder 信息数</span><br><span class="line">##Waiting  nginx已经处理完正在等待下一次请求指令的驻留连接，在开启keep-alive的情况下，waiting值等于active - (Reading+Writing)</span><br></pre></td></tr></table></figure>
+
+<h1 id="模块http-random-index-module"><a href="#模块http-random-index-module" class="headerlink" title="模块http_random_index_module"></a>模块http_random_index_module</h1><p>作用：在主目录中选择一个随机主页</p>
+<p>默认：关闭</p>
+<p>作用域：location</p>
+<ol>
+<li>配置语法：在location中配置</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">	root /etc/nginx/html;</span><br><span class="line">	random_index on;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在/etc/nginx/html中新建一个html文件</li>
+<li>重复上一小节的检查配置文件，重载配置文件，在浏览器访问，不断刷新，出现不同的页面</li>
+</ol>
+<h1 id="默认模块http-sub-module"><a href="#默认模块http-sub-module" class="headerlink" title="默认模块http_sub_module"></a>默认模块http_sub_module</h1><p>作用：HTTP内容替换</p>
+<p>常用选项：sub_filter string replacement；sub_filter_last_modified on|off；sub_filter_once on|off</p>
+<p>作用域：http；server；location</p>
+<ol>
+<li><p>配置语法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location &#x2F; &#123;</span><br><span class="line">	root &#x2F;etc&#x2F;nginx&#x2F;html;</span><br><span class="line">	index index.html index.htm;</span><br><span class="line">	sub_filter &#39;nginx&#39; &#39;NGINX&#39;; #替换第一个nginx</span><br><span class="line">	sub_filter_once off; #关闭之后，所有的nginx都会被替换</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h1 id="Nginx的请求访问限制"><a href="#Nginx的请求访问限制" class="headerlink" title="Nginx的请求访问限制"></a>Nginx的请求访问限制</h1><h2 id="请求限制"><a href="#请求限制" class="headerlink" title="请求限制"></a>请求限制</h2><ol>
+<li><p>连接频率限制：limit_conn_module</p>
+<p>limit_conn_zone key zone=name:size，作用域http</p>
+<p>limit_conn zone number，作用域http，server，location</p>
+</li>
+<li><p>请求频率限制：limit_req_module</p>
+<p>limit_req_zone key zone=name:size rate=rate,http</p>
+<p>limit_req zone=name,http,server,location</p>
+</li>
+<li><p>配置语法：</p>
+<p>在http下配置，以客户端的ip地址作为key，对这个key进行限制，同时申请一个zone空间大小为1m用来存储访问的频次信息。$binary_remote_addr可以节省zone空间。rate=1r/s：表示允许相同标识的客户端的<strong>访问频次</strong>，这里限制的是每秒1次，即每秒只处理一个请求。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">limit_conn_zone $binary_remote_addr zone&#x3D;conn_zone:1m</span><br><span class="line">limit_req_zone $binary_remote_addr zone&#x3D;req_zone:1m rate&#x3D;1r&#x2F;s</span><br></pre></td></tr></table></figure>
+
+<p>在localtion下配置：</p>
+<p>limit_req zone=req_zon：使用配置好的rate的速率来处理数据</p>
+<p>burst=3：设置一个大小为3的缓冲区当有大量请求（爆发）过来时，超过了<strong>访问频次</strong>限制的<strong>请求可以先放到这个缓冲区内等待，但是这个等待区里的位置只有3个</strong>，超过的请求会直接报503的错误然后返回。</p>
+<p>nodelay：如果设置，会在瞬时提供处理(burst + rate)个请求的能力，请求超过（<strong>burst + rate）</strong>的时候就会直接返回503，永远不存在请求需要等待的情况。如果没有设置，则所有请求会依次等待排队</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location  &#x2F;status &#123;</span><br><span class="line">	root html;</span><br><span class="line">	#   limit_conn conn_zone 1;  #同一时间只允许一个连接</span><br><span class="line">    #   limit_req zone&#x3D;req_zone burst&#x3D;3 nodelay;  </span><br><span class="line">    #   limit_req zone&#x3D;req_zone burst&#x3D;3;</span><br><span class="line">    #   limit_req zone&#x3D;req_zone;</span><br><span class="line">    index show.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="访问限制"><a href="#访问限制" class="headerlink" title="访问限制"></a>访问限制</h2><p>基于IP的访问控制：http_access_module</p>
+</li>
+</ol>
+<p>   基于用户的信任登录：http_auth_basic_module</p>
 ]]></content>
       <categories>
         <category>运维</category>
@@ -2693,8 +3469,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>内功心法</tag>
         <tag>面试必备</tag>
+        <tag>内功心法</tag>
       </tags>
   </entry>
   <entry>
@@ -2727,8 +3503,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>内功心法</tag>
         <tag>面试必备</tag>
+        <tag>内功心法</tag>
       </tags>
   </entry>
 </search>

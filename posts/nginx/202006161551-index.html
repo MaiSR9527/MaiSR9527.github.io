@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>nginx入门之配置语法 | maiBlog</title><meta name="description" content="高性能服务器Nginx的入门"><meta name="keywords" content="入门,nginx"><meta name="author" content="maishuren"><meta name="copyright" content="maishuren"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/bitbug-favicon-32x32.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="nginx入门之配置语法"><meta name="twitter:description" content="高性能服务器Nginx的入门"><meta name="twitter:image" content="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner26.jpg"><meta property="og:type" content="article"><meta property="og:title" content="nginx入门之配置语法"><meta property="og:url" content="http://www.maishuren.top/posts/nginx/202006161551-"><meta property="og:site_name" content="maiBlog"><meta property="og:description" content="高性能服务器Nginx的入门"><meta property="og:image" content="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner26.jpg"><meta property="article:published_time" content="2020-06-16T07:51:03.000Z"><meta property="article:modified_time" content="2020-06-16T08:07:25.100Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>nginx入门之配置语法 | maiBlog</title><meta name="description" content="高性能服务器Nginx的入门"><meta name="keywords" content="入门,nginx"><meta name="author" content="maishuren"><meta name="copyright" content="maishuren"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/bitbug-favicon-32x32.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="nginx入门之配置语法"><meta name="twitter:description" content="高性能服务器Nginx的入门"><meta name="twitter:image" content="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner21.jpg"><meta property="og:type" content="article"><meta property="og:title" content="nginx入门之配置语法"><meta property="og:url" content="http://www.maishuren.top/posts/nginx/202006161551-"><meta property="og:site_name" content="maiBlog"><meta property="og:description" content="高性能服务器Nginx的入门"><meta property="og:image" content="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner21.jpg"><meta property="article:published_time" content="2020-06-16T07:51:03.000Z"><meta property="article:modified_time" content="2020-06-17T08:56:48.195Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
 var t = Cookies.get("theme")
 if (autoChangeMode == '1'){
   var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -91,8 +91,38 @@ function activateLightMode(){
   opacity: 1
 }
 </style></noscript><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="maiBlog" type="application/atom+xml">
-</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://gitee.com/maishuren/blog-pic/raw/master/blog/newavatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">24</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 娱乐</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/playlist/"><i class="fa-fw fa fa-music"></i><span> /歌单</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#默认的配置文件"><span class="toc-number">1.</span> <span class="toc-text">默认的配置文件</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner26.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">maiBlog</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 娱乐</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/playlist/"><i class="fa-fw fa fa-music"></i><span> /歌单</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">nginx入门之配置语法</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-16 15:51:03"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-06-16</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-16 16:07:25"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-16</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">263</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 1 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/posts/nginx/202006161551-index.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/posts/nginx/202006161551-index.html" itemprop="commentCount"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="默认的配置文件"><a href="#默认的配置文件" class="headerlink" title="默认的配置文件"></a>默认的配置文件</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">                      '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">                      '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    #include /etc/nginx/conf.d/*.conf;</span><br><span class="line">    server &#123;</span><br><span class="line">    	listen       80;</span><br><span class="line">    	server_name  localhost;</span><br><span class="line"></span><br><span class="line">    	location / &#123;</span><br><span class="line">       		root   /usr/share/nginx/html;</span><br><span class="line">        	index  index.html index.htm;</span><br><span class="line">    	&#125;</span><br><span class="line">    	error_page   500 502 503 504 404  /50x.html;</span><br><span class="line">    	location = /50x.html &#123;</span><br><span class="line">        	root   /usr/share/nginx/html;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://gitee.com/maishuren/blog-pic/raw/master/blog/newavatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 娱乐</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/playlist/"><i class="fa-fw fa fa-music"></i><span> /歌单</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#默认的配置文件"><span class="toc-number">1.</span> <span class="toc-text">默认的配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#日志格式log-format"><span class="toc-number">2.</span> <span class="toc-text">日志格式log_format</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#监控模块http-stub-status-modules"><span class="toc-number">3.</span> <span class="toc-text">监控模块http_stub_status_modules</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模块http-random-index-module"><span class="toc-number">4.</span> <span class="toc-text">模块http_random_index_module</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#默认模块http-sub-module"><span class="toc-number">5.</span> <span class="toc-text">默认模块http_sub_module</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx的请求访问限制"><span class="toc-number">6.</span> <span class="toc-text">Nginx的请求访问限制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#请求限制"><span class="toc-number">6.1.</span> <span class="toc-text">请求限制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问限制"><span class="toc-number">6.2.</span> <span class="toc-text">访问限制</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner21.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">maiBlog</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 娱乐</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/playlist/"><i class="fa-fw fa fa-music"></i><span> /歌单</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">nginx入门之配置语法</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-16 15:51:03"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-06-16</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-17 16:56:48"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-17</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">3.6k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 13 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/posts/nginx/202006161551-index.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/posts/nginx/202006161551-index.html" itemprop="commentCount"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="默认的配置文件"><a href="#默认的配置文件" class="headerlink" title="默认的配置文件"></a>默认的配置文件</h1><p>   shell<br>user  nginx;<br>worker_processes  1;</p>
+<p>error_log  /var/log/nginx/error.log warn;<br>pid        /var/run/nginx.pid;</p>
+<p>events {<br>    worker_connections  1024;<br>}</p>
+<p>http {<br>    include       /etc/nginx/mime.types;<br>    default_type  application/octet-stream;</p>
+<pre><code>log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
+                  &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                  &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
 
+access_log  /var/log/nginx/access.log  main;
+
+sendfile        on;
+#tcp_nopush     on;
+
+keepalive_timeout  65;
+
+#gzip  on;
+
+#include /etc/nginx/conf.d/*.conf;
+server {
+    listen       80;
+    server_name  localhost;
+
+    location / {
+           root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+    error_page   500 502 503 504 404  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+}</code></pre><p>}</p>
 <ul>
 <li>user:设置nginx服务的系统使用用户</li>
 <li>worker_processes:工作进程数</li>
@@ -117,7 +147,280 @@ function activateLightMode(){
 <li>keepalive_timeout:客户端超时时间</li>
 <li>include /etc/nginx/conf.d/*.conf:引入配置文件，一般一个配置文件一个server</li>
 </ul>
-</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">maishuren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.maishuren.top/posts/nginx/202006161551-index.html">http://www.maishuren.top/posts/nginx/202006161551-index.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.maishuren.top" target="_blank">maiBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%85%A5%E9%97%A8/">入门</a><a class="post-meta__tags" href="/tags/nginx/">nginx</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner26.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="/img/pay-for-weichat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/posts/docker/202006161622-index.html"><img class="prev_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner26.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">centos7安装docker</div></div></a></div><div class="next-post pull_right"><a href="/posts/nginx/202006151538-index.html"><img class="next_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner22.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">nginx入门之初识nginx</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/nginx/202006151538-index.html" title="nginx入门之初识nginx"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner22.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-15</div><div class="relatedPosts_title">nginx入门之初识nginx</div></div></a></div><div class="relatedPosts_item"><a href="/posts/hadoop/202006132303-index.html" title="大数据之hadoop一：hadoop入门"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner15.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-13</div><div class="relatedPosts_title">大数据之hadoop一：hadoop入门</div></div></a></div><div class="relatedPosts_item"><a href="/posts/gloang/202006131039-index.html" title="golang学习八：切片"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner1.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-13</div><div class="relatedPosts_title">golang学习八：切片</div></div></a></div><div class="relatedPosts_item"><a href="/posts/golang/202006131037-index.html" title="golang学习七：goto和label"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner16.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-13</div><div class="relatedPosts_title">golang学习七：goto和label</div></div></a></div><div class="relatedPosts_item"><a href="/posts/golang/202006131031-index.html" title="golang学习六：for循环"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner3.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-13</div><div class="relatedPosts_title">golang学习六：for循环</div></div></a></div><div class="relatedPosts_item"><a href="/posts/golang/202006131027-index.html" title="golang学习五：常用数学函数与数组"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner3.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-13</div><div class="relatedPosts_title">golang学习五：常用数学函数与数组</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+<h1 id="日志格式log-format"><a href="#日志格式log-format" class="headerlink" title="日志格式log_format"></a>日志格式log_format</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">默认配置</span></span><br><span class="line">log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">                      '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">                      '"$http_user_agent" "$http_x_forwarded_for"';</span><br></pre></td></tr></table></figure>
+
+<p>1.Http变量：arg_PARAMETER、http_HEADER、sent_http_HEADER</p>
+<p>​        eg:log_format  main ‘$arg_PARAMETER $http_HEADER $sent_http_HEADER’</p>
+<p>2.内置变量：</p>
+<p>​        内置变量存放在 ngx_http_core_module 模块中，变量的命名方式和apache 服务器变量是一致的。总而言之，这些变量代表着客户端请求头的内容。下面是nginx支持的内置变量：</p>
+<p><strong>$arg_name</strong></p>
+<p>请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name</p>
+<p><strong>$args</strong></p>
+<p>请求中的参数值</p>
+<p><strong>$binary_remote_addr</strong></p>
+<p>客户端地址的二进制形式, 固定长度为4个字节</p>
+<p><strong>$body_bytes_sent</strong></p>
+<p>传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的“%B”参数保持兼容</p>
+<p><strong>$bytes_sent</strong></p>
+<p>传输给客户端的字节数 (1.3.8, 1.2.5)</p>
+<p><strong>$connection</strong></p>
+<p>TCP连接的序列号 (1.3.8, 1.2.5)</p>
+<p><strong>$connection_requests</strong></p>
+<p>TCP连接当前的请求数量 (1.3.8, 1.2.5)</p>
+<p><strong>$content_length</strong></p>
+<p>“Content-Length” 请求头字段</p>
+<p><strong>$content_type</strong></p>
+<p>“Content-Type” 请求头字段</p>
+<p><strong>$cookie_name</strong></p>
+<p>cookie名称</p>
+<p><strong>$document_root</strong></p>
+<p>当前请求的文档根目录或别名</p>
+<p><strong>$document_uri</strong></p>
+<p>同 $uri</p>
+<p><strong>$host</strong></p>
+<p>优先级如下：HTTP请求行的主机名&gt;”HOST”请求头字段&gt;符合请求的服务器名</p>
+<p><strong>$hostname</strong></p>
+<p>主机名</p>
+<p><strong>$http_name</strong></p>
+<p>匹配任意请求头字段； 变量名中的后半部分“name”可以替换成任意请求头字段，如在配置文件中需要获取http请求头：“Accept-Language”，那么将“－”替换为下划线，大写字母替换为小写，形如：$http_accept_language即可。</p>
+<p>*<em>$https *</em></p>
+<p>如果开启了SSL安全模式，值为“on”，否则为空字符串。</p>
+<p><strong>$is_args</strong></p>
+<p>如果请求中有参数，值为“?”，否则为空字符串。</p>
+<p><strong>$limit_rate</strong></p>
+<p>用于设置响应的速度限制，详见 limit_rate。</p>
+<p><strong>$msec</strong></p>
+<p>当前的Unix时间戳 (1.3.9, 1.2.6)</p>
+<p><strong>$nginx_version</strong></p>
+<p>nginx版本</p>
+<p><strong>$pid</strong></p>
+<p>工作进程的PID</p>
+<p><strong>$pipe</strong></p>
+<p>如果请求来自管道通信，值为“p”，否则为“.” (1.3.12, 1.2.7)</p>
+<p><strong>$proxy_protocol_addr</strong></p>
+<p>获取代理访问服务器的客户端地址，如果是直接访问，该值为空字符串。(1.5.12)</p>
+<p><strong>$query_string</strong></p>
+<p>同 $args</p>
+<p><strong>$realpath_root</strong></p>
+<p>当前请求的文档根目录或别名的真实路径，会将所有符号连接转换为真实路径。</p>
+<p><strong>$remote_addr</strong></p>
+<p>客户端地址</p>
+<p><strong>$remote_port</strong></p>
+<p>客户端端口</p>
+<p><strong>$remote_user</strong></p>
+<p>用于HTTP基础认证服务的用户名</p>
+<p><strong>$request</strong></p>
+<p>代表客户端的请求地址</p>
+<p><strong>$request_body</strong></p>
+<p>客户端的请求主体</p>
+<p>此变量可在location中使用，将请求主体通过proxy_pass, fastcgi_pass, uwsgi_pass, 和 scgi_pass传递给下一级的代理服务器。</p>
+<p><strong>$request_body_file</strong></p>
+<p>将客户端请求主体保存在临时文件中。文件处理结束后，此文件需删除。如果需要之一开启此功能，需要设置client_body_in_file_only。如果将次文件传递给后端的代理服务器，需要禁用request body，即设置proxy_pass_request_body off，fastcgi_pass_request_body off, uwsgi_pass_request_body off, or scgi_pass_request_body off 。</p>
+<p><strong>$request_completion</strong></p>
+<p>如果请求成功，值为”OK”，如果请求未完成或者请求不是一个范围请求的最后一部分，则为空。</p>
+<p><strong>$request_filename</strong></p>
+<p>当前连接请求的文件路径，由root或alias指令与URI请求生成。</p>
+<p><strong>$request_length</strong></p>
+<p>请求的长度 (包括请求的地址, http请求头和请求主体) (1.3.12, 1.2.7)</p>
+<p><strong>$request_method</strong></p>
+<p>HTTP请求方法，通常为“GET”或“POST”</p>
+<p><strong>$request_time</strong></p>
+<p>处理客户端请求使用的时间 (1.3.9, 1.2.6); 从读取客户端的第一个字节开始计时。</p>
+<p><strong>$request_uri</strong></p>
+<p>这个变量等于包含一些客户端请求参数的原始URI，它无法修改，请查看$uri更改或重写URI，不包含主机名，例如：”/cnphp/test.php?arg=freemouse”。</p>
+<p><strong>$scheme</strong></p>
+<p>请求使用的Web协议, “http” 或 “https”</p>
+<p><strong>$sent_http_name</strong></p>
+<p>可以设置任意http响应头字段； 变量名中的后半部分“name”可以替换成任意响应头字段，如需要设置响应头Content-length，那么将“－”替换为下划线，大写字母替换为小写，形如：$sent_http_content_length 4096即可。</p>
+<p><strong>$server_addr</strong></p>
+<p>服务器端地址，需要注意的是：为了避免访问linux系统内核，应将ip地址提前设置在配置文件中。</p>
+<p><strong>$server_name</strong></p>
+<p>服务器名，<a href="http://www.cnphp.info" target="_blank" rel="noopener">www.cnphp.info</a></p>
+<p><strong>$server_port</strong></p>
+<p>服务器端口</p>
+<p><strong>$server_protocol</strong></p>
+<p>服务器的HTTP版本, 通常为 “HTTP/1.0” 或 “HTTP/1.1”</p>
+<p><strong>$status</strong></p>
+<p>HTTP响应代码 (1.3.2, 1.2.2)</p>
+<p><strong>$tcpinfo_rtt, $tcpinfo_rttvar, $tcpinfo_snd_cwnd, $tcpinfo_rcv_space</strong></p>
+<p>客户端TCP连接的具体信息</p>
+<p><strong>$time_iso8601</strong></p>
+<p>服务器时间的ISO 8610格式 (1.3.12, 1.2.7)</p>
+<p>*<em>$time_local $arg_name *</em></p>
+<p>请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name</p>
+<p><strong>$args</strong></p>
+<p>请求中的参数值</p>
+<p><strong>$binary_remote_addr</strong></p>
+<p>客户端地址的二进制形式, 固定长度为4个字节</p>
+<p><strong>$body_bytes_sent</strong></p>
+<p>传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的“%B”参数保持兼容</p>
+<p><strong>$bytes_sent</strong></p>
+<p>传输给客户端的字节数 (1.3.8, 1.2.5)</p>
+<p><strong>$connection</strong></p>
+<p>TCP连接的序列号 (1.3.8, 1.2.5)</p>
+<p><strong>$connection_requests</strong></p>
+<p>TCP连接当前的请求数量 (1.3.8, 1.2.5)</p>
+<p>*<em>$content_lengt *</em></p>
+<p>“Content-Length” 请求头字段</p>
+<p><strong>$content_type</strong></p>
+<p>“Content-Type” 请求头字段</p>
+<p>*<em>$cookie_name *</em></p>
+<p>cookie名称</p>
+<p><strong>$document_root</strong></p>
+<p>当前请求的文档根目录或别名</p>
+<p><strong>$document_uri</strong></p>
+<p>同 $uri</p>
+<p><strong>$host</strong></p>
+<p>优先级如下：HTTP请求行的主机名&gt;”HOST”请求头字段&gt;符合请求的服务器名</p>
+<p><strong>$hostname</strong></p>
+<p>主机名</p>
+<p><strong>$http_name</strong></p>
+<p>匹配任意请求头字段； 变量名中的后半部分“name”可以替换成任意请求头字段，如在配置文件中需要获取http请求头：“Accept-Language”，那么将“－”替换为下划线，大写字母替换为小写，形如：$http_accept_language即可。</p>
+<p><strong>$https</strong></p>
+<p>如果开启了SSL安全模式，值为“on”，否则为空字符串。</p>
+<p><strong>$is_args</strong></p>
+<p>如果请求中有参数，值为“?”，否则为空字符串。</p>
+<p><strong>$limit_rate</strong></p>
+<p>用于设置响应的速度限制，详见 limit_rate。</p>
+<p><strong>$msec</strong></p>
+<p>当前的Unix时间戳 (1.3.9, 1.2.6)</p>
+<p><strong>$nginx_version</strong></p>
+<p>nginx版本</p>
+<p><strong>$pid</strong></p>
+<p>工作进程的PID</p>
+<p><strong>$pipe</strong></p>
+<p>如果请求来自管道通信，值为“p”，否则为“.” (1.3.12, 1.2.7)</p>
+<p><strong>$proxy_protocol_addr</strong></p>
+<p>获取代理访问服务器的客户端地址，如果是直接访问，该值为空字符串。(1.5.12)</p>
+<p><strong>$query_string</strong></p>
+<p>同 $args</p>
+<p><strong>$realpath_root</strong></p>
+<p>当前请求的文档根目录或别名的真实路径，会将所有符号连接转换为真实路径。</p>
+<p><strong>$remote_addr</strong></p>
+<p>客户端地址</p>
+<p><strong>$remote_port</strong></p>
+<p>客户端端口</p>
+<p><strong>$remote_user</strong></p>
+<p>用于HTTP基础认证服务的用户名</p>
+<p><strong>$request</strong></p>
+<p>代表客户端的请求地址</p>
+<p><strong>$request_body</strong></p>
+<p>客户端的请求主体</p>
+<p>此变量可在location中使用，将请求主体通过proxy_pass, fastcgi_pass, uwsgi_pass, 和 scgi_pass传递给下一级的代理服务器。</p>
+<p><strong>$request_body_file</strong></p>
+<p>将客户端请求主体保存在临时文件中。文件处理结束后，此文件需删除。如果需要之一开启此功能，需要设置client_body_in_file_only。如果将次文件传递给后端的代理服务器，需要禁用request body，即设置proxy_pass_request_body off，fastcgi_pass_request_body off, uwsgi_pass_request_body off, or scgi_pass_request_body off 。</p>
+<p><strong>$request_completion</strong></p>
+<p>如果请求成功，值为”OK”，如果请求未完成或者请求不是一个范围请求的最后一部分，则为空。</p>
+<p><strong>$request_filename</strong></p>
+<p>当前连接请求的文件路径，由root或alias指令与URI请求生成。</p>
+<p><strong>$request_length</strong></p>
+<p>请求的长度 (包括请求的地址, http请求头和请求主体) (1.3.12, 1.2.7)</p>
+<p><strong>$request_method</strong></p>
+<p>HTTP请求方法，通常为“GET”或“POST”</p>
+<p><strong>$request_time</strong></p>
+<p>处理客户端请求使用的时间 (1.3.9, 1.2.6); 从读取客户端的第一个字节开始计时。</p>
+<p><strong>$request_uri</strong></p>
+<p>这个变量等于包含一些客户端请求参数的原始URI，它无法修改，请查看$uri更改或重写URI，不包含主机名，例如：”/cnphp/test.php?arg=freemouse”。</p>
+<p><strong>$scheme</strong></p>
+<p>请求使用的Web协议, “http” 或 “https”</p>
+<p><strong>$sent_http_name</strong></p>
+<p>可以设置任意http响应头字段； 变量名中的后半部分“name”可以替换成任意响应头字段，如需要设置响应头Content-length，那么将“－”替换为下划线，大写字母替换为小写，形如：$sent_http_content_length 4096即可。</p>
+<p><strong>$server_addr</strong></p>
+<p>服务器端地址，需要注意的是：为了避免访问linux系统内核，应将ip地址提前设置在配置文件中。</p>
+<p><strong>$server_name</strong></p>
+<p>服务器名如<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
+<p><strong>$server_port</strong></p>
+<p>服务器端口</p>
+<p><strong>$server_protocol</strong></p>
+<p>服务器的HTTP版本, 通常为 “HTTP/1.0” 或 “HTTP/1.1”</p>
+<p><strong>$status</strong></p>
+<p>HTTP响应代码 (1.3.2, 1.2.2)</p>
+<p><strong>$tcpinfo_rtt</strong>, $tcpinfo_rttvar, $tcpinfo_snd_cwnd, $tcpinfo_rcv_space</p>
+<p>客户端TCP连接的具体信息</p>
+<p><strong>$time_iso8601</strong></p>
+<p>服务器时间的ISO 8610格式 (1.3.12, 1.2.7)</p>
+<p><strong>$time_local</strong></p>
+<p>服务器时间（LOG Format 格式） (1.3.12, 1.2.7)</p>
+<p><strong>$uri</strong></p>
+<p>请求中的当前URI(不带请求参数，参数位于$args)，可以不同于浏览器传递的$request_uri的值，它可以通过内部重定向，或者使用index指令进行修改，$uri不包含主机名，如”/foo/bar.html”。</p>
+<p>服务器时间（LOG Format 格式） (1.3.12, 1.2.7)</p>
+<p><strong>$uri</strong></p>
+<p>请求中的当前URI(不带请求参数，参数位于$args)，可以不同于浏览器传递的$request_uri的值，它可以通过内部重定向，或者使用index指令进行修改，$uri不包含主机名，如”/foo/bar.html”。</p>
+<h1 id="监控模块http-stub-status-modules"><a href="#监控模块http-stub-status-modules" class="headerlink" title="监控模块http_stub_status_modules"></a>监控模块http_stub_status_modules</h1><p>作用：监控Nginx客户端状态</p>
+<p>作用域：server；location</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">查看配置参数</span><br><span class="line">root@3de922dd7a75:/usr/share/nginx/html# nginx -V </span><br><span class="line">nginx version: nginx/1.19.0</span><br><span class="line">built by gcc 8.3.0 (Debian 8.3.0-6) </span><br><span class="line">built with OpenSSL 1.1.1d  10 Sep 2019</span><br><span class="line">TLS SNI support enabled</span><br><span class="line">configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-g -O2 -fdebug-prefix-map=/data/builder/debuild/nginx-1.19.0/debian/debuild-base/nginx-1.19.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' --with-ld-opt='-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie'</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>配置语法：在一个server下配置</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location  /status &#123;</span><br><span class="line">	stub_status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改完之后，测试配置文件是否有错误</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@3de922dd7a75:/etc/nginx# nginx -tc ./nginx.conf </span><br><span class="line">nginx: the configuration file /etc/nginx/./nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /etc/nginx/./nginx.conf test is successful</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>重载配置文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@3de922dd7a75:/etc/nginx# nginx	-s reload /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>再访问htttp://ip/stasus，出现一下</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Active connections: 2 </span><br><span class="line">server accepts handled requests</span><br><span class="line"> 4 4 1 </span><br><span class="line">Reading: 0 Writing: 1 Waiting: 1</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>nginx_status详解</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Active connections: 1     </span><br><span class="line">##nginx正处理的活跃连接数　　</span><br><span class="line">server accepts handled requests</span><br><span class="line">##server  nginx启动到现在共处理了多少个连接</span><br><span class="line">##accepts  nginx启动到现在共创建了多少次握手，请求丢失数&#x3D;握手数-连接数</span><br><span class="line">##handled requests    总共处理了多少个请求</span><br><span class="line">Reading: 0 Writing: 1 Waiting: 0</span><br><span class="line">##Reading  nginx读取客户端 header 信息数</span><br><span class="line">##Writing  nginx返回给客户端的 hearder 信息数</span><br><span class="line">##Waiting  nginx已经处理完正在等待下一次请求指令的驻留连接，在开启keep-alive的情况下，waiting值等于active - (Reading+Writing)</span><br></pre></td></tr></table></figure>
+
+<h1 id="模块http-random-index-module"><a href="#模块http-random-index-module" class="headerlink" title="模块http_random_index_module"></a>模块http_random_index_module</h1><p>作用：在主目录中选择一个随机主页</p>
+<p>默认：关闭</p>
+<p>作用域：location</p>
+<ol>
+<li>配置语法：在location中配置</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">	root /etc/nginx/html;</span><br><span class="line">	random_index on;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在/etc/nginx/html中新建一个html文件</li>
+<li>重复上一小节的检查配置文件，重载配置文件，在浏览器访问，不断刷新，出现不同的页面</li>
+</ol>
+<h1 id="默认模块http-sub-module"><a href="#默认模块http-sub-module" class="headerlink" title="默认模块http_sub_module"></a>默认模块http_sub_module</h1><p>作用：HTTP内容替换</p>
+<p>常用选项：sub_filter string replacement；sub_filter_last_modified on|off；sub_filter_once on|off</p>
+<p>作用域：http；server；location</p>
+<ol>
+<li><p>配置语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F; &#123;</span><br><span class="line">	root &#x2F;etc&#x2F;nginx&#x2F;html;</span><br><span class="line">	index index.html index.htm;</span><br><span class="line">	sub_filter &#39;nginx&#39; &#39;NGINX&#39;; #替换第一个nginx</span><br><span class="line">	sub_filter_once off; #关闭之后，所有的nginx都会被替换</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h1 id="Nginx的请求访问限制"><a href="#Nginx的请求访问限制" class="headerlink" title="Nginx的请求访问限制"></a>Nginx的请求访问限制</h1><h2 id="请求限制"><a href="#请求限制" class="headerlink" title="请求限制"></a>请求限制</h2><ol>
+<li><p>连接频率限制：limit_conn_module</p>
+<p>limit_conn_zone key zone=name:size，作用域http</p>
+<p>limit_conn zone number，作用域http，server，location</p>
+</li>
+<li><p>请求频率限制：limit_req_module</p>
+<p>limit_req_zone key zone=name:size rate=rate,http</p>
+<p>limit_req zone=name,http,server,location</p>
+</li>
+<li><p>配置语法：</p>
+<p>在http下配置，以客户端的ip地址作为key，对这个key进行限制，同时申请一个zone空间大小为1m用来存储访问的频次信息。$binary_remote_addr可以节省zone空间。rate=1r/s：表示允许相同标识的客户端的<strong>访问频次</strong>，这里限制的是每秒1次，即每秒只处理一个请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">limit_conn_zone $binary_remote_addr zone&#x3D;conn_zone:1m</span><br><span class="line">limit_req_zone $binary_remote_addr zone&#x3D;req_zone:1m rate&#x3D;1r&#x2F;s</span><br></pre></td></tr></table></figure>
+
+<p>在localtion下配置：</p>
+<p>limit_req zone=req_zon：使用配置好的rate的速率来处理数据</p>
+<p>burst=3：设置一个大小为3的缓冲区当有大量请求（爆发）过来时，超过了<strong>访问频次</strong>限制的<strong>请求可以先放到这个缓冲区内等待，但是这个等待区里的位置只有3个</strong>，超过的请求会直接报503的错误然后返回。</p>
+<p>nodelay：如果设置，会在瞬时提供处理(burst + rate)个请求的能力，请求超过（<strong>burst + rate）</strong>的时候就会直接返回503，永远不存在请求需要等待的情况。如果没有设置，则所有请求会依次等待排队</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location  &#x2F;status &#123;</span><br><span class="line">	root html;</span><br><span class="line">	#   limit_conn conn_zone 1;  #同一时间只允许一个连接</span><br><span class="line">    #   limit_req zone&#x3D;req_zone burst&#x3D;3 nodelay;  </span><br><span class="line">    #   limit_req zone&#x3D;req_zone burst&#x3D;3;</span><br><span class="line">    #   limit_req zone&#x3D;req_zone;</span><br><span class="line">    index show.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="访问限制"><a href="#访问限制" class="headerlink" title="访问限制"></a>访问限制</h2><p>基于IP的访问控制：http_access_module</p>
+</li>
+</ol>
+<p>   基于用户的信任登录：http_auth_basic_module</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">maishuren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.maishuren.top/posts/nginx/202006161551-index.html">http://www.maishuren.top/posts/nginx/202006161551-index.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.maishuren.top" target="_blank">maiBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%85%A5%E9%97%A8/">入门</a><a class="post-meta__tags" href="/tags/nginx/">nginx</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner11.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="/img/pay-for-weichat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/posts/docker/202006161622-index.html"><img class="prev_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner9.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">centos7安装docker</div></div></a></div><div class="next-post pull_right"><a href="/posts/nginx/202006151538-index.html"><img class="next_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner6.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">nginx入门之初识nginx</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/nginx/202006151538-index.html" title="nginx入门之初识nginx"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner6.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-15</div><div class="relatedPosts_title">nginx入门之初识nginx</div></div></a></div><div class="relatedPosts_item"><a href="/posts/gloang/202006131039-index.html" title="golang学习八：切片"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner2.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-13</div><div class="relatedPosts_title">golang学习八：切片</div></div></a></div><div class="relatedPosts_item"><a href="/posts/gloang/202006182347-index.html" title="golang学习十二：值传递和引用传递"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner3.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-18</div><div class="relatedPosts_title">golang学习十二：值传递和引用传递</div></div></a></div><div class="relatedPosts_item"><a href="/posts/golang/202006182343-index.html" title="golang学习十一：包的访问权限、变量作用域、闭包"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner1.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-18</div><div class="relatedPosts_title">golang学习十一：包的访问权限、变量作用域、闭包</div></div></a></div><div class="relatedPosts_item"><a href="/posts/golang/202006182334-index.html" title="golang学习十：函数"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner27.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-18</div><div class="relatedPosts_title">golang学习十：函数</div></div></a></div><div class="relatedPosts_item"><a href="/posts/golang/202006182323-index.html" title="golang学习九：sort包、map、双向链表、双向循环链表"><img class="relatedPosts_cover" src="https://gitee.com/maishuren/blog-pic/raw/master/banner/blogbanner27.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-18</div><div class="relatedPosts_title">golang学习九：sort包、map、双向链表、双向循环链表</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
   var from = from
   var setting = set.split(',').filter(function(item){
   return from.indexOf(item) > -1
