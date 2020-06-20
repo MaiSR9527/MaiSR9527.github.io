@@ -2,7 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://www.maishuren.top/posts/golang/202006182355-index.html</loc>
-    <lastmod>2020-06-18</lastmod>
+    <lastmod>2020-06-20</lastmod>
+  </url>  <url>
+    <loc>http://www.maishuren.top/posts/nginx/202006191422-index.html</loc>
+    <lastmod>2020-06-19</lastmod>
+  </url>  <url>
+    <loc>http://www.maishuren.top/posts/nginx/202006161551-index.html</loc>
+    <lastmod>2020-06-19</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/golang/202006182349-index.html</loc>
     <lastmod>2020-06-18</lastmod>
@@ -18,9 +24,6 @@
   </url>  <url>
     <loc>http://www.maishuren.top/posts/golang/202006182323-index.html</loc>
     <lastmod>2020-06-18</lastmod>
-  </url>  <url>
-    <loc>http://www.maishuren.top/posts/nginx/202006161551-index.html</loc>
-    <lastmod>2020-06-17</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/docker/202006161622-index.html</loc>
     <lastmod>2020-06-16</lastmod>

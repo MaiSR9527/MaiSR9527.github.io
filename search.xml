@@ -346,9 +346,242 @@
       </tags>
   </entry>
   <entry>
+    <title>nginx实践：静态资源Web服务、代理服务、负载均衡调度器SLB和动态缓存</title>
+    <url>/posts/nginx/202006191422-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="静态资源服务"><a href="#静态资源服务" class="headerlink" title="静态资源服务"></a>静态资源服务</h1><h2 id="核心配置和文件压缩"><a href="#核心配置和文件压缩" class="headerlink" title="核心配置和文件压缩"></a>核心配置和文件压缩</h2><ol>
+<li><p>配置语法：文件读取</p>
+<p>配置：sendfile on | off。默认：sendfile off。作用域：http, server, location，if in location</p>
+<p>sendfile 是一种高效传输文件的模式。sendfile设置为on表示启动高效传输文件的模式。sendfile可以让Nginx在传输文件时直接在磁盘和tcp socket之间传输数据。如果这个参数不开启，会先在用户空间（Nginx进程空间）申请一个buffer，用read函数把数据从磁盘读到cache，再从cache读取到用户空间的buffer，再用write函数把数据从用户空间的buffer写入到内核的buffer，最后到tcp socket。开启这个参数后可以让数据不用经过用户buffer。</p>
+</li>
+<li><p>配置语法：tcp_nopush</p>
+<p>配置：tcp_nopush on | off</p>
+<p>默认：tcp_nopush off</p>
+<p>作用域：http, server, location</p>
+<p>tcp_nopush是在sendfile开启的情况下，提高网络包的传输效率。tcp_nopush指令，在连接套接字时启用Linux系统下的TCP_CORK。该选项告诉TCP堆栈附加数据包，并在它们已满或当应用程序通过显式删除TCP_CORK指示发送数据包时发送它们。 这使得发送的数据分组是最优量，并且因此提高了网络数据包的传输效率。<br>也就是说 tcp_nopush=on 时，结果就是数据包不会马上传送出去，等到数据包最大时，一次性的传输出去，这样有助于解决网络堵塞，虽然有一点点延迟。</p>
+</li>
+<li><p>配置语法：tcp_nodelay</p>
+<p>配置：tcp_nodelay on | off;</p>
+<p>默认： tcp_nodelay on;</p>
+<p>作用域：http, server, location</p>
+<p>tcp_nodelay是在 keepalive 连接下，提高网络数据包的传输实时性。tcp_nodelay选项和tcp_nopush正好相反，数据包不等待，实时发送给用户。</p>
+</li>
+<li><p>配置语法：gzip压缩</p>
+<p>压缩传输，提高传输效率。开启压缩，可以加快资源响应速度节省网络带宽资源</p>
+<p>gizp配置语法：</p>
+<p>​    配置：gzip on | off;</p>
+<p>​    默认：gzip off;</p>
+<p>​    作用域：http, server, location, if in location</p>
+<p>配置压缩比：压缩等级配置（压缩等级越高，越消耗服务器资源）</p>
+<p>​    配置：gzip_comp_level level;</p>
+<p>​    默认：gzip_comp_level 1;</p>
+<p>​    作用域： http, server, location</p>
+<p>gzip协议版本配置：</p>
+<p>​    配置：gzip_http_version 1.0 | 1.1;</p>
+<p>​    默认：gzip_http_version 1.1;</p>
+<p>​    作用域：http, server, location;</p>
+<p>压缩扩展模块：预读gzip功能 ngx_http_gzip_static_module</p>
+<p>​    配置： gzip_static on | off | always;</p>
+<p>​    默认：gzip_static off;</p>
+<p>​    作用域：http, server, location</p>
+<p> gunzip的压缩方式 ngx_http_gunzip_module</p>
+<p>​    配置：gunzip on | off;</p>
+<p>​    默认：gunzip off;</p>
+<p>​    作用域：http, server, location</p>
+<p>​    </p>
+<p>​    配置：gunzip_buffers number size;</p>
+<p>​    默认：gunzip_buffers 32 4k|16 8k;</p>
+<p>​    作用域：http, server, location;</p>
+</li>
+</ol>
+<h3 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h3><p>配置图片压缩，在/opt/work/code/images目录下准备一张图片，第一次请求先关闭gzip，禁止Chrome缓存，打开开发者工具，然后请求图片，在network里查看图片的size。开启gzip，再次请求该图片，会发现图片被压缩变小了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ .*\.(jpg|gif|png)$ &#123;</span><br><span class="line">            gzip on;</span><br><span class="line">            gzip_http_version 1.1;</span><br><span class="line">            gzip_comp_level 2;</span><br><span class="line">            gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;</span><br><span class="line">            root  /opt/work/code/images;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于txt，html等文件，与上述同理</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ .*\.(txt|xml)$ &#123;</span><br><span class="line">            gzip on;</span><br><span class="line">            gzip_http_version 1.1;</span><br><span class="line">            gzip_comp_level 1;</span><br><span class="line">            gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;</span><br><span class="line">            root  /opt/work/code/doc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置访问压缩的静态资源</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location ~ ^&#x2F;download &#123;</span><br><span class="line">            gzip_static on;</span><br><span class="line">            tcp_nopush on;</span><br><span class="line">            root &#x2F;opt&#x2F;work&#x2F;code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h2><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/browser_cache.jpg" alt=""></p>
+<p>过期检验机制</p>
+<ol>
+<li>检验是否过期：Expires、Cache-Controller(max-age)</li>
+<li>协议中的Etag头信息校验：Etag</li>
+<li>Last-Modified头信息校验：Last-Modified</li>
+</ol>
+<h3 id="expires配置"><a href="#expires配置" class="headerlink" title="expires配置"></a>expires配置</h3><p>配置：expires time</p>
+<p>默认：expires off</p>
+<p>作用域：http，server，location，if in lacation</p>
+<h3 id="配置示例-1"><a href="#配置示例-1" class="headerlink" title="配置示例"></a>配置示例</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ .*\.(txt|xml)$ &#123;</span><br><span class="line">	expires 24h;</span><br><span class="line">	root /opt/work/html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于txt、html文件设置过期时间24小时。配置好之后再去访问这些配置了expires的文件，通过浏览器的开发工具观看，可以看到，第一次请求status是200，再次请求status就变成了304，说明读取了缓存。响应头就会出现如下信息：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Cache-Control: max-age&#x3D;86400</span><br><span class="line">TETag: &quot;5ee9b0ef-12d&quot;</span><br><span class="line">Expires: Sat, 20 Jun 2020 08:11:21 GMT</span><br><span class="line">Last-Modified: Wed, 17 Jun 2020 05:58:07 GMT</span><br></pre></td></tr></table></figure>
+
+<h2 id="跨域访问处理"><a href="#跨域访问处理" class="headerlink" title="跨域访问处理"></a>跨域访问处理</h2><p>通过add_header可以在响应头中添加Access-Controller-Allow-Origin头信息来允许客户端实现跨域访问。</p>
+<h3 id="配置语法"><a href="#配置语法" class="headerlink" title="配置语法"></a>配置语法</h3><p>配置：add_header name value;</p>
+<p>作用域：http，server，location，if in location;</p>
+<h3 id="配置示例-2"><a href="#配置示例-2" class="headerlink" title="配置示例"></a>配置示例</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line"><span class="meta">	#</span><span class="bash">允许跨域访问所有的域名，也可以指定域名如：http://www.baidu.com</span></span><br><span class="line">	add_header Access-Controller-Allow-Origin *;</span><br><span class="line"><span class="meta">	#</span><span class="bash">允许这些方法进行跨域访问</span></span><br><span class="line">	add_header Access-Controller-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;</span><br><span class="line">	root /opt/work/html;</span><br><span class="line">	index index.html index.htm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于跨域访问，也可以通过服务端的代码来实现，例如Java，golang等服务端语言都可以实现。</p>
+<h2 id="防盗链"><a href="#防盗链" class="headerlink" title="防盗链"></a>防盗链</h2><p>防盗链可以防止网站的资源被盗用。nginx可以实现简单的防盗链功能。</p>
+<h3 id="基于http-refer防盗链配置模块"><a href="#基于http-refer防盗链配置模块" class="headerlink" title="基于http_refer防盗链配置模块"></a>基于http_refer防盗链配置模块</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ .*\.(txt|xml)$ &#123;</span><br><span class="line">	valid_referers none blocked *.maishuren.top maishuren.top server_names ~\.google\. ~\.baidu\.;</span><br><span class="line">    if ($invalid_referer) &#123;</span><br><span class="line">    	return 403;</span><br><span class="line">    &#125;</span><br><span class="line">	gzip on;</span><br><span class="line">	gzip_http_version 1.1;</span><br><span class="line">	gzip_comp_level 1;</span><br><span class="line">	gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;</span><br><span class="line">	root  html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+        <tag>实践</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>golang学习十四：golang中的面向对象</title>
     <url>/posts/golang/202006182355-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1>]]></content>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Go语言中的面向对象"><a href="#Go语言中的面向对象" class="headerlink" title="Go语言中的面向对象"></a>Go语言中的面向对象</h1><ul>
+<li><p>面向对象是一种思想,到目前为止还没有一个非常明确的定义,老程序员在不同时期对面向对象的理解是不同的.Go语言中对面向对象有着自己的理解</p>
+<blockquote>
+<p>Although there is no universally accepted definition of object-oriented programming, for our purposes, an object is simply a value or variable that has methods , and a method is a function assiociated with a particular type.</p>
+</blockquote>
+</li>
+<li><p>通过上面解释看出了Go语言开发者认为:面向对象就是特定类型(结构体)有这自己的方法,利用这个方法完成面向对象编程,并没有提封装、继承、多态.所有Go语言进行面向对象编程时,重点在于灵活使用方法.Go语言通过这样的设计降低了语言学习的压力.</p>
+</li>
+<li><p>Go语言有着自己对面向对象的理解,他也有着自己的封装、继承、多态</p>
+</li>
+</ul>
+<h1 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h1><ul>
+<li>封装主要体现在两个方面:封装数据、封装业务</li>
+<li>Go语言中通过首字母大小控制访问权限.属性首字母小写对外提供访问方法是封装数据最常见的实现方式</li>
+<li>可以通过方法封装业务<ul>
+<li>提出方法是封装</li>
+<li>控制结构体属性访问,对外提供访问方法也是封装</li>
+</ul>
+</li>
+<li>在面向对象中封装的好处:<ul>
+<li>安全性.结构体属性访问受到限制,必须按照特定访问渠道</li>
+<li>可复用性,封装的方法实现可复用性</li>
+<li>可读写,多段增加代码可读性</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><ul>
+<li>Go语言同包任意位置可以访问全局内容,封装控制可以控制包外访问结构体中数据<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span> <span class="comment">//姓名</span></span><br><span class="line">	age  <span class="keyword">int</span>    <span class="comment">//体重.单位斤</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	p.name = name</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">GetName</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> p.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">SetAge</span><span class="params">(age <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	p.age = age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">GetAge</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> p.age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>封装业务就是根据自己的需求提取代码,使用Go语言标准库中的函数过程就属性封装业务(代码)</li>
+</ul>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><ul>
+<li>按照传统面向对象思想,继承就是把同一类事物提出共同点为父类,让子类可以复用父类的可访问性内容.</li>
+<li>继承有多种实现方式<ul>
+<li>通过关键字继承,强耦合实现方式</li>
+<li>组合式继承,松耦合继承方式</li>
+</ul>
+</li>
+<li>使用过Java或C#的应该知道尽量少用继承而是使用组合代替继承,可以使用高内聚,低耦合.Java之父之前在一次采访的时候也说过,如果给他一次机会重新做Java,他最希望修改的地方就是继承</li>
+<li>Go语言中的继承是通过组合实现</li>
+</ul>
+<h2 id="匿名属性"><a href="#匿名属性" class="headerlink" title="匿名属性"></a>匿名属性</h2><ul>
+<li>在Go语言中支持匿名属性(结构体中属性名字),但是每个最多只能存在匿名属性.编译器认为类型就是属性名,我们在使用时就把类型当作属性名进行使用<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="keyword">string</span></span><br><span class="line">	<span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	p:=People&#123;<span class="string">"msr"</span>,<span class="number">22</span>&#125;</span><br><span class="line">	fmt.Println(p.<span class="keyword">string</span>,p.<span class="keyword">int</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="结构体之间的关系"><a href="#结构体之间的关系" class="headerlink" title="结构体之间的关系"></a>结构体之间的关系</h2><ul>
+<li>传统面向对象中类与类之间的关系<ul>
+<li>继承:is-a,强耦合性,一般认为类与类之间具有强关系</li>
+<li>实现:like-a,接口和实现类之间的关系</li>
+<li>依赖:use-a,具有偶然性的、临时性的、非常弱的，但是B类的变化会影响到A,一般作为方法参数</li>
+<li>关联:has-a一种强依赖关系，比如我和我的朋友；这种关系比依赖更强、不存在依赖关系的偶然性、关系也不是临时性的，一般是长期性的，而且双方的关系一般是平等的、关联可以是单向、双向的</li>
+<li>聚合:has-a,整体与部分、拥有的关系</li>
+<li>组合:contains-a,他体现的是一种contains-a的关系，这种关系比聚合更强，也称为强聚合；他同样体现整体与部分间的关系，但此时整体与部分是不可分的，整体的生命周期结束也就意味着部分的生命周期结束</li>
+<li>组合&gt;聚合&gt;关联&gt;依赖</li>
+</ul>
+</li>
+<li>Go语言中标准的组合关系<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Teacher <span class="keyword">struct</span> &#123;</span><br><span class="line">	peo       People</span><br><span class="line">	classroom <span class="keyword">string</span> <span class="comment">//班级</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	teacher := Teacher&#123;People&#123;<span class="string">"msr"</span>, <span class="number">17</span>&#125;, <span class="string">"302教室"</span>&#125;</span><br><span class="line">	<span class="comment">//必须通过包含的变量名调用另一个结构体中内容</span></span><br><span class="line">	fmt.Println(teacher.classroom, teacher.peo.age, teacher.peo.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="使用匿名属性完成Go语言中的继承"><a href="#使用匿名属性完成Go语言中的继承" class="headerlink" title="使用匿名属性完成Go语言中的继承"></a>使用匿名属性完成Go语言中的继承</h2><ul>
+<li>Go语言中的继承很好实现,把另一个结构体类型当作另一个结构体的属性,可以直接调用另一个结构体中的内容</li>
+<li>因为Go语言中结构体不能相互转换,所以不能把子结构体变量赋值给父结构体变量<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Teacher <span class="keyword">struct</span> &#123;</span><br><span class="line">	People</span><br><span class="line">	classroom <span class="keyword">string</span> <span class="comment">//班级</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	teacher := Teacher&#123;People&#123;<span class="string">"msr"</span>, <span class="number">22</span>&#125;, <span class="string">"302教室"</span>&#125;</span><br><span class="line">	fmt.Println(teacher.classroom, teacher.age, teacher.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h1><ul>
+<li><p>接口解释:接口是一组行为规范的定义.</p>
+</li>
+<li><p>接口中只能有方法声明,方法只能有名称、参数、返回值,不能有方法体</p>
+</li>
+<li><p>每个接口中可以有多个方法声明,结构体把接口中 <strong>所有</strong> 方法都重写后,结构体就属于接口类型</p>
+</li>
+<li><p>Go语言中接口和结构体之间的关系是传统面向对象中is-like-a的关系</p>
+</li>
+<li><p>定义接口类型关键字是interface</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> 接口名 <span class="keyword">interface</span>&#123;</span><br><span class="line">  方法名(参数列表) 返回值列表</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接口可以继承接口,且Go语言推荐把接口中方法拆分成多个接口</p>
+</li>
+</ul>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><ul>
+<li>接口中声明完方法,结构体重写接口中方法后,编译器认为结构体实现了接口<ul>
+<li>重写的方法要求必须和接口中方法名称、方法参数(参数名称可以不同)、返回值列表完全相同<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Live <span class="keyword">interface</span> &#123;</span><br><span class="line">	run(run <span class="keyword">int</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">run</span><span class="params">(run <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Println(p.name, <span class="string">"正在跑步,跑了,"</span>, run, <span class="string">"米"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	peo := People&#123;<span class="string">"张三"</span>, <span class="number">17</span>&#125;</span><br><span class="line">	peo.run(<span class="number">100</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>如果接口中有多个方法声明,接口体必须重写接口中全部方法才任务结构体实现了接口<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Live <span class="keyword">interface</span> &#123;</span><br><span class="line">	run(run <span class="keyword">int</span>)</span><br><span class="line">	eat()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">run</span><span class="params">(run <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Println(p.name, <span class="string">"正在跑步,跑了,"</span>, run, <span class="string">"米"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(p.name, <span class="string">"正在吃饭"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	peo := People&#123;<span class="string">"张三"</span>, <span class="number">17</span>&#125;</span><br><span class="line">	peo.run(<span class="number">100</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>接口可以继承接口(组合),上面代码可以改写成下面代码</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Live <span class="keyword">interface</span> &#123;</span><br><span class="line">	run(run <span class="keyword">int</span>)</span><br><span class="line">	Eat</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Eat <span class="keyword">interface</span> &#123;</span><br><span class="line">	eat()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">run</span><span class="params">(run <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Println(p.name, <span class="string">"正在跑步,跑了,"</span>, run, <span class="string">"米"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(p.name, <span class="string">"正在吃饭"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	peo := People&#123;<span class="string">"张三"</span>, <span class="number">17</span>&#125;</span><br><span class="line">	peo.run(<span class="number">100</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><ul>
+<li>多态:同一件事情由于条件不同产生的结果不同</li>
+<li>由于Go语言中结构体不能相互转换,所以没有结构体(父子结构体)的多态,只有基于接口的多态.这也符合Go语言对面向对象的诠释</li>
+<li>多态在代码层面最常见的一种方式是接口当作方法参数</li>
+</ul>
+<h2 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h2><ul>
+<li><p>结构体实现了接口的全部方法,就认为结构体属于接口类型,这是可以把结构体变量赋值给接口变量</p>
+</li>
+<li><p>重写接口时接收者为<code>Type</code>和<code>*Type</code>的区别</p>
+<ul>
+<li><code>*Type</code>可以调用<code>*Type</code>和<code>Type</code>作为接收者的方法.所以只要接口中多个方法中至少出现一个使用<code>*Type</code>作为接收者进行重写的方法,就必须把结构体指针赋值给接口变量,否则编译报错</li>
+<li><code>Type</code>只能调用<code>Type</code>作为接收者的方法<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Live <span class="keyword">interface</span> &#123;</span><br><span class="line">	run()</span><br><span class="line">	eat()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">run</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(p.name, <span class="string">"正在跑步"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p People)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(p.name, <span class="string">"在吃饭"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//重写接口时</span></span><br><span class="line">	<span class="keyword">var</span> run Live = &amp;People&#123;<span class="string">"张三"</span>&#125;</span><br><span class="line">	run.run()</span><br><span class="line">	run.eat()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>既然接口可以接收实现接口所有方法的结构体变量,接口也就可以作为方法(函数)参数</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Live <span class="keyword">interface</span> &#123;</span><br><span class="line">	run()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"><span class="keyword">type</span> Animate <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *People)</span> <span class="title">run</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"人在跑"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *Animate)</span> <span class="title">run</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"动物在跑"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sport</span><span class="params">(live Live)</span></span> &#123;</span><br><span class="line">	fmt.Println(live.run)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	peo := &amp;People&#123;&#125;</span><br><span class="line">	peo.run() <span class="comment">//输出:人在跑</span></span><br><span class="line">	ani := &amp;Animate&#123;&#125;</span><br><span class="line">	ani.run() <span class="comment">//输出:动物在跑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h1><ul>
+<li><p>只要实现了接口的全部方法认为这个类型属于接口类型,如果编写一个接口,这个接口中没有任何方法,这时认为所有类型都实现了这个接口.所以Go语言中<code>interface{}</code>代表任意类型</p>
+</li>
+<li><p>如果<code>interface{}</code>作为方法参数就可以接收任意类型,但是在程序中有时有需要知道这个参数到底是什么类型,这个时候就需要使用断言</p>
+</li>
+<li><p>断言使用时使用interface{}变量点括号,括号中判断是否属于的类型</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">i <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">i.(Type)</span><br></pre></td></tr></table></figure></li>
+<li><p>断言的两大作用:</p>
+<ul>
+<li>判断是否是指定类型</li>
+<li>把interface{}转换为特定类型<h2 id="代码示例-2"><a href="#代码示例-2" class="headerlink" title="代码示例"></a>代码示例</h2></li>
+</ul>
+</li>
+<li><p>断言可以有一个返回值,如果判断结果是指定类型返回变量值,如果不是指定类型报错</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span>&#123;</span><br><span class="line">	result:=i.(<span class="keyword">int</span>)</span><br><span class="line">	fmt.Println(result)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	参数是456时,程序运行正常,输出:</span></span><br><span class="line"><span class="comment">		456</span></span><br><span class="line"><span class="comment">	参数是false时报错：</span></span><br><span class="line"><span class="comment">		panic: interface conversion: interface &#123;&#125; is bool, not int</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	demo(<span class="number">456</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>断言也可以有两个返回值,这时无论是否是指定类型都不报错.</p>
+<ul>
+<li>第一个参数:<ul>
+<li>如果正确:返回值变量值</li>
+<li>如果错误:返回判断类型的默认值</li>
+</ul>
+</li>
+<li>第二个参数:<ul>
+<li>返回值为bool类型,true表示正确,false表示错误<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">demo</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	result, ok := i.(<span class="keyword">int</span>)</span><br><span class="line">	fmt.Println(result, ok)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	参数是456时,程序运行正常,输出:</span></span><br><span class="line"><span class="comment">		456	true</span></span><br><span class="line"><span class="comment">	参数是字符串"abc"时程序运行正常,输出:</span></span><br><span class="line"><span class="comment">		0 false</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	demo(<span class="string">"abc"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
       <categories>
         <category>后端</category>
       </categories>
@@ -861,38 +1094,9 @@
   <entry>
     <title>nginx入门之配置语法</title>
     <url>/posts/nginx/202006161551-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="默认的配置文件"><a href="#默认的配置文件" class="headerlink" title="默认的配置文件"></a>默认的配置文件</h1><p>   shell<br>user  nginx;<br>worker_processes  1;</p>
-<p>error_log  /var/log/nginx/error.log warn;<br>pid        /var/run/nginx.pid;</p>
-<p>events {<br>    worker_connections  1024;<br>}</p>
-<p>http {<br>    include       /etc/nginx/mime.types;<br>    default_type  application/octet-stream;</p>
-<pre><code>log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
-                  &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
-                  &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="默认的配置文件"><a href="#默认的配置文件" class="headerlink" title="默认的配置文件"></a>默认的配置文件</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">	log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">                  '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">                  '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line"></span><br><span class="line">	access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">	sendfile        on;</span><br><span class="line"><span class="meta">	#</span><span class="bash">tcp_nopush     on;</span></span><br><span class="line"></span><br><span class="line">	keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line"><span class="meta">	#</span><span class="bash">gzip  on;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	#</span><span class="bash">include /etc/nginx/conf.d/*.conf;</span></span><br><span class="line">	server &#123;</span><br><span class="line">		listen       80;</span><br><span class="line">		server_name  localhost;</span><br><span class="line"></span><br><span class="line">		location / &#123;</span><br><span class="line">   			root   /usr/share/nginx/html;</span><br><span class="line">	    	index  index.html index.htm;</span><br><span class="line">		&#125;</span><br><span class="line">		error_page   500 502 503 504 404  /50x.html;</span><br><span class="line">		location = /50x.html &#123;</span><br><span class="line">    		root   /usr/share/nginx/html;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-access_log  /var/log/nginx/access.log  main;
 
-sendfile        on;
-#tcp_nopush     on;
-
-keepalive_timeout  65;
-
-#gzip  on;
-
-#include /etc/nginx/conf.d/*.conf;
-server {
-    listen       80;
-    server_name  localhost;
-
-    location / {
-           root   /usr/share/nginx/html;
-        index  index.html index.htm;
-    }
-    error_page   500 502 503 504 404  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
-
-}</code></pre><p>}</p>
 <ul>
 <li>user:设置nginx服务的系统使用用户</li>
 <li>worker_processes:工作进程数</li>
@@ -1165,31 +1369,73 @@ server {
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location &#x2F; &#123;</span><br><span class="line">	root &#x2F;etc&#x2F;nginx&#x2F;html;</span><br><span class="line">	index index.html index.htm;</span><br><span class="line">	sub_filter &#39;nginx&#39; &#39;NGINX&#39;; #替换第一个nginx</span><br><span class="line">	sub_filter_once off; #关闭之后，所有的nginx都会被替换</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
 </li>
 </ol>
 <h1 id="Nginx的请求访问限制"><a href="#Nginx的请求访问限制" class="headerlink" title="Nginx的请求访问限制"></a>Nginx的请求访问限制</h1><h2 id="请求限制"><a href="#请求限制" class="headerlink" title="请求限制"></a>请求限制</h2><ol>
 <li><p>连接频率限制：limit_conn_module</p>
-<p>limit_conn_zone key zone=name:size，作用域http</p>
-<p>limit_conn zone number，作用域http，server，location</p>
+<p>limit_conn_zone key zone=name:size，作用域：http</p>
+<p>limit_conn zone number，作用域：http，server，location</p>
 </li>
 <li><p>请求频率限制：limit_req_module</p>
 <p>limit_req_zone key zone=name:size rate=rate,http</p>
-<p>limit_req zone=name,http,server,location</p>
+<p>limit_req zone=name，作用域：http，server，location</p>
 </li>
 <li><p>配置语法：</p>
 <p>在http下配置，以客户端的ip地址作为key，对这个key进行限制，同时申请一个zone空间大小为1m用来存储访问的频次信息。$binary_remote_addr可以节省zone空间。rate=1r/s：表示允许相同标识的客户端的<strong>访问频次</strong>，这里限制的是每秒1次，即每秒只处理一个请求。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">limit_conn_zone $binary_remote_addr zone&#x3D;conn_zone:1m</span><br><span class="line">limit_req_zone $binary_remote_addr zone&#x3D;req_zone:1m rate&#x3D;1r&#x2F;s</span><br></pre></td></tr></table></figure>
-
-<p>在localtion下配置：</p>
-<p>limit_req zone=req_zon：使用配置好的rate的速率来处理数据</p>
-<p>burst=3：设置一个大小为3的缓冲区当有大量请求（爆发）过来时，超过了<strong>访问频次</strong>限制的<strong>请求可以先放到这个缓冲区内等待，但是这个等待区里的位置只有3个</strong>，超过的请求会直接报503的错误然后返回。</p>
-<p>nodelay：如果设置，会在瞬时提供处理(burst + rate)个请求的能力，请求超过（<strong>burst + rate）</strong>的时候就会直接返回503，永远不存在请求需要等待的情况。如果没有设置，则所有请求会依次等待排队</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location  &#x2F;status &#123;</span><br><span class="line">	root html;</span><br><span class="line">	#   limit_conn conn_zone 1;  #同一时间只允许一个连接</span><br><span class="line">    #   limit_req zone&#x3D;req_zone burst&#x3D;3 nodelay;  </span><br><span class="line">    #   limit_req zone&#x3D;req_zone burst&#x3D;3;</span><br><span class="line">    #   limit_req zone&#x3D;req_zone;</span><br><span class="line">    index show.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="访问限制"><a href="#访问限制" class="headerlink" title="访问限制"></a>访问限制</h2><p>基于IP的访问控制：http_access_module</p>
 </li>
 </ol>
-<p>   基于用户的信任登录：http_auth_basic_module</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">limit_conn_zone $binary_remote_addr zone&#x3D;conn_zone:1m</span><br><span class="line">limit_req_zone $binary_remote_addr zone&#x3D;req_zone:1m rate&#x3D;1r&#x2F;s</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>在localtion下配置：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location  /status &#123;</span><br><span class="line">   root html;</span><br><span class="line"><span class="meta">   #</span><span class="bash">   limit_conn conn_zone 1;  <span class="comment">#同一时间只允许一个连接</span></span></span><br><span class="line"><span class="meta">   #</span><span class="bash">   limit_req zone=req_zone burst=3 nodelay;  </span></span><br><span class="line"><span class="meta">   #</span><span class="bash">   limit_req zone=req_zone burst=3;</span></span><br><span class="line"><span class="meta">   #</span><span class="bash">   limit_req zone=req_zone;</span></span><br><span class="line">   index show.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> limit_req zone=req_zon：使用配置好的rate的速率来处理数据</p>
+<p> burst=3：设置一个大小为3的缓冲区当有大量请求（爆发）过来时，超过了<strong>访问频次</strong>限制的<strong>请求可以先放到这个缓冲区内等待，但是这个等待区里的位置只有3个</strong>，超过的请求会直接报503的错误然后返回。</p>
+<p>nodelay：如果设置，会在瞬时提供处理(burst + rate)个请求的能力，请求超过（<strong>burst + rate）</strong>的时候就会直接返回503，永远不存在请求需要等待的情况。如果没有设置，则所有请求会依次等待排队</p>
+<h2 id="访问限制"><a href="#访问限制" class="headerlink" title="访问限制"></a>访问限制</h2><h3 id="基于IP的访问控制：http-access-module"><a href="#基于IP的访问控制：http-access-module" class="headerlink" title="基于IP的访问控制：http_access_module"></a>基于IP的访问控制：http_access_module</h3><ol>
+<li><p>常用选项：</p>
+<p>allow address | CIDR | unix: | all。作用域： http,，server， location，limit_except</p>
+<p>allow允许访问 ，address配置为IP地址</p>
+<p>deny address | CIDR | unix: | all。作用域：http, server, location, limit_except</p>
+<p>deny不允许访问 ，address配置为IP地址</p>
+</li>
+<li><p>在location下配置：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">	root html;</span><br><span class="line">    deny 192.168.1.74;#也可以配置IP段：192.168.1.0/24</span><br><span class="line">    allow all;</span><br><span class="line">    index show.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上所示，location下的’/‘目录不允许IP为192.168.1.74的用户访问，其他地IP都可以访问。当192.168.1.74访问时，会出现403页面，不允许访问。</p>
+</li>
+<li><p>局限性：</p>
+<p>由于http_access_module的访问控制是是针对客户端的IP来进行限制，凡是和nginx进行连接交互的都会被当作客户端，当真正的客户端与nginx之间有一下代理服务的时候，这种IP的控制就会失效。</p>
+</li>
+</ol>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/ip_fail_nginx.jpg" alt=""></p>
+<ol start="4">
+<li><p>局限性解决方法总结：</p>
+<p>方法一： 采用http头信息控制访问，如HTTP_X_FORWARD_FOR<br>方法二： 结合geo模块<br>方法三： 通过HTTP自定义变量传递</p>
+<p>http_x_forwarded_for头信息控制访问 会更好的解决该问题,它要求访问时必须带上所有用到的ip的地址信息</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http_x_forwarded_for &#x3D; Client IP, Proxy(1)IP, Proxy(2)IP,...</span><br></pre></td></tr></table></figure>
+
+<h3 id="基于用户的信任登录：http-auth-basic-module"><a href="#基于用户的信任登录：http-auth-basic-module" class="headerlink" title="基于用户的信任登录：http_auth_basic_module"></a>基于用户的信任登录：http_auth_basic_module</h3><ol>
+<li><p>常用选项：</p>
+<p>auth_basic string | off。默认: auth_basic off。作用域：http, server, location, limit_except </p>
+<p>auth_basic_user_file file。作用域： http, server, location, limit_except</p>
+</li>
+<li><p>配置：</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@msr-server ~]# yum install httpd-tools -y        #安装httpd-tools工具</span><br><span class="line">[root@msr-server conf.d]# htpasswd -c .&#x2F;auth_conf msr  #生成文件</span><br><span class="line">New password: </span><br><span class="line">Re-type new password: </span><br><span class="line">Adding password for user msr</span><br><span class="line">[root@msr-server conf.d]# ll                           #查看</span><br><span class="line">total 8</span><br><span class="line">-rw-r--r-- 1 root root   42 Jun 19 14:05 auth_conf     </span><br><span class="line">-rw-r--r-- 1 root root 1144 Jun 16 18:09 default.conf</span><br><span class="line">[root@msr-server conf.d]# more auth_conf               #查看内容</span><br><span class="line">msr:$apr1$ripuvDcJ$274OgHXOPwCb5kJ5dggq7.</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在location下配置</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">	root html;</span><br><span class="line">	auth_basic "AUth access!";</span><br><span class="line">	auth_basic_user_file /etc/nginx/conf.d/auth_conf;</span><br><span class="line">	index show.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再去访问，就会出现，认证框。虽然可以实现访问控制，但是用户信息依赖外部文件，操作管理机械，效率低下。所以可以Nginx结合LUA实现高效认证，Nginx和LDAR大同，利用nginx-auth-ldar模块</p>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/auth.png" alt=""></p>
 ]]></content>
       <categories>
         <category>运维</category>
