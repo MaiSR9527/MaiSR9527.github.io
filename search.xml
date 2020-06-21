@@ -240,8 +240,8 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>springboot</tag>
         <tag>java</tag>
+        <tag>springboot</tag>
       </tags>
   </entry>
   <entry>
@@ -341,8 +341,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>内功心法</tag>
         <tag>面试必备</tag>
+        <tag>内功心法</tag>
       </tags>
   </entry>
   <entry>
@@ -356,35 +356,6 @@
         <tag>springcloud</tag>
         <tag>微服务</tag>
         <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nginx实践：高级模块</title>
-    <url>/posts/nginx/202006211450-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="secure-link-module"><a href="#secure-link-module" class="headerlink" title="secure_link_module"></a>secure_link_module</h1><p>作用：</p>
-<ul>
-<li>制定并允许检查请求的链接的真实性以及保护资源免遭未经授权的访问</li>
-<li>限制链接生效周期</li>
-</ul>
-<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/nginx6.png" alt=""></p>
-<p>查看是否已经安装secure_link_module</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@3de922dd7a75:&#x2F;# nginx -V</span><br><span class="line">nginx version: nginx&#x2F;1.19.0</span><br><span class="line">built by gcc 8.3.0 (Debian 8.3.0-6) </span><br><span class="line">built with OpenSSL 1.1.1d  10 Sep 2019</span><br><span class="line">TLS SNI support enabled</span><br><span class="line">configure arguments: --prefix&#x3D;&#x2F;etc&#x2F;nginx --sbin-path&#x3D;&#x2F;usr&#x2F;sbin&#x2F;nginx --modules-path&#x3D;&#x2F;usr&#x2F;lib&#x2F;nginx&#x2F;modules --conf-path&#x3D;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf --error-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log --http-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log --pid-path&#x3D;&#x2F;var&#x2F;run&#x2F;nginx.pid --lock-path&#x3D;&#x2F;var&#x2F;run&#x2F;nginx.lock --http-client-body-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;client_temp --http-proxy-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;proxy_temp --http-fastcgi-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;fastcgi_temp --http-uwsgi-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;uwsgi_temp --http-scgi-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;scgi_temp --user&#x3D;nginx --group&#x3D;nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt&#x3D;&#39;-g -O2 -fdebug-prefix-map&#x3D;&#x2F;data&#x2F;builder&#x2F;debuild&#x2F;nginx-1.19.0&#x2F;debian&#x2F;debuild-base&#x2F;nginx-1.19.0&#x3D;. -fstack-protector-strong -Wformat -Werror&#x3D;format-security -Wp,-D_FORTIFY_SOURCE&#x3D;2 -fPIC&#39; --with-ld-opt&#x3D;&#39;-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie&#39;</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    #access_log  /var/log/nginx/log/host.access.log  main;</span><br><span class="line">    root /opt/app/code;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        secure_link $arg_md5,$arg_expires;</span><br><span class="line">        secure_link_md5 "$secure_link_expires$uri imooc";</span><br><span class="line"></span><br><span class="line">        if ($secure_link = "") &#123;</span><br><span class="line">            return 403;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if ($secure_link = "0") &#123;</span><br><span class="line">            return 410;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504 404  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="geoip-module"><a href="#geoip-module" class="headerlink" title="geoip_module"></a>geoip_module</h1><p>基于IP地址匹配MaxMind GeoIP二进制文件，读取IP所在地域信息</p>
-<p>yum install nginx-module-geoip</p>
-]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>入门</tag>
-        <tag>nginx</tag>
       </tags>
   </entry>
   <entry>
@@ -4611,8 +4582,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>内功心法</tag>
         <tag>面试必备</tag>
+        <tag>内功心法</tag>
       </tags>
   </entry>
   <entry>
@@ -4645,8 +4616,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>内功心法</tag>
         <tag>面试必备</tag>
+        <tag>内功心法</tag>
       </tags>
   </entry>
 </search>
