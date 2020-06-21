@@ -240,8 +240,8 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>springboot</tag>
         <tag>java</tag>
+        <tag>springboot</tag>
       </tags>
   </entry>
   <entry>
@@ -343,6 +343,85 @@
       <tags>
         <tag>面试必备</tag>
         <tag>内功心法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Cloud Alibaba微服务入门到进阶一：服务发现Nacos</title>
+    <url>/posts/springcloud/202006211810-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>springcloud</tag>
+        <tag>微服务</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nginx实践：高级模块</title>
+    <url>/posts/nginx/202006211450-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="secure-link-module"><a href="#secure-link-module" class="headerlink" title="secure_link_module"></a>secure_link_module</h1><p>作用：</p>
+<ul>
+<li>制定并允许检查请求的链接的真实性以及保护资源免遭未经授权的访问</li>
+<li>限制链接生效周期</li>
+</ul>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/nginx6.png" alt=""></p>
+<p>查看是否已经安装secure_link_module</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@3de922dd7a75:&#x2F;# nginx -V</span><br><span class="line">nginx version: nginx&#x2F;1.19.0</span><br><span class="line">built by gcc 8.3.0 (Debian 8.3.0-6) </span><br><span class="line">built with OpenSSL 1.1.1d  10 Sep 2019</span><br><span class="line">TLS SNI support enabled</span><br><span class="line">configure arguments: --prefix&#x3D;&#x2F;etc&#x2F;nginx --sbin-path&#x3D;&#x2F;usr&#x2F;sbin&#x2F;nginx --modules-path&#x3D;&#x2F;usr&#x2F;lib&#x2F;nginx&#x2F;modules --conf-path&#x3D;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf --error-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log --http-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log --pid-path&#x3D;&#x2F;var&#x2F;run&#x2F;nginx.pid --lock-path&#x3D;&#x2F;var&#x2F;run&#x2F;nginx.lock --http-client-body-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;client_temp --http-proxy-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;proxy_temp --http-fastcgi-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;fastcgi_temp --http-uwsgi-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;uwsgi_temp --http-scgi-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;scgi_temp --user&#x3D;nginx --group&#x3D;nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt&#x3D;&#39;-g -O2 -fdebug-prefix-map&#x3D;&#x2F;data&#x2F;builder&#x2F;debuild&#x2F;nginx-1.19.0&#x2F;debian&#x2F;debuild-base&#x2F;nginx-1.19.0&#x3D;. -fstack-protector-strong -Wformat -Werror&#x3D;format-security -Wp,-D_FORTIFY_SOURCE&#x3D;2 -fPIC&#39; --with-ld-opt&#x3D;&#39;-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie&#39;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    #access_log  /var/log/nginx/log/host.access.log  main;</span><br><span class="line">    root /opt/app/code;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        secure_link $arg_md5,$arg_expires;</span><br><span class="line">        secure_link_md5 "$secure_link_expires$uri imooc";</span><br><span class="line"></span><br><span class="line">        if ($secure_link = "") &#123;</span><br><span class="line">            return 403;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if ($secure_link = "0") &#123;</span><br><span class="line">            return 410;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504 404  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="geoip-module"><a href="#geoip-module" class="headerlink" title="geoip_module"></a>geoip_module</h1><p>基于IP地址匹配MaxMind GeoIP二进制文件，读取IP所在地域信息</p>
+<p>yum install nginx-module-geoip</p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>入门</tag>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nginx实践：rewrite规则</title>
+    <url>/posts/nginx/202006211318-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Rewrite规则"><a href="#Rewrite规则" class="headerlink" title="Rewrite规则"></a>Rewrite规则</h1><p>作用：rewrite规则可以实现对url的重写和重定向</p>
+<p>主要应用场景：</p>
+<ul>
+<li>URL访问跳转，支持开发设计，如页面跳转，兼容性支持，展示效果</li>
+<li>SEO优化</li>
+<li>维护：后台维护、流量转发</li>
+<li>安全</li>
+</ul>
+<h2 id="配置语法"><a href="#配置语法" class="headerlink" title="配置语法"></a>配置语法</h2><p>配置： rewrite regex replacement [flag];</p>
+<p>作用域：server、location、if</p>
+<p>参数：</p>
+<p>last 停止rewrite检测【如果没有匹配到，会继续向下匹配】</p>
+<p>break 停止rewrite检测【如果没有匹配到，则不再向下匹配，直接返回结果404】</p>
+<p>redirect 返回302临时重定向，地址栏会显示跳转后的地址</p>
+<p>permanent 返回301永久重定向，地址栏会显示跳转后的地址</p>
+<h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name localhost;</span><br><span class="line"></span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;log&#x2F;host.access.log  main;</span><br><span class="line">     </span><br><span class="line">    root &#x2F;opt&#x2F;app&#x2F;code; </span><br><span class="line">    location ~ ^&#x2F;break &#123;</span><br><span class="line">        rewrite ^&#x2F;break &#x2F;test&#x2F; break;</span><br><span class="line">    &#125; </span><br><span class="line"> </span><br><span class="line">    location ~ ^&#x2F;last &#123;</span><br><span class="line">         rewrite ^&#x2F;last &#x2F;test&#x2F; last;</span><br><span class="line">         #rewrite ^&#x2F;last &#x2F;test&#x2F; redirect;</span><br><span class="line">    &#125;    </span><br><span class="line"></span><br><span class="line">    location ~ ^&#x2F;imooc &#123;</span><br><span class="line">         rewrite ^&#x2F;main http:&#x2F;&#x2F;www.baidu.com&#x2F; permanent;</span><br><span class="line">         #rewrite ^&#x2F;main http:&#x2F;&#x2F;www.baidu.com&#x2F; redirect;</span><br><span class="line">    &#125;    </span><br><span class="line"> </span><br><span class="line">    location &#x2F;test&#x2F; &#123;</span><br><span class="line">       default_type application&#x2F;json;</span><br><span class="line">       return 200 &#39;&#123;&quot;status&quot;:&quot;success&quot;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>redirect 表示临时的重定向 ，只要后端服务是开者的。每次访问 /imoc 都会重定向到后面的url</p>
+<p>permanent 表示永久重定向，第一次访问成功后，把后端服务关闭后，访问/imoc 仍然会重定向到后面的url</p>
+<p><strong>rewrite优先级规则</strong></p>
+<ul>
+<li>执行server 块的rewrite 指令。将所有的网站都重定向同一个网站。</li>
+<li>执行location匹配。</li>
+<li>执行选定的location中的rewrite。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+        <tag>实践</tag>
       </tags>
   </entry>
   <entry>
@@ -1124,8 +1203,44 @@
 <p>示例：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream test &#123;</span><br><span class="line">	#ip_hash;</span><br><span class="line">	#hash $request_uri</span><br><span class="line">	server 192.168.74.129:8080;</span><br><span class="line">    server 192.168.74.129:8081 weight&#x3D;2;</span><br><span class="line">    server 192.168.74.129:8082 weight&#x3D;5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">include &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;*.conf;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.maishuren.com;</span><br><span class="line">    resolver  8.8.8.8;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        proxy_pass http:&#x2F;&#x2F;imotestoc;</span><br><span class="line">        proxy_redirect default;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="动态缓存"><a href="#动态缓存" class="headerlink" title="动态缓存"></a>动态缓存</h1><h2 id="nginx缓存服务"><a href="#nginx缓存服务" class="headerlink" title="nginx缓存服务"></a>nginx缓存服务</h2><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/nginx5.jpg" alt=""></p>
+<p>上图描述的很清楚，当nginx开启了缓存服务时，可以缓存服务端的数据，提高响应效率</p>
+<h2 id="配置语法-1"><a href="#配置语法-1" class="headerlink" title="配置语法"></a>配置语法</h2><p><strong>proxy_cache_path配置语法</strong></p>
+<p>配置: proxy_cache_path path [levels=levels] [use_temp_path=on|off] keys_zone=name:size [inactive=time] [max_size=size] [manager_files=number] [manager_sleep=time] [manager_threshold=time] [loader_files=number] [loader_sleep=time] [loader_threshold=time] [purger=on|off] [purger_files=number] [purger_sleep=time] [purger_threshold=time];</p>
+<p>默认: —</p>
+<p>作用域: http </p>
+<p><strong>proxy_cache配置语法</strong></p>
+<p>配置: proxy_cache <em>zone</em> | off;</p>
+<p>默认: proxy_cache off;</p>
+<p>作用域: http, server, location</p>
+<p><strong>proxy_cache_valid配置语法</strong></p>
+<p>Syntax: proxy_cache_valid [<em>code</em> …] <em>time</em>;</p>
+<p>Default: —</p>
+<p>Context: http, server, location</p>
+<p><strong>proxy_cache_key配置语法</strong></p>
+<p>配置: proxy_cache_key <em>string</em>;</p>
+<p>默认: proxy_cache_key $scheme$proxy_host$request_uri;</p>
+<p>作用域: http, server, location</p>
+<h2 id="配置实例"><a href="#配置实例" class="headerlink" title="配置实例"></a>配置实例</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">upstream test &#123;</span><br><span class="line">        server 192.168.74.129:8080;</span><br><span class="line">        server 192.168.74.129:8081;</span><br><span class="line">        server 192.168.74.129:8082;</span><br><span class="line">&#125;</span><br><span class="line">    #需要首先配置 缓存目录，文件目录层级2级，空间名字 10m大小，目录最大大小(超过启动nginx自己的淘汰规则)，在60分钟的时间内没有被访问就会被清理，存放临时文件</span><br><span class="line">    proxy_cache_path /opt/app/cache levels=1:2 keys_zone=nginx_cache:10m max_size=10g inactive=60m use_temp_path=off;</span><br><span class="line"> </span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost www.maishuren.com;</span><br><span class="line">    </span><br><span class="line">    #如果url中包含以下路径参数，那么 cookie_nocache 的值为1-----1.设置某些访问路径不缓存</span><br><span class="line">    if($request_uri ~^/(url3|login|register|password\/reset))&#123;</span><br><span class="line">        set $cookie_nocache 1;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_cache off;  #开启缓存，imooc_cache对应上面keys_zone=imooc_cache:10m ；关闭off</span><br><span class="line">        proxy_pass http://test;</span><br><span class="line">        proxy_cache_valid 200 304 12h; #200和304头信息过期时间12小时</span><br><span class="line">        proxy_cache_valid any 10m;  #其他过期时间10分钟</span><br><span class="line">        proxy_cache_key $host$uri$is_args$args; #定义缓存的key</span><br><span class="line">        add_header  Nginx-Cache "$upstream_cache_status";#增加一个头信息</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        #部分不设置缓存 cookie_nocache上面配置的参数</span><br><span class="line">        #cookie_nocache不为0或者空那么是不会进行缓存的-----2.设置某些访问路径不缓存</span><br><span class="line">        proxy_no_cache $cookie_nocache $arg_nocache $arg_comment;</span><br><span class="line">        proxy_no_cache $http_pragma $http_authorization;</span><br><span class="line"> </span><br><span class="line"><span class="meta"> 		#</span><span class="bash"> 一个服务报错请求下一个</span></span><br><span class="line">        proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504; </span><br><span class="line">        include proxy_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h1><ol>
+<li>启动一个tomcat，并编写一个index.jsp</li>
+</ol>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> pageEncoding=<span class="string">"utf-8"</span>%&gt;  </span><br><span class="line">&lt;HTML&gt;</span><br><span class="line">    &lt;HEAD&gt;</span><br><span class="line">        &lt;TITLE&gt;JSP Test Page&lt;/TITLE&gt;</span><br><span class="line">    &lt;/HEAD&gt;</span><br><span class="line">    &lt;BODY&gt;</span><br><span class="line">        &lt;%</span><br><span class="line">            Random rand = <span class="keyword">new</span> Random();</span><br><span class="line">            out.println(<span class="string">"&lt;h1&gt;Random number:&lt;/h1&gt;"</span>);</span><br><span class="line">            out.println(rand.nextInt(<span class="number">99</span>)+<span class="number">100</span>);</span><br><span class="line">        %&gt;</span><br><span class="line">    &lt;/BODY&gt;</span><br><span class="line">&lt;/HTML&gt;</span><br></pre></td></tr></table></figure>
 
 
+
+<ol>
+<li>编写nginx的html页面</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>测试动静分离<span class="tag">&lt;/<span class="name">title</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://libs.baidu.com/jquery/2.1.4/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span>  </span><br><span class="line"><span class="javascript">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span></span><br><span class="line"><span class="javascript">    $.ajax(&#123;  </span></span><br><span class="line"><span class="actionscript">        type: <span class="string">"GET"</span>,  </span></span><br><span class="line"><span class="actionscript">        url: <span class="string">"http://www.maishuren.com/java_test.jsp"</span>,</span></span><br><span class="line"><span class="actionscript">        success: <span class="function"><span class="keyword">function</span><span class="params">(data)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">"#get_data"</span>).html(data)</span></span><br><span class="line">        &#125;,</span><br><span class="line"><span class="actionscript">        error: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;  </span></span><br><span class="line"><span class="actionscript">            alert(<span class="string">"fail!!!,请刷新再试!"</span>);  </span></span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;);  </span><br><span class="line">&#125;);  </span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>测试动静分离<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://www.maishuren.com/img/nginx.png"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"get_data"</span>&gt;</span><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>配置nginx配置文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">upstream java_api&#123;</span><br><span class="line">    server 127.0.0.1:8080;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost www.maishuren.com;</span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    access_log  /var/log/nginx/log/host.access.log  main;</span><br><span class="line">    root /opt/app/code;  </span><br><span class="line"></span><br><span class="line">    location ~ \.jsp$ &#123;</span><br><span class="line">    	#转去请求动态资源的服务器</span><br><span class="line">        proxy_pass http://java_api;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    location ~ \.(jpg|png|gif)$ &#123;</span><br><span class="line">        expires 1h;</span><br><span class="line">        gzip on;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /&#123;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504 404  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置了动静分离这样可以减轻服务端的压力，当在只请求静态资源的时候，直接通过中间件就可以获取静态资源，不需要通过程序框架和逻辑再去获取。</p>
 ]]></content>
       <categories>
         <category>运维</category>
@@ -4257,9 +4372,9 @@
         <category>后端</category>
       </categories>
       <tags>
+        <tag>java</tag>
         <tag>spring</tag>
         <tag>源码学习</tag>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -4376,9 +4491,9 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>juc</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
+        <tag>juc</tag>
         <tag>java锁</tag>
       </tags>
   </entry>
@@ -4480,9 +4595,9 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>juc</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
+        <tag>juc</tag>
       </tags>
   </entry>
   <entry>

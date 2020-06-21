@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://www.maishuren.top/posts/hadoop/202006132303-index.html</loc>
-    <lastmod>2020-06-20</lastmod>
+    <loc>http://www.maishuren.top/posts/springcloud/202006211810-index.html</loc>
+    <lastmod>2020-06-21</lastmod>
+  </url>  <url>
+    <loc>http://www.maishuren.top/posts/nginx/202006211450-index.html</loc>
+    <lastmod>2020-06-21</lastmod>
+  </url>  <url>
+    <loc>http://www.maishuren.top/posts/nginx/202006211318-index.html</loc>
+    <lastmod>2020-06-21</lastmod>
+  </url>  <url>
+    <loc>http://www.maishuren.top/posts/nginx/202006151538-index.html</loc>
+    <lastmod>2020-06-21</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/nginx/202006191422-index.html</loc>
+    <lastmod>2020-06-21</lastmod>
+  </url>  <url>
+    <loc>http://www.maishuren.top/posts/hadoop/202006132303-index.html</loc>
     <lastmod>2020-06-20</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/golang/202006111106-index.html</loc>
@@ -74,9 +86,6 @@
     <lastmod>2020-06-19</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/docker/202006161622-index.html</loc>
-    <lastmod>2020-06-16</lastmod>
-  </url>  <url>
-    <loc>http://www.maishuren.top/posts/nginx/202006151538-index.html</loc>
     <lastmod>2020-06-16</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/springboot/202006141700-index.html</loc>
