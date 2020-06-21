@@ -1017,6 +1017,113 @@
 <h2 id="防盗链"><a href="#防盗链" class="headerlink" title="防盗链"></a>防盗链</h2><p>防盗链可以防止网站的资源被盗用。nginx可以实现简单的防盗链功能。</p>
 <h3 id="基于http-refer防盗链配置模块"><a href="#基于http-refer防盗链配置模块" class="headerlink" title="基于http_refer防盗链配置模块"></a>基于http_refer防盗链配置模块</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ .*\.(txt|xml)$ &#123;</span><br><span class="line">	valid_referers none blocked *.maishuren.top maishuren.top server_names ~\.google\. ~\.baidu\.;</span><br><span class="line">    if ($invalid_referer) &#123;</span><br><span class="line">    	return 403;</span><br><span class="line">    &#125;</span><br><span class="line">	gzip on;</span><br><span class="line">	gzip_http_version 1.1;</span><br><span class="line">	gzip_comp_level 1;</span><br><span class="line">	gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;</span><br><span class="line">	root  html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="代理服务"><a href="#代理服务" class="headerlink" title="代理服务"></a>代理服务</h1><p>在现实生活中，有着代购这一现象，就是我们通过代购来购买一些东西。同样的基于nginx的代理服务就是，客户端与服务段之间是通过nginx这一代理来完成请求和响应的。如图</p>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/nginx_proxy.jpg" alt=""></p>
+<p>nginx能都代理的服务有很多，而代理服务又有正向代理和反向代理</p>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/nginx-proxy_detail.jpg" alt=""></p>
+<h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p>所谓正向代理就是顺着请求的方向进行的代理，即代理服务器他是由你配置为你服务，去请求目标服务器地址。</p>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/eg_forward_proxy.jpg" alt=""></p>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>所谓反向代理正好与正向代理相反，代理服务器是为目标服务器服务的，虽然整体的请求返回路线都是一样的都是Client到Proxy到Server。</p>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/eg_reverse_proxy.jpg" alt=""></p>
+<p>使用配置：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.xxx.com;            #外部访问的域名</span><br><span class="line">    location ~ /test.html$ &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8080;#代理转发</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">内部访问的服务</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       8080;</span><br><span class="line">    server_name  127.0.0.1;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /opt/work/html;</span><br><span class="line">        index  index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缓冲区、重定向、头信息、超时配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.xxx.com;            #外部访问的域名</span><br><span class="line">    location ~ &#x2F;test.html$ &#123;</span><br><span class="line">        proxy_pass http:&#x2F;&#x2F;127.0.0.1:8080;#代理转发</span><br><span class="line">        proxy_redirect default;</span><br><span class="line">        </span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        proxy_set_header x-Real-IP $remote_addr;</span><br><span class="line">        </span><br><span class="line">        proxy_connect_timeout 30;</span><br><span class="line">        proxy_send_timeout 60;</span><br><span class="line">        proxy_read_timeout 60;</span><br><span class="line">        </span><br><span class="line">        proxy_buffer_size 32k;</span><br><span class="line">        proxy_buffering on;</span><br><span class="line">        proxy_buffers 4 128k;</span><br><span class="line">        proxy_busy_buffers_size 256k;</span><br><span class="line">        proxy_max_temp_file_size 256k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>proxy_redirect default;　</p>
+<ul>
+<li><p>没有重定向就配置成默认，除非后端返回301情况下设置成具体重定向地址　　</p>
+<p>proxy_set_header Host $http_host;</p>
+<p>proxy_set_header X-Real-IP $remote_addr;</p>
+</li>
+<li><p>设置字段重新定义或附加到传递给代理服务器的请求头</p>
+</li>
+</ul>
+<p>proxy_connect_timeout 30;</p>
+<ul>
+<li>设置代理连接超时时间</li>
+</ul>
+<p>proxy_read_timeout 60;</p>
+<ul>
+<li><p>设置从代理服务器读取响应的超时时间</p>
+<p>proxy_send_timeout 60;</p>
+</li>
+<li><p>设置向代理服务器发送请求的超时时间</p>
+<p>proxy_buffering on;</p>
+</li>
+<li><p>设置启用或禁用来自代理服务器的响应缓冲</p>
+</li>
+</ul>
+<p>proxy_buffer_size 32k;</p>
+<ul>
+<li>设置用于读取从代理服务器接收的响应的第一部分的缓冲区的大小</li>
+</ul>
+<p>proxy_buffers 4 128k</p>
+<ul>
+<li><p>设置用于从代理服务器读取响应的缓冲区的数量和大小，用于单个连接。</p>
+<p>proxy_busy_buffers_size 256k;</p>
+</li>
+<li><p>设置当启用来自代理服务器的响应缓冲时，限制可能忙于向响应客户端发送响应的缓冲区的总大小，而响应尚未完全读取。</p>
+</li>
+</ul>
+<p>proxy_max_temp_file_size 256k;</p>
+<ul>
+<li>设置当启用来自代理服务器的响应缓冲，并且整个响应不适合proxy_buffer_size和proxy_buffers指令设置的缓冲区时，响应的一部分可以保存到临时文件中。 该指令设置临时文件的最大大小。 一次写入临时文件的数据大小由proxy_temp_file_write_size指令设置。</li>
+</ul>
+<h1 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h1><ol>
+<li>Nginx负载均衡</li>
+</ol>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/nginx-load-banlance1.jpg" alt=""></p>
+<ol start="2">
+<li>GSLB(全局负载均衡)</li>
+</ol>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/GSLB.jpg" alt=""></p>
+<ul>
+<li>调度中心节点：一个全局的调度节点；</li>
+<li>调度节点：一个局部调度节点；</li>
+<li>应用服务中心节点：一个全局的应用服务调度节点；</li>
+<li>应用服务：一个局部应用服务节点；</li>
+<li>调度中心节点管理着调度节点；</li>
+<li>应用服务中心节点管理着应用服务；</li>
+</ul>
+<ol start="3">
+<li>SLB负载均衡</li>
+</ol>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/nginx4.png" alt=""></p>
+<p>调度节点与服务节点处于一个逻辑单元里面，这样对于部分服务的实时性，影响性非常好。Nginx就是使用SLB负载均衡</p>
+<ol start="4">
+<li><p>四层负载均衡</p>
+<p>按照OSI网络模型中，第四层是传输层，传输层支持tcp/ip协议，所以只需要转发tcp/ip协议包，就可以实现负载均衡。性能十分好，只需要在最底层应用处理，不需要进行复杂的逻辑，只需要转发包就行了。</p>
+</li>
+</ol>
+<p><img src="https://gitee.com/maishuren/blog-pic/raw/master/network/OSI.jpg" alt=""></p>
+<p>5.七层负载均衡</p>
+<p>如上图的OSI模型，七层负载均衡主要是在应用层使用，所以它可以完成很多应用层的协议请求，比如HTTP协议的负载均衡，它可以实现HTTP信息的改写，头信息的改写，应用规则的控制。Nginx就是典型的七层负载均衡SLB。</p>
+<h2 id="nginx负载均衡的配置"><a href="#nginx负载均衡的配置" class="headerlink" title="nginx负载均衡的配置"></a>nginx负载均衡的配置</h2><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/nginx/upstream.jpg" alt=""></p>
+<p>在conf.d文件夹下新建三个server配置文件：server1.conf、server2.conf、server3.conf</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">server1.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       8080;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /opt/work/html;</span><br><span class="line">        index  server1.html server1.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">server2.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       8081;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /opt/work/html;</span><br><span class="line">        index  server2.html server2.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">server3.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       8082;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /opt/work/html;</span><br><span class="line">        index  server3.html server3.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在主配置文件nginx.conf中配置，默认是使用轮询策略</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">upstream test &#123;</span><br><span class="line">        server 192.168.74.129:8080;</span><br><span class="line">        server 192.168.74.129:8081;</span><br><span class="line">        server 192.168.74.129:8082;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">include /etc/nginx/conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.maishuren.com;</span><br><span class="line">    resolver  8.8.8.8;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://imotestoc;</span><br><span class="line">        proxy_redirect default;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>后端服务器在负载均衡调度中的状态</p>
+<p>down：当前的server暂时不参与负载均衡</p>
+<p>backup：预留的备份服务器</p>
+<p>max_fails：允许请求失败的次数</p>
+<p>fail_timeout：经过max_fails失败后，服务暂停的时间</p>
+<p>max_conns：限制最大的接收连接数</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream test &#123;</span><br><span class="line">	server 192.168.74.129:8080 down;</span><br><span class="line">    server 192.168.74.129:8081 backup;</span><br><span class="line">    server 192.168.74.129:8082 max_fails&#x3D;1 fail_timeout&#x3D;30s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">include &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;*.conf;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.maishuren.com;</span><br><span class="line">    resolver  8.8.8.8;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        proxy_pass http:&#x2F;&#x2F;imotestoc;</span><br><span class="line">        proxy_redirect default;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="nginx负载均衡算法"><a href="#nginx负载均衡算法" class="headerlink" title="nginx负载均衡算法"></a>nginx负载均衡算法</h2><p>轮询：按时间顺序逐一分配到不同的后端服务器</p>
+<p>加权轮询：weight值越大，分配到的访问几率越高</p>
+<p>ip_hash：每个请求按照访问的IP的hash结果分配，这样来自同一个IP的访问就会固定访问一个后端服务器</p>
+<p>url_hash：按照访问的URL的hash结果来分配服务器，是每个URL定向到同一个后端服务器</p>
+<p>hash关键数值：hash自定义的key</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream test &#123;</span><br><span class="line">	#ip_hash;</span><br><span class="line">	#hash $request_uri</span><br><span class="line">	server 192.168.74.129:8080;</span><br><span class="line">    server 192.168.74.129:8081 weight&#x3D;2;</span><br><span class="line">    server 192.168.74.129:8082 weight&#x3D;5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">include &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;*.conf;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.maishuren.com;</span><br><span class="line">    resolver  8.8.8.8;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        proxy_pass http:&#x2F;&#x2F;imotestoc;</span><br><span class="line">        proxy_redirect default;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
 
 ]]></content>
@@ -2224,7 +2331,7 @@
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
   </entry>
   <entry>
-    <title>大数据之hadoop一：hadoop入门</title>
+    <title>大数据之hadoop：hadoop入门</title>
     <url>/posts/hadoop/202006132303-index.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Hadoop是什么？"><a href="#Hadoop是什么？" class="headerlink" title="Hadoop是什么？"></a>Hadoop是什么？</h1><p>1）hadoop是由Apache基金会所开发的分布式系统基础架构</p>
 <p>2）主要解决海量数据的存储和海量数据的分析计算问题</p>
@@ -2272,8 +2379,23 @@
 <p>1）Map阶段并行处理输入数据</p>
 <p>2）Reduce阶段对Map结果进行汇总</p>
 <p><img src="https://gitee.com/maishuren/blog-pic/raw/master/hadoop/hadoop4.png" alt=""></p>
-<h1 id="大数据生态体系"><a href="#大数据生态体系" class="headerlink" title="大数据生态体系"></a>大数据生态体系</h1><p>TODO</p>
-<h1 id="推荐系统框架图"><a href="#推荐系统框架图" class="headerlink" title="推荐系统框架图"></a>推荐系统框架图</h1><p>TODO</p>
+<h1 id="大数据生态体系"><a href="#大数据生态体系" class="headerlink" title="大数据生态体系"></a>大数据生态体系</h1><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/hadoop/hadoop11.jpg" alt=""></p>
+<p>1）Sqoop：Sqoop是一款开源的工具，主要用于在Hadoop、Hive与传统的数据库(MySql)间进行数据的传递，可以将一个关系型数据库（例如 ：MySQL，Oracle 等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。</p>
+<p>2）Flume：Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统，Flume支持在日志系统中定制各类数据发送方，用于收集数据；同时，Flume提供对数据进行简单处理，并写到各种数据接受方（可定制）的能力。</p>
+<p>3）Kafka：Kafka是一种高吞吐量的分布式发布订阅消息系统，有如下特性：</p>
+<p>（1）通过O(1)的磁盘数据结构提供消息的持久化，这种结构对于即使数以TB的消息存储也能够保持长时间的稳定性能。</p>
+<p>（2）高吞吐量：即使是非常普通的硬件Kafka也可以支持每秒数百万的消息。</p>
+<p>（3）支持通过Kafka服务器和消费机集群来分区消息。</p>
+<p>（4）支持Hadoop并行数据加载。</p>
+<p>4）Storm：Storm用于“连续计算”，对数据流做连续查询，在计算时就将结果以流的形式输出给用户。</p>
+<p>5）Spark：Spark是当前最流行的开源大数据内存计算框架。可以基于Hadoop上存储的大数据进行计算。</p>
+<p>6）Oozie：Oozie是一个管理Hdoop作业（job）的工作流程调度管理系统。</p>
+<p>7）Hbase：HBase是一个分布式的、面向列的开源数据库。HBase不同于一般的关系数据库，它是一个适合于非结构化数据存储的数据库。</p>
+<p>8）Hive：Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的SQL查询功能，可以将SQL语句转换为MapReduce任务进行运行。 其优点是学习成本低，可以通过类SQL语句快速实现简单的MapReduce统计，不必开发专门的MapReduce应用，十分适合数据仓库的统计分析。</p>
+<p>10）R语言：R是用于统计分析、绘图的语言和操作环境。R是属于GNU系统的一个自由、免费、源代码开放的软件，它是一个用于统计计算和统计制图的优秀工具。</p>
+<p>11）Mahout：Apache Mahout是个可扩展的机器学习和数据挖掘库。</p>
+<p>12）ZooKeeper：Zookeeper是Google的Chubby一个开源的实现。它是一个针对大型分布式系统的可靠协调系统，提供的功能包括：配置维护、名字服务、 分布式同步、组服务等。ZooKeeper的目标就是封装好复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。</p>
+<h1 id="推荐系统框架图"><a href="#推荐系统框架图" class="headerlink" title="推荐系统框架图"></a>推荐系统框架图</h1><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/hadoop/hadoop12.jpg" alt=""></p>
 <h1 id="Hadoop运行环境搭建"><a href="#Hadoop运行环境搭建" class="headerlink" title="Hadoop运行环境搭建"></a>Hadoop运行环境搭建</h1><h2 id="安装JDK和安装Hadoop"><a href="#安装JDK和安装Hadoop" class="headerlink" title="安装JDK和安装Hadoop"></a>安装JDK和安装Hadoop</h2><p>1.解压jdk压缩包</p>
 <p>2.解压Hadoop压缩包</p>
 <p>3.配置环境变量</p>
@@ -2530,25 +2652,41 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>[core-default.xml]</td>
+<td>core-default.xml</td>
 <td>hadoop-common-2.7.2.jar/  core-default.xml</td>
 </tr>
 <tr>
-<td>[hdfs-default.xml]</td>
+<td>hdfs-default.xml</td>
 <td>hadoop-hdfs-2.7.2.jar/  hdfs-default.xml</td>
 </tr>
 <tr>
-<td>[yarn-default.xml]</td>
+<td>yarn-default.xml</td>
 <td>hadoop-yarn-common-2.7.2.jar/  yarn-default.xml</td>
 </tr>
 <tr>
-<td>[mapred-default.xml]</td>
+<td>mapred-default.xml</td>
 <td>hadoop-mapreduce-client-core-2.7.2.jar/  mapred-default.xml</td>
 </tr>
 </tbody></table>
-<p>​    （2）自定义配置文件：</p>
+<p>（2）自定义配置文件：</p>
 <p>​    core-site.xml、hdfs-site.xml、yarn-site.xml、mapred-site.xml四个配置文件存放在$HADOOP_HOME/etc/hadoop这个路径上，用户可以根据项目需求重新进行修改配置。</p>
-<h2 id="完全分布式运行模式"><a href="#完全分布式运行模式" class="headerlink" title="完全分布式运行模式"></a>完全分布式运行模式</h2><p>TODO</p>
+<h2 id="完全分布式运行模式"><a href="#完全分布式运行模式" class="headerlink" title="完全分布式运行模式"></a>完全分布式运行模式</h2><h3 id="编写集群分发脚本"><a href="#编写集群分发脚本" class="headerlink" title="编写集群分发脚本"></a>编写集群分发脚本</h3><p>rsync主要用于备份和镜像。具有速度快、避免复制相同内容和支持符号链接的优点。</p>
+<p>rsync和scp区别：用rsync做文件的复制要比scp的速度快，rsync只对差异文件做更新。scp是把所有文件都复制过去。</p>
+<p>rsync语法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rsync  -av      $pdir&#x2F;$fname          $user@host:$pdir&#x2F;$fname</span><br><span class="line">命令   选项参数   要拷贝的文件路径&#x2F;名称    目的用户@主机:目的路径&#x2F;名称</span><br></pre></td></tr></table></figure>
+
+<p>通过vim编写xsync:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">#1 获取输入参数个数，如果没有参数，直接退出</span><br><span class="line">pcount&#x3D;$#</span><br><span class="line">if ((pcount&#x3D;&#x3D;0)); then</span><br><span class="line">echo no args;</span><br><span class="line">exit;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">#2 获取文件名称</span><br><span class="line">p1&#x3D;$1</span><br><span class="line">fname&#x3D;&#96;basename $p1&#96;</span><br><span class="line">echo fname&#x3D;$fname</span><br><span class="line"></span><br><span class="line">#3 获取上级目录到绝对路径</span><br><span class="line">pdir&#x3D;&#96;cd -P $(dirname $p1); pwd&#96;</span><br><span class="line">echo pdir&#x3D;$pdir</span><br><span class="line"></span><br><span class="line">#4 获取当前用户名称</span><br><span class="line">user&#x3D;&#96;whoami&#96;</span><br><span class="line"></span><br><span class="line">#5 循环</span><br><span class="line">for((host&#x3D;1; host&lt;4; host++)); do</span><br><span class="line">        echo ------------------- hadoop$host --------------</span><br><span class="line">        rsync -av $pdir&#x2F;$fname $user@hadoop$host:$pdir</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>修改权限：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 bigdata]$ chmod 777 xsync</span><br></pre></td></tr></table></figure>
+
+<p>测试:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 bigdata]$ mv xsync &#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>如果报错：rsync: command not found，需要安装rsync</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install rsync -y</span><br></pre></td></tr></table></figure>
+
 <h1 id="Hadoop编译源码"><a href="#Hadoop编译源码" class="headerlink" title="Hadoop编译源码"></a>Hadoop编译源码</h1>]]></content>
       <categories>
         <category>大数据</category>
@@ -4238,9 +4376,9 @@
       </categories>
       <tags>
         <tag>java</tag>
+        <tag>juc</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
-        <tag>juc</tag>
         <tag>java锁</tag>
       </tags>
   </entry>
@@ -4342,9 +4480,9 @@
       </categories>
       <tags>
         <tag>java</tag>
+        <tag>juc</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
-        <tag>juc</tag>
       </tags>
   </entry>
   <entry>
