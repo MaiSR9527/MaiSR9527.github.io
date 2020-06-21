@@ -240,8 +240,8 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>springboot</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -341,8 +341,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
         <tag>内功心法</tag>
+        <tag>面试必备</tag>
       </tags>
   </entry>
   <entry>
@@ -353,9 +353,9 @@
         <category>后端</category>
       </categories>
       <tags>
+        <tag>java</tag>
         <tag>springcloud</tag>
         <tag>微服务</tag>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -4343,9 +4343,9 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>spring</tag>
         <tag>源码学习</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -4582,8 +4582,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
         <tag>内功心法</tag>
+        <tag>面试必备</tag>
       </tags>
   </entry>
   <entry>
@@ -4616,8 +4616,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
         <tag>内功心法</tag>
+        <tag>面试必备</tag>
       </tags>
   </entry>
 </search>
