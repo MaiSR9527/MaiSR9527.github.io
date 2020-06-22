@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.maishuren.top/"/>
-  <updated>2020-06-21T10:13:44.371Z</updated>
+  <updated>2020-06-22T08:18:56.525Z</updated>
   <id>http://www.maishuren.top/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://www.maishuren.top/posts/springcloud/202006211810-index.html"/>
     <id>http://www.maishuren.top/posts/springcloud/202006211810-index.html</id>
     <published>2020-06-21T10:10:12.000Z</published>
-    <updated>2020-06-21T10:13:44.371Z</updated>
+    <updated>2020-06-22T08:18:56.525Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="为什么出现Spring-Cloud-Alibaba？"><a href="#为什么出现Spring-Cloud-Alibaba？" class="headerlink" title="为什么出现Spring Cloud Alibaba？"></a>为什么出现Spring Cloud Alibaba？</h1><p>Spring Cloud的<a href="https://spring.io/blog/2018/12/12/spring-cloud-greenwich-rc1-available-now" target="_blank" rel="noopener">官网</a>中：</p><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/springcloud/springcloud1.jpg" alt=""></p><p>在以往的Spring Cloud中官方也是推荐使用Netflix的组件，但是随着Netflix的多个组件进入维护状态，可以说Netflix的组件已经不能使用了，因为可能出现潜在风险。对于微服务来说，最重要的几个组件：服务发现、断路器、网关、负载均衡。然而这些组件都进入了维护状态。所以随之Ailibaba的组件就成为了我们的首选。</p><h1 id="Spring-Cloud-Netflix的替换组件"><a href="#Spring-Cloud-Netflix的替换组件" class="headerlink" title="Spring Cloud Netflix的替换组件"></a>Spring Cloud Netflix的替换组件</h1><h1 id="Spring-Cloud-Alibaba的主要组件"><a href="#Spring-Cloud-Alibaba的主要组件" class="headerlink" title="Spring Cloud Alibaba的主要组件"></a>Spring Cloud Alibaba的主要组件</h1><ul><li>Sentinel：把流量作为切入点，从流量控制、熔断降级、系统负载保护等都各维度保护服务的稳定性。</li><li>Nacos：一个更易于构建云原生应用的动态<strong>服务发现</strong>、<strong>配置管理</strong>和<strong>服务管理平台</strong>。</li><li>RabbitMQ：一款开源的分布式消息系统，基于高可用分布式集群技术，提供低延时、高可靠的消息发布与订阅服务。</li><li>Dubbo：高性能的Java RPC框架。</li><li>Seata：阿里巴巴开源产品，一个易于使用的高性能微服务分布式事务解决方案。</li><li>Alibaba Cloud ACM：一款在分布式结构环境中对应用配置进行集中式管理和推送的应用配置中心产品。</li><li>Alibaba Cloud SchedulerX：分布式任务调度产品，提供秒级、精准、高可靠、高可用的定时任务调度服务。</li><li>Alibaba Cloud SMS：覆盖全球的短信服务，友好、高效、只能的互联网通讯能力</li><li>Alibaba Cloud OSS：对象存储服务。</li></ul><p>像OSS SMS、SchedulerX、ACM这些是阿里云的收费产品，这些也不是构建微服务的必需品，我们可以不用。</p><h1 id="什么是Nacos？"><a href="#什么是Nacos？" class="headerlink" title="什么是Nacos？"></a>什么是Nacos？</h1><p>服务（Service）是 Nacos 世界的一等公民。Nacos 支持几乎所有主流类型的“服务”的发现、配置和管理：</p><p><a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="_blank" rel="noopener">Kubernetes Service</a></p><p><a href="https://grpc.io/docs/guides/concepts.html#service-definition" target="_blank" rel="noopener">gRPC</a> &amp; <a href="https://dubbo.incubator.apache.org/" target="_blank" rel="noopener">Dubbo RPC Service</a></p><p><a href="https://spring.io/understanding/REST" target="_blank" rel="noopener">Spring Cloud RESTful Service</a></p>]]></content>
     
     <summary type="html">
     
@@ -38,11 +38,11 @@
       <category term="后端" scheme="http://www.maishuren.top/categories/%E5%90%8E%E7%AB%AF/"/>
     
     
-      <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
-    
       <category term="springcloud" scheme="http://www.maishuren.top/tags/springcloud/"/>
     
       <category term="微服务" scheme="http://www.maishuren.top/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+      <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
     
   </entry>
   

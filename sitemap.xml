@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.maishuren.top/posts/springcloud/202006211810-index.html</loc>
+    
+    <lastmod>2020-06-22T08:18:56.525Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.maishuren.top/about/index.html</loc>
     
     <lastmod>2020-06-21T11:05:09.400Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://www.maishuren.top/link/index.html</loc>
     
     <lastmod>2020-06-21T11:04:49.441Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.maishuren.top/posts/springcloud/202006211810-index.html</loc>
-    
-    <lastmod>2020-06-21T10:13:44.371Z</lastmod>
     
   </url>
   
