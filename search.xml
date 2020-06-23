@@ -346,6 +346,103 @@
       </tags>
   </entry>
   <entry>
+    <title>数据结构与算法：时间复杂度</title>
+    <url>/posts/datastructure/202006230817-index.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="如何评判一个算法的好坏？"><a href="#如何评判一个算法的好坏？" class="headerlink" title="如何评判一个算法的好坏？"></a>如何评判一个算法的好坏？</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum1</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> result =<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        result+=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum2</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="number">1</span>+n)*n/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果单从执行效率上进行评估，可能会想到这么一种方案。比较不同算法对同一组输入的执行处理时间，这种方案也叫做：事后统计法</li>
+<li>上述方案有比较明显的缺点<ul>
+<li>执行时间严重依赖硬件以及运行时各种不确定的环境因素</li>
+<li>必须编写相应的测算代码</li>
+<li>测试数据的选择比较难保证公正性</li>
+</ul>
+</li>
+<li>一般从以下维度来评估算法的优劣<ul>
+<li>正确性、可读性、健壮性（对不合理输入的反应能力和处理能力）</li>
+<li>时间复杂度（time complexity）：估算程序指令的执行次数（执行时间）</li>
+<li>空间复杂度（space complexity）：估算所需占用的存储空间</li>
+</ul>
+</li>
+</ul>
+<h1 id="大O表示法（Big-O）"><a href="#大O表示法（Big-O）" class="headerlink" title="大O表示法（Big O）"></a>大O表示法（Big O）</h1><ul>
+<li>一般用大O表示法来描述复杂度，它表示的是数据规模 n 对应的复杂度</li>
+<li>忽略常数、系数、低阶</li>
+<li>9 &gt;&gt; O(1)</li>
+<li>2n + 3 &gt;&gt; O(n)</li>
+<li>n² + 2n + 6 &gt;&gt; O(n 2 )</li>
+<li>4n ³ + 3n²+ 22n + 100 &gt;&gt; O(n³)</li>
+<li>写法上，n³ 等价于 n^3</li>
+<li>注意：大O表示法仅仅是一种粗略的分析模型，是一种估算，能帮助我们短时间内了解一个算法的执行效率</li>
+</ul>
+<h1 id="对数阶的细节"><a href="#对数阶的细节" class="headerlink" title="对数阶的细节"></a>对数阶的细节</h1><p>对数阶一般省略底数，不管是怎么以什么为底的对数，都是可以乘以一个<strong>常数</strong>，最后转化为以2为底的对数。所以在计算时间复杂度时，对数都统称为logn。<br>$$<br>\log_2n=\log_29*log_9n<br>$$</p>
+<h1 id="常见的时间复杂度"><a href="#常见的时间复杂度" class="headerlink" title="常见的时间复杂度"></a>常见的时间复杂度</h1><table>
+<thead>
+<tr>
+<th>执行次数</th>
+<th>复杂度</th>
+<th>非正式术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12</td>
+<td>O(1)</td>
+<td>常数阶</td>
+</tr>
+<tr>
+<td>3n+1</td>
+<td>O(n)</td>
+<td>线性阶</td>
+</tr>
+<tr>
+<td>2n^2+5n+6</td>
+<td>O(n^2)</td>
+<td>平方阶</td>
+</tr>
+<tr>
+<td>4log_2n+25</td>
+<td>O(logn)</td>
+<td>对数阶</td>
+</tr>
+<tr>
+<td>3n+2nlog_3n+15</td>
+<td>O(nlogn)</td>
+<td>nlogn阶</td>
+</tr>
+<tr>
+<td>4n^3+3n^2+22n+10</td>
+<td>O(n^3)</td>
+<td>立方阶</td>
+</tr>
+<tr>
+<td>2^n</td>
+<td>O(2^n)</td>
+<td>指数阶</td>
+</tr>
+</tbody></table>
+<p>查看函数图像的网站：<a href="https://zh.numberempire.com/graphingcalculator.php" target="_blank" rel="noopener">https://zh.numberempire.com/graphingcalculator.php</a></p>
+<h1 id="数据规模对比"><a href="#数据规模对比" class="headerlink" title="数据规模对比"></a>数据规模对比</h1><p><img src="https://gitee.com/maishuren/blog-pic/raw/master/datastructure/2.jpg" alt=""></p>
+<h1 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h1><p>斐波那契数列，下面有两种解法。递归和非递归。其实可以发现递归的时间复杂度是更高的，当是具规模越大的时候，递归就会越耗时。所以一般都不要使用递归，但是使用了递归也是可以优化的，例如：尾递归，备忘录优化</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">#时间复杂度O(2^n)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">fib1</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">1</span>) <span class="keyword">return</span> n;</span><br><span class="line">    <span class="keyword">return</span> fib1(n-<span class="number">2</span>)+fib(n-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#时间复杂度O(n)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">fib2</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">1</span>) <span class="keyword">return</span> n;</span><br><span class="line">    <span class="keyword">int</span> first = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> second = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(n&gt;<span class="number">1</span>)&#123;</span><br><span class="line">        second+=first;</span><br><span class="line">        first=second+first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> second;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="多个数据规模的情况"><a href="#多个数据规模的情况" class="headerlink" title="多个数据规模的情况"></a>多个数据规模的情况</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">multi</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> l)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n+k)</p>
+<h1 id="算法的优化方向"><a href="#算法的优化方向" class="headerlink" title="算法的优化方向"></a>算法的优化方向</h1><ul>
+<li>用尽量少的存储空间</li>
+<li>用尽量少的执行时间</li>
+<li>空间换时间 OR 时间换空间</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>时间复杂度</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Cloud Alibaba微服务入门到进阶一：服务发现Nacos</title>
     <url>/posts/springcloud/202006211810-index.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="为什么出现Spring-Cloud-Alibaba？"><a href="#为什么出现Spring-Cloud-Alibaba？" class="headerlink" title="为什么出现Spring Cloud Alibaba？"></a>为什么出现Spring Cloud Alibaba？</h1><p>Spring Cloud的<a href="https://spring.io/blog/2018/12/12/spring-cloud-greenwich-rc1-available-now" target="_blank" rel="noopener">官网</a>中：</p>
