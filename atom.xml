@@ -158,11 +158,11 @@
       <category term="后端" scheme="http://www.maishuren.top/categories/%E5%90%8E%E7%AB%AF/"/>
     
     
-      <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
-    
       <category term="springcloud" scheme="http://www.maishuren.top/tags/springcloud/"/>
     
       <category term="微服务" scheme="http://www.maishuren.top/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+      <category term="java" scheme="http://www.maishuren.top/tags/java/"/>
     
   </entry>
   
