@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.maishuren.top/posts/mysql/202006281626-index.html</loc>
+    <lastmod>2020-06-29</lastmod>
+  </url>  <url>
+    <loc>http://www.maishuren.top/posts/middleware/202006261803-index.html</loc>
+    <lastmod>2020-06-28</lastmod>
+  </url>  <url>
     <loc>http://www.maishuren.top/posts/springboot/202006141700-index.html</loc>
     <lastmod>2020-06-26</lastmod>
   </url>  <url>
@@ -59,9 +65,6 @@
     <lastmod>2020-06-26</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/hadoop/202006132303-index.html</loc>
-    <lastmod>2020-06-26</lastmod>
-  </url>  <url>
-    <loc>http://www.maishuren.top/posts/middleware/202006261803-index.html</loc>
     <lastmod>2020-06-26</lastmod>
   </url>  <url>
     <loc>http://www.maishuren.top/posts/hadoop/202006261023-index.html</loc>
