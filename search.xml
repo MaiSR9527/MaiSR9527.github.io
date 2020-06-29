@@ -892,8 +892,8 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>springboot</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -1027,7 +1027,7 @@
 <p>在salve中执行</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">change master to master_host&#x3D;&#39;192.168.74.130&#39;, master_user&#x3D;&#39;slave&#39;, master_password&#x3D;&#39;123456&#39;, master_port&#x3D;3306, master_log_file&#x3D;&#39;mysql-bin.000004&#39;, master_log_pos&#x3D; 154, master_connect_retry&#x3D;30;</span><br></pre></td></tr></table></figure>
 
-<p><strong>master_host</strong> ：Master的地址，指的是容器的独立ip,可以通过docker inspect –format=’&lt;!–￼12–&gt;’容器名称|容器id`查询容器的ip。</p>
+<p><strong>master_host</strong> ：Master的地址，指的是容器的独立ip,可以通过docker inspect –format=’&lt;!–￼12–&gt;’容器名称|容器id`查询容器的ip，这个命令查看的是容器的Host，同服务器下可以使用。不同服务器下就要使用服务的真实IP地址。</p>
 <p><strong>master_port</strong>：Master的端口号，指的是容器的端口号</p>
 <p><strong>master_user</strong>：用于数据同步的用户</p>
 <p><strong>master_password</strong>：用于同步的用户的密码</p>
