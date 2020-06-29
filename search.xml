@@ -1049,6 +1049,14 @@
 <li>master_log_file和master_log_pos是否和主库的不一致</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>mysql</tag>
+        <tag>主从复制</tag>
+      </tags>
   </entry>
   <entry>
     <title>大数据之hadoop：分布式文件系统HDFS</title>
