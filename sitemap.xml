@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.maishuren.top/posts/middleware/202006261803-index.html</loc>
+    
+    <lastmod>2020-07-13T14:31:02.845Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.maishuren.top/posts/jvm/202007122215-index.html</loc>
     
     <lastmod>2020-07-13T11:58:21.502Z</lastmod>
@@ -187,13 +194,6 @@
     <loc>http://www.maishuren.top/posts/docker/202006161622-index.html</loc>
     
     <lastmod>2020-07-04T03:40:34.477Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.maishuren.top/posts/post/202006261803-index.html</loc>
-    
-    <lastmod>2020-06-29T11:36:35.421Z</lastmod>
     
   </url>
   
