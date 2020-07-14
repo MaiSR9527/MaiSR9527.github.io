@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.maishuren.top/posts/java-concurrent-programing/202006022138-index.html</loc>
+    
+    <lastmod>2020-07-14T11:53:14.946Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.maishuren.top/posts/middleware/202006261803-index.html</loc>
     
     <lastmod>2020-07-13T14:31:02.845Z</lastmod>
@@ -250,13 +257,6 @@
     <loc>http://www.maishuren.top/posts/java-concurrent-programing/202006071311-index.html</loc>
     
     <lastmod>2020-06-26T15:12:58.288Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.maishuren.top/posts/java-concurrent-programing/202006022138-index.html</loc>
-    
-    <lastmod>2020-06-26T15:12:05.704Z</lastmod>
     
   </url>
   
