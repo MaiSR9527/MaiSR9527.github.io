@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>go应用开发框架：beego</title>
-    <url>/posts/post/202008222257-index.html</url>
+    <url>/posts/post/2020/08/202008222257.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ go get -u github.com&#x2F;astaxie&#x2F;beego      &#x2F;&#x2F;下载beego框架</span><br><span class="line">$ go get -u github.com&#x2F;beego&#x2F;bee          &#x2F;&#x2F;下载bee工具</span><br></pre></td></tr></table></figure>
 
 <p>bee 工具是一个为了协助快速开发 beego 项目而创建的项目，通过 bee 您可以很容易的进行 beego 项目的创建、热编译、开发、测试、和部署。</p>
@@ -233,7 +233,7 @@
   </entry>
   <entry>
     <title>数据库中间件ShardingSphere</title>
-    <url>/posts/middleware/202006261803-index.html</url>
+    <url>/posts/middleware/2020/06/202006261803.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="什么是ShardingSphere？"><a href="#什么是ShardingSphere？" class="headerlink" title="什么是ShardingSphere？"></a>什么是ShardingSphere？</h1><p>Apache ShardingSphere 是一套开源的分布式数据库中间件解决方案组成的生态圈，它由 JDBC、Proxy 和 Sidecar（规划中）这 3 款相互独立，却又能够混合部署配合使用的产品组成。 它们均提供标准化的数据分片、分布式事务和数据库治理功能，可适用于如 Java 同构、异构语言、云原生等各种多样化的应用场景。</p>
 <p>Apache ShardingSphere 定位为关系型数据库中间件，旨在充分合理地在分布式的场景下利用关系型数据库的计算和存储能力，而并非实现一个全新的关系型数据库。 它通过关注不变，进而抓住事物本质。关系型数据库当今依然占有巨大市场，是各个公司核心业务的基石，未来也难于撼动，我们目前阶段更加关注在原有基础上的增量，而非颠覆。</p>
 <p><strong>ShardingSphere 已于2020年4月16日成为 Apache 软件基金会的顶级项目</strong>。</p>
@@ -461,13 +461,11 @@
       </categories>
       <tags>
         <tag>ShardingSphere</tag>
-        <tag>Sharding-JDBC</tag>
-        <tag>Sharding-Proxy</tag>
       </tags>
   </entry>
   <entry>
     <title>大数据之hadoop：hadoop入门</title>
-    <url>/posts/hadoop/202006132303-index.html</url>
+    <url>/posts/hadoop/2020/06/202006132303.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Hadoop是什么？"><a href="#Hadoop是什么？" class="headerlink" title="Hadoop是什么？"></a>Hadoop是什么？</h1><p>1）hadoop是由Apache基金会所开发的分布式系统基础架构</p>
 <p>2）主要解决海量数据的存储和海量数据的分析计算问题</p>
 <p>3）广义来说，hadoop通常是之一个更广泛的概念—hadoop生态圈</p>
@@ -860,7 +858,7 @@
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定HDFS中NameNode的地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop1:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 指定Hadoop运行时产生文件的存储目录 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/software/bigdata/hadoop/data/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>​        2) HDFS配置文件</p>
-<p>​        hadoop.env</p>
+<p>​        hadoop-env.sh</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 配置jdk所在的目录</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;opt&#x2F;software&#x2F;bigdata&#x2F;jdk1.8</span><br></pre></td></tr></table></figure>
 
 <p>​        hdfs-site.xml</p>
@@ -918,13 +916,14 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot系列一：浅析SpringBoot自动装配</title>
-    <url>/posts/springboot/202005281915-index.html</url>
+    <title>Spring Boot系列一：浅析SpringBoot自动装配</title>
+    <url>/posts/Spring%20Boot/2020/05/202005281915.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>源码地址：<a href="https://github.com/MaiSR9527/springboot-auto-configuration" target="_blank" rel="noopener">github地址</a></p>
 <p>maven依赖</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.8.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="spring模式注解装配"><a href="#spring模式注解装配" class="headerlink" title="spring模式注解装配"></a>spring模式注解装配</h2><h3 id="Stereotype-Annotations"><a href="#Stereotype-Annotations" class="headerlink" title="Stereotype Annotations"></a>Stereotype Annotations</h3><p><a href="https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model#stereotype-annotations" target="_blank" rel="noopener">GitHub官方描述</a></p>
+<h2 id="spring模式注解装配"><a href="#spring模式注解装配" class="headerlink" title="spring模式注解装配"></a>spring模式注解装配</h2><p>spring的模式注解可以说是注册一个个单独的组件</p>
+<h3 id="Stereotype-Annotations"><a href="#Stereotype-Annotations" class="headerlink" title="Stereotype Annotations"></a>Stereotype Annotations</h3><p><a href="https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model#stereotype-annotations" target="_blank" rel="noopener">GitHub官方描述</a></p>
 <p>A <strong><em>stereotype annotation</em></strong> is an annotation that is used to declare the role that a component plays within the application. For example, the <code>@Repository</code> annotation in the Spring Framework is a marker for any class that fulfills the role or <em>stereotype</em> of a repository (also known as Data Access Object or DAO).</p>
 <p><code>@Component</code> is a generic stereotype for any Spring-managed component. Any component annotated with <code>@Component</code> is a candidate for component scanning. Similarly, any component annotated with an annotation that is itself meta-annotated with <code>@Component</code> is also a candidate for component scanning. For example, <code>@Service</code> is meta-annotated with <code>@Component</code>.</p>
 <p>Core Spring provides several stereotype annotations out of the box, including but not limited to: <code>@Component</code>, <code>@Service</code>, <code>@Repository</code>, <code>@Controller</code>, <code>@RestController</code>, and <code>@Configuration</code>. <code>@Repository</code>, <code>@Service</code>, etc. are specializations of <code>@Component</code>.</p>
@@ -1155,6 +1154,7 @@
 <center size=12>文章有什么错误或者有什么问题，欢迎大家通过通论提交issue给我吧！</center>]]></content>
       <categories>
         <category>后端</category>
+        <category>java</category>
       </categories>
       <tags>
         <tag>springboot</tag>
@@ -1163,7 +1163,7 @@
   </entry>
   <entry>
     <title>设计模式之单列模式</title>
-    <url>/posts/design-patterns/202005282106-index.html</url>
+    <url>/posts/design-patterns/2020/05/202005282106.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="单例模式简介"><a href="#单例模式简介" class="headerlink" title="单例模式简介"></a>单例模式简介</h2><p>单例模式可以说是最简单的模式之一，属于创建型模式。单一的类负责创建自己的对象，同时确保该类有且仅有一个对象被创建。同时这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p>
 <ul>
 <li>单例类智能有一个实例</li>
@@ -1258,8 +1258,58 @@
       </tags>
   </entry>
   <entry>
+    <title>One algorithm a day(两数之和)</title>
+    <url>/posts/datastructure/2020/12/202012241456.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="题目：两数之和"><a href="#题目：两数之和" class="headerlink" title="题目：两数之和"></a>题目：两数之和</h1><p><strong>问题描述：</strong></p>
+<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。你可以假设<strong>每种输入只会对应一个答案</strong>。但是，数组中<strong>同一个元素不能使用两遍</strong>。</p>
+<p><strong>难度：</strong>简单</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定 nums &#x3D; [2, 7, 11, 15], target &#x3D; 9</span><br><span class="line"></span><br><span class="line">因为 nums[0] + nums[1] &#x3D; 2 + 7 &#x3D; 9</span><br><span class="line">所以返回 [0, 1]</span><br></pre></td></tr></table></figure>
+
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Topic001</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 测试</span></span><br><span class="line">        Topic001 topic001 = <span class="keyword">new</span> Topic001();</span><br><span class="line">        <span class="keyword">int</span>[] nums = &#123;<span class="number">2</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span>[] result = topic001.toSum(nums, <span class="number">9</span>);</span><br><span class="line">        System.out.println(Arrays.toString(result));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] toSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> key = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(key)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;map.get(key), i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="思路：图解"><a href="#思路：图解" class="headerlink" title="思路：图解"></a>思路：图解</h1><p>用一个HashMap存储数据，key是数组的元素，value是该元素在数组中的索引。因为要用到数据里的元素去比较，成功还要返回对应的索引。所以数组元素以及索引都要存起来并且对应起来，hash操作又是常数操作，所以对数组元素求hash很快。所以使用HashMap。</p>
+<p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/datastructure/topic1.jpg" alt="图解topic1"></p>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>自动装箱/拆箱可能导致NPE</title>
+    <url>/posts/bug-log/2020/12/202012071023.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="自动装箱-拆箱可能导致NPE"><a href="#自动装箱-拆箱可能导致NPE" class="headerlink" title="自动装箱/拆箱可能导致NPE"></a>自动装箱/拆箱可能导致NPE</h1><p>在一次使用redisTemplate去操作的时候，发现IDEA提示<code>UnBoxing of &#39;redisTemplate.hasKey(key)&#39; may produce &#39;NullPointerException&#39;</code>，意思是说自动拆箱可能会引发空指针异常。</p>
+<p>因为<code>hasKey</code>这个方法是返回Boolan类型，而方法的返回值是boolean，直接把Boolean的值返回，就会发生自动拆箱。</p>
+<p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/record/record1.png" alt=""></p>
+<h1 id="自动装箱与自动拆箱"><a href="#自动装箱与自动拆箱" class="headerlink" title="自动装箱与自动拆箱"></a>自动装箱与自动拆箱</h1><p>基本数据类型的自动装箱(autoboxing)、拆箱(unboxing)是自J2SE 5.0开始提供的功能。 一般我们要创建一个类的对象实例的时候，我们会这样： Class a = new Class(parameters); 当我们创建一个Integer对象时，却可以这样： Integer i = 100;(注意：和 int i = 100;是有区别的 ) 实际上，执行上面那句代码的时候，系统为我们执行了： Integer i = Integer.valueOf(100)。<code>Integer i = 100</code>这就是一个自动装箱。</p>
+<h1 id="出现空指针的情况"><a href="#出现空指针的情况" class="headerlink" title="出现空指针的情况"></a>出现空指针的情况</h1><ol>
+<li>包装器类型赋值给基本类型时，自动拆箱下出现的空指针</li>
+<li>当把基本类型作为方法的参数类型，但是方法调用者传参使用的却是包装器类型，所以出现了自动拆箱的情况，此时包装器类型如果传的是NULL，方法中就很有可能出现NULL指针异常</li>
+</ol>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	Map&lt;String, Boolean&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">	map.put(<span class="string">"key1"</span>, <span class="keyword">true</span>);</span><br><span class="line">	map.put(<span class="string">"key2"</span>, <span class="keyword">false</span>);</span><br><span class="line">	map.put(<span class="string">"key3"</span>, <span class="keyword">false</span>);</span><br><span class="line">	Boolean b = ( map != <span class="keyword">null</span> ? map.get(<span class="string">"key"</span>) : <span class="keyword">false</span>);</span><br><span class="line">	System.out.println(b);</span><br><span class="line">&#125;</span><br><span class="line">执行结果：</span><br><span class="line"><span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<p><code>map</code>不为空，当<code>get()</code>之后<code>key</code>不存在，<code>Boolean</code>类型的b被赋了空值。再看回<code>redisTemplate.hasKey(key)</code>的操作可能会产生空值，然后拆箱返回，因为这是一个工具类里的方法，调用者可能会直接调用，这时候就有了空指针异常的风险，影响了程序的健壮性了。</p>
+<p>使用javap.exe反编译之后，查看</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main(java.lang.String[]);</span><br><span class="line">    Code:</span><br><span class="line">       0: new           #2                  &#x2F;&#x2F; class java&#x2F;util&#x2F;HashMap</span><br><span class="line">       3: dup</span><br><span class="line">       4: bipush        16</span><br><span class="line">       6: invokespecial #3                  &#x2F;&#x2F; Method java&#x2F;util&#x2F;HashMap.&quot;&lt;init&gt;&quot;:(I)V</span><br><span class="line">       9: astore_1</span><br><span class="line">      10: aload_1</span><br><span class="line">      11: ldc           #4                  &#x2F;&#x2F; String key1</span><br><span class="line">      13: iconst_1</span><br><span class="line">      14: invokestatic  #5                  &#x2F;&#x2F; Method java&#x2F;lang&#x2F;Boolean.valueOf:(Z)Ljava&#x2F;lang&#x2F;Boolean;</span><br><span class="line">      17: invokeinterface #6,  3            &#x2F;&#x2F; InterfaceMethod java&#x2F;util&#x2F;Map.put:(Ljava&#x2F;lang&#x2F;Object;Ljava&#x2F;lang&#x2F;Object;)Ljava&#x2F;lang&#x2F;Object;</span><br><span class="line">      22: pop</span><br><span class="line">      23: aload_1</span><br><span class="line">      24: ldc           #7                  &#x2F;&#x2F; String key2</span><br><span class="line">      26: iconst_0</span><br><span class="line">      27: invokestatic  #5                  &#x2F;&#x2F; Method java&#x2F;lang&#x2F;Boolean.valueOf:(Z)Ljava&#x2F;lang&#x2F;Boolean;</span><br><span class="line">      30: invokeinterface #6,  3            &#x2F;&#x2F; InterfaceMethod java&#x2F;util&#x2F;Map.put:(Ljava&#x2F;lang&#x2F;Object;Ljava&#x2F;lang&#x2F;Object;)Ljava&#x2F;lang&#x2F;Object;</span><br><span class="line">      35: pop</span><br><span class="line">      36: aload_1</span><br><span class="line">      37: ldc           #8                  &#x2F;&#x2F; String key3</span><br><span class="line">      39: iconst_0</span><br><span class="line">      40: invokestatic  #5                  &#x2F;&#x2F; Method java&#x2F;lang&#x2F;Boolean.valueOf:(Z)Ljava&#x2F;lang&#x2F;Boolean;</span><br><span class="line">      43: invokeinterface #6,  3            &#x2F;&#x2F; InterfaceMethod java&#x2F;util&#x2F;Map.put:(Ljava&#x2F;lang&#x2F;Object;Ljava&#x2F;lang&#x2F;Object;)Ljava&#x2F;lang&#x2F;Object;</span><br><span class="line">      48: pop</span><br><span class="line">      49: aload_1</span><br><span class="line">      50: ifnull        67</span><br><span class="line">      53: aload_1</span><br><span class="line">      54: ldc           #9                  &#x2F;&#x2F; String key</span><br><span class="line">      56: invokeinterface #10,  2           &#x2F;&#x2F; InterfaceMethod java&#x2F;util&#x2F;Map.get:(Ljava&#x2F;lang&#x2F;Object;)Ljava&#x2F;lang&#x2F;Object;</span><br><span class="line">      61: checkcast     #11                 &#x2F;&#x2F; class java&#x2F;lang&#x2F;Boolean</span><br><span class="line">      64: goto          71</span><br><span class="line">      67: iconst_0</span><br><span class="line">      68: invokestatic  #5                  &#x2F;&#x2F; Method java&#x2F;lang&#x2F;Boolean.valueOf:(Z)Ljava&#x2F;lang&#x2F;Boolean;</span><br><span class="line">      71: astore_2</span><br><span class="line">      72: getstatic     #12                 &#x2F;&#x2F; Field java&#x2F;lang&#x2F;System.out:Ljava&#x2F;io&#x2F;PrintStream;</span><br><span class="line">      75: aload_2</span><br><span class="line">      76: invokevirtual #13                 &#x2F;&#x2F; Method java&#x2F;io&#x2F;PrintStream.println:(Ljava&#x2F;lang&#x2F;Object;)V</span><br><span class="line">      79: return</span><br></pre></td></tr></table></figure>
+
+<p>从反编译的结果可以看到<code>Method java/lang/Boolean.valueOf:(Z)Ljava/lang/Boolean;</code>出现了四次，三次是<code>map.put()</code>的时候，最后一次是：<code>Boolean b = ( map != null ? map.get(&quot;key&quot;) : false);</code>可以看出<code>Boolean</code>类型自动装箱<code>valueOf()</code>。如果一个<code>Boolean</code>引用为空时，在自动拆箱就是一个空值。这就会发生NPE</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">valueOf</span><span class="params">(<span class="keyword">boolean</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (b ? TRUE : FALSE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>包装器类型和基本数据类型都可以的业务场景下，优先考虑使用基本类型</li>
+<li>对于不确定的包装器类型，一定要对NULL情况做检验和判断</li>
+</ol>
+]]></content>
+      <categories>
+        <category>踩坑日志</category>
+      </categories>
+  </entry>
+  <entry>
     <title>六大设计原则解读</title>
-    <url>/posts/design-patterns/202009051442-index.html</url>
+    <url>/posts/design-patterns/2020/09/202009051442.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h1><p>​        单一职责原则的英文名称是Single Responsibility Principle，简称是SRP。这个原则存在争议之处在哪里呢？就是对职责的定义，什么是类的职责，以及怎么划分类的职责。可以举个例子来说明一下单一职责原则。</p>
 <p>​        我想很多人都应该基于RBAC模型做过一些用户和角色管理的一些模块。RBAC模型（Role-Based Access Control，基于角色的访问控制，通过分配和取消角色来完成用户权限的授予和取消，使动作主体（用户）与资源的行为（权限）分离），确实是一个很好的解决办法。这里要讲的是用户管理、修改用户的信息、增加机构（一个人属于多个机构）、增加角色等，用户有这么多的信息和行为要维护，那么就把这些写到一个接口中，都是用户管理类嘛，这样先来看它的类图：</p>
 <p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/principle/1.png" alt=""></p>
@@ -1323,7 +1373,7 @@
   </entry>
   <entry>
     <title>Spring IoC容器概述</title>
-    <url>/posts/%E5%90%8E%E7%AB%AF/202009051038-index.html</url>
+    <url>/posts/%E5%90%8E%E7%AB%AF/2020/09/202009051038.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
       <categories>
         <category>后端</category>
@@ -1335,7 +1385,7 @@
   </entry>
   <entry>
     <title>计算机组成原理</title>
-    <url>/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/202009012140-index.html</url>
+    <url>/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/2020/09/202009012140.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="计算机发展简史"><a href="#计算机发展简史" class="headerlink" title="计算机发展简史"></a>计算机发展简史</h1><h2 id="计算机发展的四个阶段"><a href="#计算机发展的四个阶段" class="headerlink" title="计算机发展的四个阶段"></a>计算机发展的四个阶段</h2><h2 id="微型计算机的发展历史"><a href="#微型计算机的发展历史" class="headerlink" title="微型计算机的发展历史"></a>微型计算机的发展历史</h2>]]></content>
       <categories>
         <category>计算机基础</category>
@@ -1345,25 +1395,26 @@
       </tags>
   </entry>
   <entry>
-    <title>Java内存区域与内存溢出异常</title>
-    <url>/posts/jvm/202007122215-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="JVM运行时数据区"><a href="#JVM运行时数据区" class="headerlink" title="JVM运行时数据区"></a>JVM运行时数据区</h1><p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/jvm/jvm-memory.jpg" alt="thread-dead-lock"></p>
-<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>程序计数器时一块较小的内存空间，可以把它看作是当前线程所执行字节码的行号指示器。在Java虚拟机的概念魔性里面，字节码解析工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖程序计数器来完成。</p>
-<p>Java虚拟机中的多线程是通过线程轮流切换、分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器(多核处理器来说是一个内核)都会执行一条线程中的指令。因此，为了多线程切换之后能够恢复到正确的执行位置，每条线程都需要这样的一个独立的程序计数器，各条线程之间计数器互不影响，独立存储。因此在Java虚拟机的运行时数据区中程序计数器是属于“线程私有”的一块内存。</p>
-<p>如果线程正在执行的是一个Java方法， 这个计数器记录的是正在执行的虚拟机字节码指令的地址； 如果正在执行的是本地（Native） 方法， 这个计数器值则应为空（Undefined） 。 此内存区域是唯</p>
-<p>一一个在《Java虚拟机规范》 中没有规定任何OutOfMemoryError情况的区域。  </p>
-<h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><p>和程序计数器一样，Java虚拟机栈也是线程私有的，它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的线程魔性：每个方法被执行的时候，Java虚拟机都会同步创建栈帧用于存储局部变量表、操作数栈、动态连接、方法出口等信息。每个方法被调用直至执行完毕的过程，就对应一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
-<p>局部变量表存放了编译期间可知的各种Java虚拟机基本数据类型(boolean、byte、char、short、int、float、long、double)、对象引用(reference类型，他并不等同于对象本身，可能是一个执行对象起始地址的引用指针，也可能是指向代表一个对象的句柄或者其他与此对象相关的位置)和returnAddress类型（指向下一条字节码指令的地址）。</p>
-<p>这些数据类型在局部变量表中的存储空间以局部变量槽来表示，其中64位长度的ling和double类型的数据会占用两个两个变量槽， 其余的数据类型只占用一个。 局部变量表所需的内存空间在编译期间完成分配， 当进入一个方法时， 这个方法需要在栈帧中分配多大的局部变量空间是完全确定的， 在方法运行期间不会改变局部变量表的大小。 这里说的“大小”是指变量槽的数量，虚拟机真正使用多大的内存空间（譬如按照1个变量槽占用32个比特、 64个比特， 或者更多） 来实现一个变量槽， 这是完全由具体的虚拟机实现自行决定的事情。</p>
-<p>在《Java虚拟机规范》中，对于这个内存区域规定了两类异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将会抛出StackOverflowError异常；如果Java虚拟机栈容量可以动态扩展，当栈扩展时无法申请到足够的内存时，抛出StackOverflowError异常。</p>
-<p>如下所示，每调用一个方法就是创建一个栈帧并入栈(进入Java虚拟机栈)，当足够多的栈帧进栈并且没有出栈，这是会导致栈内存溢出。</p>
+    <title>深入理解Java虚拟机学习之内存管理(一)</title>
+    <url>/posts/jvm/2020/07/202007122215.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>​        对于Java程序员来说，在虚拟机自动内存管理机制的帮助下，不再需要为每一个new操作去写配对的delete/free代码，不容易出现内存泄漏和内存溢出问题，看起来由虚拟机管理内存一切都很美好。不过，也正是因为Java程序员把控制内存的权力交给了Java虚拟机，一旦出现内存泄漏和溢出方面的问题，如果不了解虚拟机是怎样使用内存的，那排查错误、修正问题将会成为一项异常艰难的工作。</p>
+<h1 id="JVM运行时数据区"><a href="#JVM运行时数据区" class="headerlink" title="JVM运行时数据区"></a>JVM运行时数据区</h1><p>​        Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。这些区域有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而一直存在，有些区域则是依赖用户线程的启动和结束而建立和销毁。根据《Java虚拟机规范》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如下图所示。</p>
+<p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/jvm/jvm-memory.jpg" alt="thread-dead-lock"></p>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>​        程序计数器时一块较小的内存空间，可以把它看作是当前线程所执行字节码的行号指示器。在Java虚拟机的概念模型里面，字节码解析工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖程序计数器来完成。</p>
+<p>​        Java虚拟机中的多线程是通过线程轮流切换、分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器(多核处理器来说是一个内核)都会执行一条线程中的指令。因此，为了多线程切换之后能够恢复到正确的执行位置，每条线程都需要这样的一个独立的程序计数器，各条线程之间计数器互不影响，独立存储。因此在Java虚拟机的运行时数据区中程序计数器是属于“线程私有”的一块内存。</p>
+<p>​        如果线程正在执行的是一个Java方法， 这个计数器记录的是正在执行的虚拟机字节码指令的地址； 如果正在执行的是本地（Native） 方法， 这个计数器值则应为空（Undefined） 。 此内存区域是唯一一个在《Java虚拟机规范》 中没有规定任何<code>OutOfMemoryError</code>情况的区域。  </p>
+<h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><p>​        和程序计数器一样，Java虚拟机栈也是线程私有的，它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的线程魔性：每个方法被执行的时候，Java虚拟机都会同步创建栈帧用于存储局部变量表、操作数栈、动态连接、方法出口等信息。每个方法被调用直至执行完毕的过程，就对应一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
+<p>​        局部变量表存放了编译期间可知的各种Java虚拟机基本数据类型(boolean、byte、char、short、int、float、long、double)、对象引用(reference类型，他并不等同于对象本身，可能是一个执行对象起始地址的引用指针，也可能是指向代表一个对象的句柄或者其他与此对象相关的位置)和<code>returnAddress</code>类型（指向下一条字节码指令的地址）。</p>
+<p>​        这些数据类型在局部变量表中的存储空间以局部变量槽来表示，其中64位长度的ling和double类型的数据会占用两个两个变量槽， 其余的数据类型只占用一个。 局部变量表所需的内存空间在编译期间完成分配， 当进入一个方法时， 这个方法需要在栈帧中分配多大的局部变量空间是完全确定的， 在方法运行期间不会改变局部变量表的大小。 这里说的“大小”是指变量槽的数量，虚拟机真正使用多大的内存空间（譬如按照1个变量槽占用32个比特、 64个比特， 或者更多） 来实现一个变量槽， 这是完全由具体的虚拟机实现自行决定的事情。</p>
+<p>​        在《Java虚拟机规范》中，对于这个内存区域规定了两类异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将会抛出<code>StackOverflowError</code>异常；如果Java虚拟机栈容量可以动态扩展，当栈扩展时无法申请到足够的内存时，抛出<code>StackOverflowError</code>异常。</p>
+<p>​        如下所示，每调用一个方法就是创建一个栈帧并入栈(进入Java虚拟机栈)，当足够多的栈帧进栈并且没有出栈，这是会导致栈内存溢出。栈内存溢出经常会发生再递归调用</p>
 <p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/jvm/stackoverflow.jpg" alt="stackoverflow"></p>
-<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈（Native Method Stacks） 与虚拟机栈所发挥的作用是非常相似的， 其区别只是虚拟机栈为虚拟机执行Java方法（也就是字节码） 服务， 而本地方法栈则是为虚拟机使用到的本地（Native）方法服务。</p>
-<p>《Java虚拟机规范》 对本地方法栈中方法使用的语言、 使用方式与数据结构并没有任何强制规定， 因此具体的虚拟机可以根据需要自由实现它， 甚至有的Java虚拟机（譬如Hot-Spot虚拟机） 直接就把本地方法栈和虚拟机栈合二为一。 与虚拟机栈一样， 本地方法栈也会在栈深度溢出或者栈扩展失败时分别抛出StackOverflowError和OutOfMemoryError异常。  </p>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>​        本地方法栈（Native Method Stacks） 与虚拟机栈所发挥的作用是非常相似的， 其区别只是虚拟机栈为虚拟机执行Java方法（也就是字节码） 服务， 而本地方法栈则是为虚拟机使用到的本地（Native）方法服务。</p>
+<p>​        《Java虚拟机规范》对本地方法栈中方法使用的语言、使用方式与数据结构并没有任何强制规定，因此具体的虚拟机可以根据需要自由实现它，甚至有的Java虚拟机（譬如Hot-Spot虚拟机）直接就把本地方法栈和虚拟机栈合二为一。与虚拟机栈一样，本地方法栈也会在栈深度溢出或者栈扩展失败时分别抛出<code>StackOverflowError</code>和<code>OutOfMemoryError</code>异常。  </p>
 <h2 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h2><p>对于Java应用程序来说，Java堆时虚拟机所管理的内存中最大的一块。Java堆是被所有线程共享的，在虚拟机启动的时候Java堆就被创建出来。此区域的唯一作用就是存放对象实例，Java中“几乎”所有的对象实例都在这里分配内存。在《Java虚拟机规范》 中对Java堆的描述是： “所有的对象实例以及数组都应当在堆上分配”， 而这里的“几乎”是指从实现角度来看， 随着Java语言的发展， 现在已经能看到些许迹象表明日后可能出现值类型的支持， 即使只考虑现在， 由于即时编<br>译技术的进步， 尤其是逃逸分析技术的日渐强大， 栈上分配、 标量替换优化手段已经导致一些微妙的变化悄然发生， 所以说Java对象实例都分配在堆上也渐渐变得不是那么绝对了。</p>
 <p>如果从分配内存的角度看， 所有线程共享的Java堆中可以划分出多个线程私有的分配缓冲区(Thread Local Allocation Buffer， TLAB） ， 以提升对象分配时的效率。 不过无论从什么角度， 无论如何划分， 都不会改变Java堆中存储内容的共性， 无论是哪个区域， 存储的都只能是对象的实例， 将Java堆细分的目的只是为了更好地回收内存， 或者更快地分配内存。  </p>
 <p>根据《Java虚拟机规范》 的规定， Java堆可以处于物理上不连续的内存空间中， 但在逻辑上它应该被视为连续的， 这点就像我们用磁盘空间去存储文件一样， 并不要求每个文件都连续存放。 但对于大对象（典型的如数组对象） ， 多数虚拟机实现出于实现简单、 存储高效的考虑， 很可能会要求连续的内存空间。</p>
-<p>Java堆既可以被实现成固定大小的， 也可以是可扩展的， 不过当前主流的Java虚拟机都是按照可扩展来实现的（通过参数-Xmx和-Xms设定） 。 如果在Java堆中没有内存完成实例分配， 并且堆也无法再扩展时， Java虚拟机将会抛出OutOfMemoryError异常。  </p>
+<p>Java堆既可以被实现成固定大小的， 也可以是可扩展的， 不过当前主流的Java虚拟机都是按照可扩展来实现的（通过参数-Xmx和-Xms设定） 。 如果在Java堆中没有内存完成实例分配， 并且堆也无法再扩展时， Java虚拟机将会抛出<code>OutOfMemoryError</code>异常。  </p>
 <h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>方法区（Method Area） 与Java堆一样， 是各个线程共享的内存区域， 它用于存储已被虚拟机加载的类型信息、 常量、 静态变量、 即时编译器编译后的代码缓存等数据。 虽然《Java虚拟机规范》 中把方法区描述为堆的一个逻辑部分， 但是它却有一个别名叫作“非堆”（Non-Heap） ， 目的是与Java堆区分开来。 </p>
 <p>《Java虚拟机规范》 对方法区的约束是非常宽松的， 除了和Java堆一样不需要连续的内存和可以选择固定大小或者可扩展外， 甚至还可以选择不实现垃圾收集。 相对而言， 垃圾收集行为在这个区域的确是比较少出现的， 但并非数据进入了方法区就如永久代的名字一样“永久”存在了。 这区域的内存回收目标主要是针对常量池的回收和对类型的卸载， 一般来说这个区域的回收效果比较难令人满意， 尤其是类型的卸载， 条件相当苛刻， 但是这部分区域的回收有时又确实是必要的。 </p>
 <p>根据《Java虚拟机规范》 的规定， 如果方法区无法满足新的内存分配需求时， 将抛出OutOfMemoryError异常。  </p>
@@ -1374,7 +1425,7 @@
 <h2 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h2><p>直接内存并不是虚拟机运行时数据区的一部分，也不是《Java虚拟机规范》中定义的内存区域。但是这部分内存也被频繁地使用，而且也可能导致OutOfMemoryError异常的出现。</p>
 <p>在JDK1.4中新加入了NIO类，引入一种基于通道与缓冲区的I/O方式，它可以使Native函数库直接分配堆外内存，然后通过一个存储在Java堆里面的DirectByteBuffer对象作为这块内存的引用进行操作。这样内在一些场景中显著提高性能，因为避免了在Java堆和Native堆中来回恢复数据。</p>
 <p>直接内存的分配不会受到Java堆大小的限制， 但是， 既然是内存， 则肯定还是会受到本机总内存（包括物理内存、 SWAP分区或者分页文件） 大小以及处理器寻址空间的限制， 一般服务器管理员配置虚拟机参数时， 会根据实际内存去设置-Xmx等参数信息， 但经常忽略掉直接内存， 使得各个内存区域总和大于物理内存限制（包括物理的和操作系统级的限制），从而导致动态扩展时出现OutOfMemoryError异常。  </p>
-<h1 id="HotSpot虚拟机对象探秘"><a href="#HotSpot虚拟机对象探秘" class="headerlink" title="HotSpot虚拟机对象探秘"></a>HotSpot虚拟机对象探秘</h1><h2 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h2>]]></content>
+<h1 id="HotSpot虚拟机对象探秘"><a href="#HotSpot虚拟机对象探秘" class="headerlink" title="HotSpot虚拟机对象探秘"></a>HotSpot虚拟机对象探秘</h1><h2 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h2><h2 id="对象的定位"><a href="#对象的定位" class="headerlink" title="对象的定位"></a>对象的定位</h2><h2 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h2><h1 id="实战：OOM异常"><a href="#实战：OOM异常" class="headerlink" title="实战：OOM异常"></a>实战：OOM异常</h1>]]></content>
       <categories>
         <category>后端</category>
         <category>java</category>
@@ -1385,7 +1436,7 @@
   </entry>
   <entry>
     <title>【java并发编程】多线程的线程安全问题</title>
-    <url>/posts/java-concurrent-programing/202007041308-index.html</url>
+    <url>/posts/java-concurrent-programing/2020/07/202007041308.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h1><p>看一下下面的代码：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadUnsafe</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Ticket ticket = <span class="keyword">new</span> Ticket();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            Thread thread = <span class="keyword">new</span> Thread(ticket);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ticket</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> ticketNum = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ticketNum &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    TimeUnit.MILLISECONDS.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" sale a ticket,current:"</span> + saleTicket());</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"票已经卖完了"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">saleTicket</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ticketNum--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1406,7 +1457,7 @@
   </entry>
   <entry>
     <title>Docker容器下配置MySQL主从配置</title>
-    <url>/posts/mysql/202006281626-index.html</url>
+    <url>/posts/mysql/2020/06/202006281626.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="MySQL主从复制"><a href="#MySQL主从复制" class="headerlink" title="MySQL主从复制"></a>MySQL主从复制</h1><p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/ShardingSphere/replica.png" alt=""></p>
 <h1 id="获取MySQL镜像"><a href="#获取MySQL镜像" class="headerlink" title="获取MySQL镜像"></a>获取MySQL镜像</h1><p>搜索mysql，前两个是mysql官方制作的镜像</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@msr ~]# docker search mysql</span><br><span class="line">NAME    DESCRIPTION                                     STARS        OFFICIAL   AUTOMATED</span><br><span class="line">mysql   MySQL is a widely used, open-source relation…   9686         [OK]                </span><br><span class="line">mariadb MariaDB is a community-developed fork of MyS…   3523         [OK]                </span><br><span class="line">mysql&#x2F;mysql-server   Optimized MySQL Server Docker images. Create…   706         [OK]</span><br></pre></td></tr></table></figure>
@@ -1472,8 +1523,8 @@
   </entry>
   <entry>
     <title>大数据之hadoop：分布式文件系统HDFS</title>
-    <url>/posts/hadoop/202006261023-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="HDFS定义"><a href="#HDFS定义" class="headerlink" title="HDFS定义"></a>HDFS定义</h1><p>HDFS是一个文件系统，用于存储文件，荣国目录树来定义文件；其次，他是分布式的，又很多服务器联合实现其功能，集群中的服务器有各自的角色。</p>
+    <url>/posts/hadoop/2020/06/202006261023.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="HDFS概述"><a href="#HDFS概述" class="headerlink" title="HDFS概述"></a>HDFS概述</h1><h2 id="HDFS定义"><a href="#HDFS定义" class="headerlink" title="HDFS定义"></a>HDFS定义</h2><p>HDFS是一个文件系统，用于存储文件，荣国目录树来定义文件；其次，他是分布式的，又很多服务器联合实现其功能，集群中的服务器有各自的角色。</p>
 <p>HDFS的使用场景：适合一次性读写，多次读出的场景，且不支持文件的修改。适合用来做数据分析，不适合频繁修改的网盘应用。</p>
 <h2 id="HDFS的优缺点"><a href="#HDFS的优缺点" class="headerlink" title="HDFS的优缺点"></a>HDFS的优缺点</h2><ol>
 <li><p>优点</p>
@@ -1500,10 +1551,42 @@
 </li>
 <li><p>不支持并发写入和文件随机修改</p>
 <p>一个文件只能有一个写，不允许多个线程同时写</p>
+<p>仅支持数据追加，不支持文件的随机修改</p>
 </li>
 </ul>
 </li>
 </ol>
+<h2 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h2><p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/hadoop/hdfs-architecture.jpg" alt=""></p>
+<ol>
+<li>NameNode：就是Master，是管理者。<ul>
+<li>管理HDFS的名称空间</li>
+<li>配置副本策略</li>
+<li>管理数据块映射信息</li>
+<li>处理客户端读写请求</li>
+</ul>
+</li>
+<li>DataNode：就是Slave，NameNode下达命令，DataNode执行实际的操作<ul>
+<li>存储实际的数据块</li>
+<li>执行数据块的读/写操作</li>
+</ul>
+</li>
+<li>Client：客户端<ul>
+<li>文件切分。文件上传HDFS的时候，Client将文件切分成一个个的Block，然后进行上传</li>
+<li>与NameNode交互，获取文件的位置信息</li>
+<li>与DataNode交互，读取或者写入数据</li>
+<li>Client提供一些命令来管理HDFS，比如NameNode格式化</li>
+<li>Client可以通过一些命令来访问HDFS，比如对HDFS增删查改操作</li>
+</ul>
+</li>
+<li>Secondary NameNode：并非NameNode的热备。当NameNode挂掉了，它并不能马上替换NameNode并提供服务<ul>
+<li>服务NameNode，分担其工作量，比如定期合并Fsimage和Edits，并推送给NameNode</li>
+<li>在紧急情况下，可辅助恢复NameNode</li>
+</ul>
+</li>
+</ol>
+<h2 id="HDFS文件块大小"><a href="#HDFS文件块大小" class="headerlink" title="HDFS文件块大小"></a>HDFS文件块大小</h2><p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/hadoop/hdfs-storage.png" alt=""></p>
+<p>HDFS中的文件在物理上是分块（Block）存储的，块的大小可以通过配置参数（dfs.blocksize）来配置，默认大小在Hadoop2中是128M，老版本是64M</p>
+<p>HDFS的块大小配置太小会增加寻址时间，程序一直在找块的开始位置，如果设置太大，从磁盘传输数据的时间会明显大于定位这个块开始位置所需的时间。导致程序在处理这块数据时，会非常慢。所以HDFS块的大小设置主要取决去磁盘的传输速率</p>
 ]]></content>
       <categories>
         <category>大数据</category>
@@ -1515,7 +1598,7 @@
   </entry>
   <entry>
     <title>记录一次Algolia的ApiKey使用异常</title>
-    <url>/posts/bug-log/202006251725-index.html</url>
+    <url>/posts/bug-log/2020/06/202006251725.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="第一个问题"><a href="#第一个问题" class="headerlink" title="第一个问题"></a>第一个问题</h1><p>第一次的使用Algolia作为博客的搜索系统，一开始设置的时候没怎么关注。在后面写了很多文章想要跟新一下Algolia的索引的时候，除了问题，网站根本搜索不了，起了官网一看发现索引过期了，再去看一下邮箱，发现了之前不注意到一封邮件。</p>
 <p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/error/Algolia.jpg" alt=""></p>
 <p>所以重新修改使用计划，重新选择社区版</p>
@@ -1534,14 +1617,10 @@
       <categories>
         <category>踩坑日志</category>
       </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>Algolia</tag>
-      </tags>
   </entry>
   <entry>
     <title>数据结构与算法：栈</title>
-    <url>/posts/datastructure/202006231844-index.html</url>
+    <url>/posts/datastructure/2020/06/202006231844.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><ul>
 <li>栈是一种特殊的线性表，只能在一端进行操作</li>
 <li>往栈中添加元素的操作，一般叫做 push，入栈</li>
@@ -1589,7 +1668,7 @@
   </entry>
   <entry>
     <title>数据结构与算法：链表</title>
-    <url>/posts/datastructure/202006231045-index.html</url>
+    <url>/posts/datastructure/2020/06/202006231045.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="链表（Linked-List）"><a href="#链表（Linked-List）" class="headerlink" title="链表（Linked List）"></a>链表（Linked List）</h1><ul>
 <li>动态数组有个明显的缺点</li>
 <li>可能会造成内存空间的大量浪费</li>
@@ -1637,7 +1716,7 @@
   </entry>
   <entry>
     <title>数据结构与算法：动态数组</title>
-    <url>/posts/datastructure/202006230937-index.html</url>
+    <url>/posts/datastructure/2020/06/202006230937.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="什么是数据结构？"><a href="#什么是数据结构？" class="headerlink" title="什么是数据结构？"></a>什么是数据结构？</h1><p>数据结构是计算机存储、组织数据的方式。常见的数据结构如下：</p>
 <p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/datastructure/3.jpg" alt=""></p>
 <h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><p>线性表是具有 n 个<strong>相同类型元素</strong>的<strong>有限序列</strong>（ n ≥ 0 ）</p>
@@ -1680,7 +1759,7 @@
   </entry>
   <entry>
     <title>数据结构与算法：时间复杂度</title>
-    <url>/posts/datastructure/202006230817-index.html</url>
+    <url>/posts/datastructure/2020/06/202006230817.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="如何评判一个算法的好坏？"><a href="#如何评判一个算法的好坏？" class="headerlink" title="如何评判一个算法的好坏？"></a>如何评判一个算法的好坏？</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum1</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> result =<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        result+=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum2</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="number">1</span>+n)*n/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -1777,12 +1856,12 @@
       </tags>
   </entry>
   <entry>
-    <title>Spring Cloud Alibaba微服务入门到进阶一：服务发现Nacos</title>
-    <url>/posts/springcloud/202006211810-index.html</url>
+    <title>Spring Cloud Alibaba微服务学习一：服务发现Nacos</title>
+    <url>/posts/springcloud/2020/06/202006211810.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="为什么出现Spring-Cloud-Alibaba？"><a href="#为什么出现Spring-Cloud-Alibaba？" class="headerlink" title="为什么出现Spring Cloud Alibaba？"></a>为什么出现Spring Cloud Alibaba？</h1><p>Spring Cloud的<a href="https://spring.io/blog/2018/12/12/spring-cloud-greenwich-rc1-available-now" target="_blank" rel="noopener">官网</a>中：</p>
 <p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/springcloud/springcloud1.jpg" alt=""></p>
 <p>在以往的Spring Cloud中官方也是推荐使用Netflix的组件，但是随着Netflix的多个组件进入维护状态，可以说Netflix的组件已经不能使用了，因为可能出现潜在风险。对于微服务来说，最重要的几个组件：服务发现、断路器、网关、负载均衡。然而这些组件都进入了维护状态。所以随之Ailibaba的组件就成为了我们的首选。</p>
-<h1 id="Spring-Cloud-Netflix的替换组件"><a href="#Spring-Cloud-Netflix的替换组件" class="headerlink" title="Spring Cloud Netflix的替换组件"></a>Spring Cloud Netflix的替换组件</h1><h1 id="Spring-Cloud-Alibaba的主要组件"><a href="#Spring-Cloud-Alibaba的主要组件" class="headerlink" title="Spring Cloud Alibaba的主要组件"></a>Spring Cloud Alibaba的主要组件</h1><ul>
+<h1 id="Spring-Cloud-Alibaba的主要组件"><a href="#Spring-Cloud-Alibaba的主要组件" class="headerlink" title="Spring Cloud Alibaba的主要组件"></a>Spring Cloud Alibaba的主要组件</h1><ul>
 <li>Sentinel：把流量作为切入点，从流量控制、熔断降级、系统负载保护等都各维度保护服务的稳定性。</li>
 <li>Nacos：一个更易于构建云原生应用的动态<strong>服务发现</strong>、<strong>配置管理</strong>和<strong>服务管理平台</strong>。</li>
 <li>RabbitMQ：一款开源的分布式消息系统，基于高可用分布式集群技术，提供低延时、高可靠的消息发布与订阅服务。</li>
@@ -1798,7 +1877,20 @@
 <p><a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="_blank" rel="noopener">Kubernetes Service</a></p>
 <p><a href="https://grpc.io/docs/guides/concepts.html#service-definition" target="_blank" rel="noopener">gRPC</a> &amp; <a href="https://dubbo.incubator.apache.org/" target="_blank" rel="noopener">Dubbo RPC Service</a></p>
 <p><a href="https://spring.io/understanding/REST" target="_blank" rel="noopener">Spring Cloud RESTful Service</a></p>
-<h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1>]]></content>
+<h1 id="使用Nacos-Server并注册应用"><a href="#使用Nacos-Server并注册应用" class="headerlink" title="使用Nacos Server并注册应用"></a>使用Nacos Server并注册应用</h1><p>1.下载Nacos。下载地址：<a href="https://github.com/alibaba/nacos/releases" target="_blank" rel="noopener">https://github.com/alibaba/nacos/releases</a></p>
+<p>2.解压Nacos的压缩包。</p>
+<p>3.启动Nacos。</p>
+<p><strong>windows下启动</strong></p>
+<p>cmd startup.cmd或者双击startup.cmd</p>
+<p><strong>linux/Unix/Mac启动</strong></p>
+<p>sh startup.sh -m standalone</p>
+<p>4.启动完成</p>
+<p>在浏览器打开<a href="http://localhost:8848/nacos。默认的用户名为nacos，密码为nacos" target="_blank" rel="noopener">http://localhost:8848/nacos。默认的用户名为nacos，密码为nacos</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/MaiSR9527/blog-pic/springcloud/nacos.jpg" alt=""></p>
+<p>nacos的web界面</p>
+<p><img src="https://cdn.jsdelivr.net/gh/MaiSR9527/blog-pic/springcloud/nacos2.jpg" alt=""></p>
+<p>5.编写应用，注册到Nacos中</p>
+]]></content>
       <categories>
         <category>后端</category>
       </categories>
@@ -1810,7 +1902,7 @@
   </entry>
   <entry>
     <title>nginx实践：rewrite规则</title>
-    <url>/posts/nginx/202006211318-index.html</url>
+    <url>/posts/nginx/2020/06/202006211318.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Rewrite规则"><a href="#Rewrite规则" class="headerlink" title="Rewrite规则"></a>Rewrite规则</h1><p>作用：rewrite规则可以实现对url的重写和重定向</p>
 <p>主要应用场景：</p>
 <ul>
@@ -1826,10 +1918,10 @@
 <p>break 停止rewrite检测【如果没有匹配到，则不再向下匹配，直接返回结果404】</p>
 <p>redirect 返回302临时重定向，地址栏会显示跳转后的地址</p>
 <p>permanent 返回301永久重定向，地址栏会显示跳转后的地址</p>
-<h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name localhost;</span><br><span class="line"></span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;log&#x2F;host.access.log  main;</span><br><span class="line">     </span><br><span class="line">    root &#x2F;opt&#x2F;app&#x2F;code; </span><br><span class="line">    location ~ ^&#x2F;break &#123;</span><br><span class="line">        rewrite ^&#x2F;break &#x2F;test&#x2F; break;</span><br><span class="line">    &#125; </span><br><span class="line"> </span><br><span class="line">    location ~ ^&#x2F;last &#123;</span><br><span class="line">         rewrite ^&#x2F;last &#x2F;test&#x2F; last;</span><br><span class="line">         #rewrite ^&#x2F;last &#x2F;test&#x2F; redirect;</span><br><span class="line">    &#125;    </span><br><span class="line"></span><br><span class="line">    location ~ ^&#x2F;imooc &#123;</span><br><span class="line">         rewrite ^&#x2F;main http:&#x2F;&#x2F;www.baidu.com&#x2F; permanent;</span><br><span class="line">         #rewrite ^&#x2F;main http:&#x2F;&#x2F;www.baidu.com&#x2F; redirect;</span><br><span class="line">    &#125;    </span><br><span class="line"> </span><br><span class="line">    location &#x2F;test&#x2F; &#123;</span><br><span class="line">       default_type application&#x2F;json;</span><br><span class="line">       return 200 &#39;&#123;&quot;status&quot;:&quot;success&quot;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name localhost;</span><br><span class="line"></span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;log&#x2F;host.access.log  main;</span><br><span class="line">     </span><br><span class="line">    root &#x2F;opt&#x2F;app&#x2F;code; </span><br><span class="line">    location ~ ^&#x2F;break &#123;</span><br><span class="line">        rewrite ^&#x2F;break &#x2F;test&#x2F; break;</span><br><span class="line">    &#125; </span><br><span class="line"> </span><br><span class="line">    location ~ ^&#x2F;last &#123;</span><br><span class="line">         rewrite ^&#x2F;last &#x2F;test&#x2F; last;</span><br><span class="line">         #rewrite ^&#x2F;last &#x2F;test&#x2F; redirect;</span><br><span class="line">    &#125;    </span><br><span class="line"></span><br><span class="line">    location ~ ^&#x2F;site &#123;</span><br><span class="line">         rewrite ^&#x2F;main http:&#x2F;&#x2F;www.baidu.com&#x2F; permanent;</span><br><span class="line">         #rewrite ^&#x2F;main http:&#x2F;&#x2F;www.baidu.com&#x2F; redirect;</span><br><span class="line">    &#125;    </span><br><span class="line"> </span><br><span class="line">    location &#x2F;test&#x2F; &#123;</span><br><span class="line">       default_type application&#x2F;json;</span><br><span class="line">       return 200 &#39;&#123;&quot;status&quot;:&quot;success&quot;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>redirect 表示临时的重定向 ，只要后端服务是开者的。每次访问 /imoc 都会重定向到后面的url</p>
-<p>permanent 表示永久重定向，第一次访问成功后，把后端服务关闭后，访问/imoc 仍然会重定向到后面的url</p>
+<p>redirect 表示临时的重定向 ，只要后端服务是开者的。每次访问 /site都会重定向到后面的url</p>
+<p>permanent 表示永久重定向，第一次访问成功后，把后端服务关闭后，访问/site仍然会重定向到后面的url</p>
 <p><strong>rewrite优先级规则</strong></p>
 <ul>
 <li>执行server 块的rewrite 指令。将所有的网站都重定向同一个网站。</li>
@@ -1847,7 +1939,7 @@
   </entry>
   <entry>
     <title>golang学习二十一：select和GC</title>
-    <url>/posts/golang/202006201149-index.html</url>
+    <url>/posts/golang/2020/06/202006201149.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="select简介"><a href="#select简介" class="headerlink" title="select简介"></a>select简介</h1><ul>
 <li>Golang中select和switch结构特别像,但是select中case的条件只能是I/O</li>
 <li>select 的语法(condition是条件)<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span>&#123;</span><br><span class="line">  <span class="keyword">case</span> condition:</span><br><span class="line">  <span class="keyword">case</span> condition:</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
@@ -1913,7 +2005,7 @@
   </entry>
   <entry>
     <title>golang学习二十：golang并发编程入门</title>
-    <url>/posts/golang/202006201134-index.html</url>
+    <url>/posts/golang/2020/06/202006201134.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="线程休眠"><a href="#线程休眠" class="headerlink" title="线程休眠"></a>线程休眠</h1><ul>
 <li>Go语言中main()函数为主线程(协程),程序是从上向下执行的</li>
 <li>可以通过time包下的Sleep(n)让程序阻塞多少纳秒<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">fmt.Println(<span class="string">"1"</span>)</span><br><span class="line"><span class="comment">//单位是纳秒,表示阻塞多长时间</span></span><br><span class="line"><span class="comment">//e9表示10的9次方</span></span><br><span class="line">time.Sleep(<span class="number">1e9</span>)</span><br><span class="line">fmt.Println(<span class="string">"2"</span>)</span><br></pre></td></tr></table></figure>
@@ -2086,7 +2178,7 @@
   </entry>
   <entry>
     <title>golang学习十九：日志</title>
-    <url>/posts/golang/202006201131-index.html</url>
+    <url>/posts/golang/2020/06/202006201131.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="日志简介"><a href="#日志简介" class="headerlink" title="日志简介"></a>日志简介</h1><ul>
 <li>使用开发工具时,控制台打印的信息就是日志信息</li>
 <li>项目最终发布后是没有开发工具的,而需要记录日志应该把信息输出到文件中,这个功能也是日志的功能</li>
@@ -2134,7 +2226,7 @@
   </entry>
   <entry>
     <title>golang学习十八：XML操作</title>
-    <url>/posts/goalng/202006201125-index.html</url>
+    <url>/posts/goalng/2020/06/202006201125.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Go语言标准库提供的API"><a href="#Go语言标准库提供的API" class="headerlink" title="Go语言标准库提供的API"></a>Go语言标准库提供的API</h1><ul>
 <li>在encoding/xml包下提供了对XML序列化和反序列化的API</li>
 <li>使用Unmarshal可以直接把XML字节切片数据转换为结构体</li>
@@ -2185,7 +2277,7 @@
   </entry>
   <entry>
     <title>golang学习十七：反射</title>
-    <url>/posts/goalng/202006201120-index.html</url>
+    <url>/posts/goalng/2020/06/202006201120.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="反射介绍"><a href="#反射介绍" class="headerlink" title="反射介绍"></a>反射介绍</h1><ul>
 <li>在Go语言标准库中reflect包提供了运行时反射,程序运行过程中动态操作结构体</li>
 <li>当变量存储结构体属性名称,想要对结构体这个属性赋值或查看时,就可以使用反射.</li>
@@ -2227,7 +2319,7 @@
   </entry>
   <entry>
     <title>golang学习十六：文件操作</title>
-    <url>/posts/goalng/202006201116-index.html</url>
+    <url>/posts/goalng/2020/06/202006201116.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="os包结构介绍"><a href="#os包结构介绍" class="headerlink" title="os包结构介绍"></a>os包结构介绍</h1><ul>
 <li>Go语言标准库中os包提供了不依赖平台的操作系统接口</li>
 <li>设计为Unix风格的，而错误处理是go风格的,失败的调用会返回错误值而非错误码。通常错误值里包含更多信息</li>
@@ -2341,7 +2433,7 @@
   </entry>
   <entry>
     <title>golang学习十五：错误异常处理</title>
-    <url>/posts/goalng/202006201059-index.html</url>
+    <url>/posts/goalng/2020/06/202006201059.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><ul>
 <li><p>在程序执行过程中出现的不正常情况称为错误</p>
 </li>
@@ -2445,7 +2537,7 @@
   </entry>
   <entry>
     <title>nginx实践：静态资源Web服务、代理服务、负载均衡调度器SLB和动态缓存</title>
-    <url>/posts/nginx/202006191422-index.html</url>
+    <url>/posts/nginx/2020/06/202006191422.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="静态资源服务"><a href="#静态资源服务" class="headerlink" title="静态资源服务"></a>静态资源服务</h1><h2 id="核心配置和文件压缩"><a href="#核心配置和文件压缩" class="headerlink" title="核心配置和文件压缩"></a>核心配置和文件压缩</h2><ol>
 <li><p>配置语法：文件读取</p>
 <p>配置：sendfile on | off。默认：sendfile off。作用域：http, server, location，if in location</p>
@@ -2680,7 +2772,7 @@
   </entry>
   <entry>
     <title>golang学习十四：golang中的面向对象</title>
-    <url>/posts/golang/202006182355-index.html</url>
+    <url>/posts/golang/2020/06/202006182355.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Go语言中的面向对象"><a href="#Go语言中的面向对象" class="headerlink" title="Go语言中的面向对象"></a>Go语言中的面向对象</h1><ul>
 <li><p>面向对象是一种思想,到目前为止还没有一个非常明确的定义,老程序员在不同时期对面向对象的理解是不同的.Go语言中对面向对象有着自己的理解</p>
 <blockquote>
@@ -2838,7 +2930,7 @@
   </entry>
   <entry>
     <title>golang学习十三：结构体</title>
-    <url>/posts/golang/202006182349-index.html</url>
+    <url>/posts/golang/2020/06/202006182349.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><ul>
 <li>结构体解释:将一个或多个变量组合到一起,形成新的类型.这个类型就是结构体</li>
 <li>Go语言中的结构体和C++结构体有点类似,而Java或C#中类本质就是结构体</li>
@@ -2923,7 +3015,7 @@
   </entry>
   <entry>
     <title>golang学习十二：值传递和引用传递</title>
-    <url>/posts/gloang/202006182347-index.html</url>
+    <url>/posts/gloang/2020/06/202006182347.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
 <li>讨论值传递和引用传递时,其实就是看值类型变量和引用类型变量作为函数参数时,修改形参是否会影响到实参</li>
 <li>在Go语言中五个引用类型变量,其他都是值类型<ul>
@@ -2959,7 +3051,7 @@
   </entry>
   <entry>
     <title>golang学习十一：包的访问权限、变量作用域、闭包</title>
-    <url>/posts/golang/202006182343-index.html</url>
+    <url>/posts/golang/2020/06/202006182343.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="包概述"><a href="#包概述" class="headerlink" title="包概述"></a>包概述</h1><ul>
 <li>包(package)是Go语言中组织单元.包是逻辑上的分组.而物理上的分组是不同的文件夹,文件夹和包一般是对应的</li>
 <li>把多个文件放入同一个文件夹中,这些文件就是在同一个包中.</li>
@@ -3023,7 +3115,7 @@
   </entry>
   <entry>
     <title>golang学习十：函数</title>
-    <url>/posts/golang/202006182334-index.html</url>
+    <url>/posts/golang/2020/06/202006182334.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ul>
 <li>函数:一段代码块</li>
 <li>所有的流程控制代码和业务代码都只能写在函数内部</li>
@@ -3155,7 +3247,7 @@
   </entry>
   <entry>
     <title>golang学习九：sort包、map、双向链表、双向循环链表</title>
-    <url>/posts/golang/202006182323-index.html</url>
+    <url>/posts/golang/2020/06/202006182323.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="sort包"><a href="#sort包" class="headerlink" title="sort包"></a>sort包</h1><ul>
 <li>Go语言标准库中sort提供了排序API</li>
 <li>sort包提供了多种排序算法,这些算法是内部实现的,每次使用sort包排序时,会自动选择最优算法实现<ul>
@@ -3324,7 +3416,7 @@
   </entry>
   <entry>
     <title>centos7安装docker</title>
-    <url>/posts/docker/202006161622-index.html</url>
+    <url>/posts/docker/2020/06/202006161622.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h1><p>1.查看内核版本</p>
 <p>linux操作系统Centos7，linux 3.10 内核，docker官方说至少3.8以上（ubuntu下要linux内核3.8以上）</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@msr-server ~]# uname -a</span><br><span class="line">Linux msr-server 3.10.0-514.26.2.el7.x86_64 #1 SMP Tue Jul 4 15:04:05 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux</span><br></pre></td></tr></table></figure>
@@ -3364,7 +3456,7 @@
   </entry>
   <entry>
     <title>nginx入门之配置语法</title>
-    <url>/posts/nginx/202006161551-index.html</url>
+    <url>/posts/nginx/2020/06/202006161551.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="默认的配置文件"><a href="#默认的配置文件" class="headerlink" title="默认的配置文件"></a>默认的配置文件</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">	log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">                  '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">                  '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line"></span><br><span class="line">	access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">	sendfile        on;</span><br><span class="line"><span class="meta">	#</span><span class="bash">tcp_nopush     on;</span></span><br><span class="line"></span><br><span class="line">	keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line"><span class="meta">	#</span><span class="bash">gzip  on;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	#</span><span class="bash">include /etc/nginx/conf.d/*.conf;</span></span><br><span class="line">	server &#123;</span><br><span class="line">		listen       80;</span><br><span class="line">		server_name  localhost;</span><br><span class="line"></span><br><span class="line">		location / &#123;</span><br><span class="line">   			root   /usr/share/nginx/html;</span><br><span class="line">	    	index  index.html index.htm;</span><br><span class="line">		&#125;</span><br><span class="line">		error_page   500 502 503 504 404  /50x.html;</span><br><span class="line">		location = /50x.html &#123;</span><br><span class="line">    		root   /usr/share/nginx/html;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -3718,7 +3810,7 @@
   </entry>
   <entry>
     <title>nginx入门之初识nginx</title>
-    <url>/posts/nginx/202006151538-index.html</url>
+    <url>/posts/nginx/2020/06/202006151538.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="什么是Nginx"><a href="#什么是Nginx" class="headerlink" title="什么是Nginx"></a>什么是Nginx</h1><p><em>Nginx</em> (engine x) 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP/POP3/SMTP服务。其特点是占有内存少，并发能力强，事实上nginx的并发能力在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。</p>
 <h1 id="Nginx的三个主要运用场景"><a href="#Nginx的三个主要运用场景" class="headerlink" title="Nginx的三个主要运用场景"></a>Nginx的三个主要运用场景</h1><p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/nginx/nginx1.png" alt=""></p>
 <ul>
@@ -3875,13 +3967,13 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot应用：整合actuator和Admin实现SpringBoot监控</title>
-    <url>/posts/springboot/202006141700-index.html</url>
+    <title>Spring Boot应用：整合actuator和Admin实现Spring Boot监控</title>
+    <url>/posts/Spring%20Boot/2020/06/202006141700.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1>]]></content>
   </entry>
   <entry>
     <title>golang学习八：切片</title>
-    <url>/posts/gloang/202006131039-index.html</url>
+    <url>/posts/gloang/2020/06/202006131039.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h1><ul>
 <li><p>切片的英文名称slice</p>
 </li>
@@ -3998,7 +4090,7 @@
   </entry>
   <entry>
     <title>golang学习七：goto和label</title>
-    <url>/posts/golang/202006131037-index.html</url>
+    <url>/posts/golang/2020/06/202006131037.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="goto"><a href="#goto" class="headerlink" title="goto"></a>goto</h1><ul>
 <li>goto是Go语言中的一个关键字</li>
 <li>goto让编译器执行时跳转到特定位置<ul>
@@ -4024,7 +4116,7 @@
   </entry>
   <entry>
     <title>golang学习六：for循环</title>
-    <url>/posts/golang/202006131031-index.html</url>
+    <url>/posts/golang/2020/06/202006131031.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h1><ul>
 <li>循环:让程序多次执行相同的代码块</li>
 <li>for循环是Go语言中唯一一个循环结构</li>
@@ -4085,7 +4177,7 @@
   </entry>
   <entry>
     <title>golang学习五：常用数学函数与数组</title>
-    <url>/posts/golang/202006131027-index.html</url>
+    <url>/posts/golang/2020/06/202006131027.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="常用数学函数"><a href="#常用数学函数" class="headerlink" title="常用数学函数"></a>常用数学函数</h1><ul>
 <li>math包提供了基本数学常数和数学函数</li>
 <li>math包提供的数学常数<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Mathematical constants.</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	E   = <span class="number">2.71828182845904523536028747135266249775724709369995957496696763</span> </span><br><span class="line">	Pi  = <span class="number">3.14159265358979323846264338327950288419716939937510582097494459</span> </span><br><span class="line">	Phi = <span class="number">1.61803398874989484820458683436563811772030917980576286213544862</span> </span><br><span class="line">	Sqrt2   = <span class="number">1.41421356237309504880168872420969807856967187537694807317667974</span></span><br><span class="line">	SqrtE   = <span class="number">1.64872127070012814684865078781416357165377610071014801157507931</span> </span><br><span class="line">	SqrtPi  = <span class="number">1.77245385090551602729816748334114518279754945612238712821380779</span> </span><br><span class="line">	SqrtPhi = <span class="number">1.27201964951406896425242246173749149171560804184009624861664038</span> </span><br><span class="line">	Ln2    = <span class="number">0.693147180559945309417232121458176568075500134360255254120680009</span> </span><br><span class="line">	Log2E  = <span class="number">1</span> / Ln2</span><br><span class="line">	Ln10   = <span class="number">2.30258509299404568401799145468436420760110148862877297603332790</span> </span><br><span class="line">	Log10E = <span class="number">1</span> / Ln10</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Floating-point limit values.</span></span><br><span class="line"><span class="comment">// Max is the largest finite value representable by the type.</span></span><br><span class="line"><span class="comment">// SmallestNonzero is the smallest positive, non-zero value representable by the type.</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	MaxFloat32= <span class="number">3.40282346638528859811704183484516925440e+38</span>  <span class="comment">// 2**127 * (2**24 - 1) / 2**23</span></span><br><span class="line">	SmallestNonzeroFloat32 = <span class="number">1.401298464324817070923729583289916131280e-45</span> <span class="comment">// 1 / 2**(127 - 1 + 23)</span></span><br><span class="line"></span><br><span class="line">	MaxFloat64= <span class="number">1.797693134862315708145274237317043567981e+308</span> <span class="comment">// 2**1023 * (2**53 - 1) / 2**52</span></span><br><span class="line">	SmallestNonzeroFloat64 = <span class="number">4.940656458412465441765687928682213723651e-324</span> <span class="comment">// 1 / 2**(1023 - 1 + 52)</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Integer limit values.</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	MaxInt8   = <span class="number">1</span>&lt;&lt;<span class="number">7</span> - <span class="number">1</span></span><br><span class="line">	MinInt8   = <span class="number">-1</span> &lt;&lt; <span class="number">7</span></span><br><span class="line">	MaxInt16  = <span class="number">1</span>&lt;&lt;<span class="number">15</span> - <span class="number">1</span></span><br><span class="line">	MinInt16  = <span class="number">-1</span> &lt;&lt; <span class="number">15</span></span><br><span class="line">	MaxInt32  = <span class="number">1</span>&lt;&lt;<span class="number">31</span> - <span class="number">1</span></span><br><span class="line">	MinInt32  = <span class="number">-1</span> &lt;&lt; <span class="number">31</span></span><br><span class="line">	MaxInt64  = <span class="number">1</span>&lt;&lt;<span class="number">63</span> - <span class="number">1</span></span><br><span class="line">	MinInt64  = <span class="number">-1</span> &lt;&lt; <span class="number">63</span></span><br><span class="line">	MaxUint8  = <span class="number">1</span>&lt;&lt;<span class="number">8</span> - <span class="number">1</span></span><br><span class="line">	MaxUint16 = <span class="number">1</span>&lt;&lt;<span class="number">16</span> - <span class="number">1</span></span><br><span class="line">	MaxUint32 = <span class="number">1</span>&lt;&lt;<span class="number">32</span> - <span class="number">1</span></span><br><span class="line">	MaxUint64 = <span class="number">1</span>&lt;&lt;<span class="number">64</span> - <span class="number">1</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
@@ -4168,7 +4260,7 @@
   </entry>
   <entry>
     <title>golang学习四：流程控制</title>
-    <url>/posts/golang/202006131013-index.html</url>
+    <url>/posts/golang/2020/06/202006131013.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="条件判断if"><a href="#条件判断if" class="headerlink" title="条件判断if"></a>条件判断if</h1><ul>
 <li><p>在程序开发中经常需要判断.根据情况不同,程序执行的分支也不同.这个时候就可以使用if</p>
 </li>
@@ -4251,7 +4343,7 @@
   </entry>
   <entry>
     <title>golang学习三：golang基础语法</title>
-    <url>/posts/golang/202006122240-index.html</url>
+    <url>/posts/golang/2020/06/202006122240.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="打印输出"><a href="#打印输出" class="headerlink" title="打印输出"></a>打印输出</h1><ul>
 <li>在程序中输出使用频率很高,使用输出语句可以在程序执行过程中把一些结果输出到控制台中,程序员通过控制台中输出结果判断是否符合预期</li>
 <li>在Go语言中有多种输出方式,不同的输出适用场景不同.归纳起来三种,每种还分为3种方式(原内容,原内容+ln,原内容+f)<ul>
@@ -5131,7 +5223,7 @@
   </entry>
   <entry>
     <title>golang学习二：golang自带的工具</title>
-    <url>/posts/golang/202006122229-index.html</url>
+    <url>/posts/golang/2020/06/202006122229.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="解压版Go语言安装包中自带工具"><a href="#解压版Go语言安装包中自带工具" class="headerlink" title="解压版Go语言安装包中自带工具"></a>解压版Go语言安装包中自带工具</h1><ul>
 <li><p>在%GOROOT%/bin中有三个工具</p>
 <ul>
@@ -5204,7 +5296,7 @@
   </entry>
   <entry>
     <title>golang学习一：从环境配置开始到HelloWorld入门</title>
-    <url>/posts/golang/202006111106-index.html</url>
+    <url>/posts/golang/2020/06/202006111106.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Golang介绍"><a href="#Golang介绍" class="headerlink" title="Golang介绍"></a>Golang介绍</h1><ul>
 <li>Go语言是谷歌公司于2009年11月发布的编程语言,其发明人Robert Griesemer、Rob Pike、Ken Thompson<ul>
 <li>Robert Griesemer:罗伯特·格瑞史莫参与开发Java的Hotspot编译器和Javascript V8引擎</li>
@@ -5325,7 +5417,7 @@
   </entry>
   <entry>
     <title>Spring源码学习：Spring运行原理分析</title>
-    <url>/posts/spring/202006081449-index.html</url>
+    <url>/posts/spring/2020/06/202006081449.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Spring模块组成"><a href="#Spring模块组成" class="headerlink" title="Spring模块组成"></a>Spring模块组成</h1><p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/blog/springframework.jpg" alt=""></p>
 <table>
 <thead>
@@ -5467,18 +5559,40 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot系列二：理解SpringBoot中的@SpringApplication</title>
-    <url>/posts/springboot/202006081425-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
+    <title>Spring Boot系列二：理解Spring Boot中的SpringApplication</title>
+    <url>/posts/Spring%20Boot/2020/06/202006081425.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Spring-Framework的理解"><a href="#Spring-Framework的理解" class="headerlink" title="Spring Framework的理解"></a>Spring Framework的理解</h1><ul>
+<li>Spring模式注解</li>
+<li>Spring应用上下文</li>
+<li>Spring工厂加载机制</li>
+<li>Spring应用上下文初始器</li>
+<li>Spring Environment抽象</li>
+<li>Spring应用事件/监听器</li>
+</ul>
+<p>衍生的Spring Boot的技术：<code>SpringApplication</code>、<code>SpringApplication Builder API</code>、<code>SpringApplication</code>运行监听器、<code>SpringApplication</code>参数、<code>SpringApplication</code>故障分析、<code>Spring Boot</code>应用事件/监听器</p>
+<h1 id="SpringApplication准备阶段"><a href="#SpringApplication准备阶段" class="headerlink" title="SpringApplication准备阶段"></a>SpringApplication准备阶段</h1><h2 id="配置：Spring-Bean来源"><a href="#配置：Spring-Bean来源" class="headerlink" title="配置：Spring Bean来源"></a>配置：Spring Bean来源</h2><p>Java配置类用于Spring Boot<code>BeanDefinitionLoader</code>读取，并且将配置元解析加载位Spring Bean定义。需要有一个或多个以上的Java配置类</p>
+<p>example：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MaiShuRen</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(App<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SpringBootApplication</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实<code>@SpringBootApplication</code>它是个复合注解，因为里面的<code>SpringBootConfiguration</code>继承了<code>@Configuration</code>。这就很明显了，<code>@Configuration</code>是继承了<code>@Component</code>这个</p>
+<h2 id="推断：Web应用类型和引导类"><a href="#推断：Web应用类型和引导类" class="headerlink" title="推断：Web应用类型和引导类"></a>推断：Web应用类型和引导类</h2><h2 id="加载：应用上下文初始器和应用事件监听器"><a href="#加载：应用上下文初始器和应用事件监听器" class="headerlink" title="加载：应用上下文初始器和应用事件监听器"></a>加载：应用上下文初始器和应用事件监听器</h2>]]></content>
+      <categories>
+        <category>后端</category>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>springboot</tag>
+        <tag>java</tag>
+      </tags>
   </entry>
   <entry>
     <title>分布式锁的实现</title>
-    <url>/posts/distributed/202006081357-index.html</url>
+    <url>/posts/distributed/2020/06/202006081357.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1>]]></content>
   </entry>
   <entry>
     <title>Docker下部署的SpringBoot应用发送邮件失败</title>
-    <url>/posts/bug-log/202006071737-index.html</url>
+    <url>/posts/bug-log/2020/06/202006071737.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><p>通过简单的Dockerfile构建了一个镜像(consumer-service-rabbitmq/v1.0)</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FROM openjdk:8-alpine</span><br><span class="line">MAINTAINER maishuren</span><br><span class="line">EXPOSE 8001</span><br><span class="line">ADD target/consumer-rabbit-1.0-SNAPSHOT.jar /</span><br><span class="line">ENTRYPOINT [<span class="string">"java"</span>,<span class="string">"-jar"</span>,<span class="string">"/consumer-rabbit-1.0-SNAPSHOT.jar"</span>]</span><br></pre></td></tr></table></figure>
 <h1 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d --name consumer-service-rabbitmq-v1.0 -p 8001:8001 -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime consumer-service-rabbitmq/v1.0</span><br></pre></td></tr></table></figure>
@@ -5507,7 +5621,7 @@
   </entry>
   <entry>
     <title>java并发编程之锁</title>
-    <url>/posts/java-concurrent-programing/202006071311-index.html</url>
+    <url>/posts/java-concurrent-programing/2020/06/202006071311.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="synchronized的使用"><a href="#synchronized的使用" class="headerlink" title="synchronized的使用"></a>synchronized的使用</h2><p>在上一篇的线程的安全问题提到了synchronized来解决线程安全问题。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.msr.study.concurrent.threadsafe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadUnsafe</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Ticket ticket = <span class="keyword">new</span> Ticket();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            Thread thread = <span class="keyword">new</span> Thread(ticket);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ticket</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> ticketNum = <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ticketNum &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    TimeUnit.MILLISECONDS.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" sale a ticket,current:"</span> + saleTicket());</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">saleTicket</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ticketNum--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -5588,7 +5702,7 @@
   </entry>
   <entry>
     <title>java并发编程基础</title>
-    <url>/posts/java-concurrent-programing/202006022138-index.html</url>
+    <url>/posts/java-concurrent-programing/2020/06/202006022138.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h1><p>在说线程之前，就要先说一下什么是进程，因为线程是进程中的一个实体，线程并不会独立而存在的。进程是代码在数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，线程是进程的一个执行路径，一个进程中至少含有一个线程，进程中的多个线程是共享进程的资源。</p>
 <p>操作系统把CPU资源分配给进程，但是真正占用CPU的线程，所以才会说线程是CPU分配的基本单位。在我们启动java中的main函数时，就是启动了一个进程，而main函数所在的线程就是这个进程中的一个线程，这个线程也被称为主线程。</p>
 <h1 id="Java中线程的状态和线程的生命周期"><a href="#Java中线程的状态和线程的生命周期" class="headerlink" title="Java中线程的状态和线程的生命周期"></a>Java中线程的状态和线程的生命周期</h1><p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/blog/thread-state.png" alt="thread-state"></p>
@@ -5713,26 +5827,87 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(object)&#123;</span><br><span class="line">    <span class="keyword">while</span>(条件不满足)&#123;</span><br><span class="line">		object.wait();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>预防虚假唤醒的用法就是最经典的生产者和消费者例子：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//生产线程 </span></span><br><span class="line"><span class="keyword">synchronized</span>(queue)&#123;  </span><br><span class="line">    <span class="comment">//消费队列满，则等待队列空闲 </span></span><br><span class="line">    <span class="keyword">while</span>(queue.size()==MAX_SIZE )&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//挂起当前线程， 并释放通过同步块获取的queue上的锁，让消费者线程可以获取该锁，然后 获取队列里面的元素 </span></span><br><span class="line">            queue.wait() ;  </span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception ex)&#123;  </span><br><span class="line">             ex.prIntStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//空闲则生成元素,并通知消费者线程</span></span><br><span class="line">        queue.add(ele);</span><br><span class="line">        queue.notIfyAll ();  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//消费者线程 </span></span><br><span class="line"><span class="keyword">synchronized</span>(queue)&#123;</span><br><span class="line">    <span class="comment">//消费队列为空</span></span><br><span class="line">    <span class="keyword">while</span>(queue.size()==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">       <span class="comment">//挂起当前线程，并释放通过同步块获取的queue上的锁,让生产者线程可以获取该锁，将生产元素放入队</span></span><br><span class="line">            queue.wait();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//消费元素，并通知唤醒生产者线程 </span></span><br><span class="line">    queue.take();</span><br><span class="line">    queue.notifyAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        EventStorage eventStorage = <span class="keyword">new</span> EventStorage();</span><br><span class="line">        Producer producer = <span class="keyword">new</span> Producer(eventStorage);</span><br><span class="line">        Consumer consumer = <span class="keyword">new</span> Consumer(eventStorage);</span><br><span class="line">        <span class="keyword">new</span> Thread(producer).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(consumer).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> EventStorage storage;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Producer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            EventStorage storage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.storage = storage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            storage.put();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> EventStorage storage;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Consumer</span><span class="params">(EventStorage storage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.storage = storage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            storage.take();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventStorage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxSize;</span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;Date&gt; storage;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EventStorage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        maxSize = <span class="number">10</span>;</span><br><span class="line">        storage = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (storage.size() == maxSize) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        storage.add(<span class="keyword">new</span> Date());</span><br><span class="line">        System.out.println(<span class="string">"仓库里有了"</span> + storage.size() + <span class="string">"个产品。"</span>);</span><br><span class="line">        notify();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">take</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (storage.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"拿到了"</span> + storage.poll() + <span class="string">"，现在仓库还剩下"</span> + storage.size());</span><br><span class="line">        notify();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">仓库里有了<span class="number">1</span>个产品。</span><br><span class="line">仓库里有了<span class="number">2</span>个产品。</span><br><span class="line">仓库里有了<span class="number">3</span>个产品。</span><br><span class="line">仓库里有了<span class="number">4</span>个产品。</span><br><span class="line">仓库里有了<span class="number">5</span>个产品。</span><br><span class="line">仓库里有了<span class="number">6</span>个产品。</span><br><span class="line">仓库里有了<span class="number">7</span>个产品。</span><br><span class="line">仓库里有了<span class="number">8</span>个产品。</span><br><span class="line">仓库里有了<span class="number">9</span>个产品。</span><br><span class="line">仓库里有了<span class="number">10</span>个产品。</span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">9</span></span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">8</span></span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">7</span></span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">6</span></span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">5</span></span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">4</span></span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">3</span></span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">2</span></span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">1</span></span><br><span class="line">拿到了Tue Nov <span class="number">24</span> <span class="number">19</span>:<span class="number">52</span>:<span class="number">33</span> SGT <span class="number">2020</span>，现在仓库还剩下<span class="number">0</span></span><br><span class="line">....</span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
 
 <p>在如上代码中假如生产者线程A首先通过synchronized 获取到了queue上的锁，那么后续所有企图生产元素的线程和消费线程将会在获取该监视器锁的地方被阻塞挂起。线程A获取锁后发现当前队列己满会调用queue.wait()方法阻塞自己，然后释放获取的queue上的锁，这里考虑下为何要释放该锁？如果不释放，由于其他生产者线程和所有消费者线 程都己经被阻塞挂起，而线程A也被挂起，这就处于了死锁状态。这里线程A 挂起自己后释放共享变量上的锁，就是为了打破死锁必要条件之一的持有并等待原则。关于死锁后面的章节会讲。线程A释放锁后，其他生产者线程和所有消费者线程中会有一个线程获 取queue上的锁进而进入同步块，这就打破了死锁状态。</p>
-<h1 id="线程的各个属性"><a href="#线程的各个属性" class="headerlink" title="线程的各个属性"></a>线程的各个属性</h1><h1 id="未捕获异常如何处理"><a href="#未捕获异常如何处理" class="headerlink" title="未捕获异常如何处理"></a>未捕获异常如何处理</h1><h1 id="多线程会导致的问题"><a href="#多线程会导致的问题" class="headerlink" title="多线程会导致的问题"></a>多线程会导致的问题</h1><h1 id="线程的通知与等待"><a href="#线程的通知与等待" class="headerlink" title="线程的通知与等待"></a>线程的通知与等待</h1><h2 id="等待线程执行终止的join方法"><a href="#等待线程执行终止的join方法" class="headerlink" title="等待线程执行终止的join方法"></a>等待线程执行终止的join方法</h2><p>TODO</p>
-<h2 id="让线程休眠的sleep方法"><a href="#让线程休眠的sleep方法" class="headerlink" title="让线程休眠的sleep方法"></a>让线程休眠的sleep方法</h2><p>TODO</p>
-<h2 id="让出CPU执行权的yield方法"><a href="#让出CPU执行权的yield方法" class="headerlink" title="让出CPU执行权的yield方法"></a>让出CPU执行权的yield方法</h2><p>TODO</p>
-<h1 id="线程中断"><a href="#线程中断" class="headerlink" title="线程中断"></a>线程中断</h1><p>TODO</p>
-<h1 id="线程上线文切换"><a href="#线程上线文切换" class="headerlink" title="线程上线文切换"></a>线程上线文切换</h1><p>TODO</p>
-<h1 id="线程死锁"><a href="#线程死锁" class="headerlink" title="线程死锁"></a>线程死锁</h1><p>TODO</p>
-<h1 id="守护线程和用户线程"><a href="#守护线程和用户线程" class="headerlink" title="守护线程和用户线程"></a>守护线程和用户线程</h1><p>TODO</p>
+<p>使用synchronized 实现线程交替执行</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Object lock = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">while</span> (count &lt; <span class="number">100</span>) &#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">                    <span class="keyword">if</span> ((count &amp; <span class="number">1</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">                        System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + count++);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">"ThreadA"</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">while</span> (count &lt; <span class="number">100</span>) &#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">                    <span class="keyword">if</span> ((count &amp; <span class="number">1</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">                        System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + count++);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">"ThreadB"</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object lock = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//新建2个线程</span></span><br><span class="line">    <span class="comment">//1个只处理偶数，第二个只处理奇数（用位运算）</span></span><br><span class="line">    <span class="comment">//用synchronized来通信</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span> (count &lt; <span class="number">100</span>) &#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">                        <span class="keyword">if</span> ((count &amp; <span class="number">1</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">                            System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + count++);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">"偶数"</span>).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span> (count &lt; <span class="number">100</span>) &#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">                        <span class="keyword">if</span> ((count &amp; <span class="number">1</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">                            System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + count++);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">"奇数"</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">ThreadA:<span class="number">0</span></span><br><span class="line">ThreadB:<span class="number">1</span></span><br><span class="line">ThreadA:<span class="number">2</span></span><br><span class="line">ThreadB:<span class="number">3</span></span><br><span class="line">ThreadA:<span class="number">4</span></span><br><span class="line">ThreadB:<span class="number">5</span></span><br><span class="line">ThreadA:<span class="number">6</span></span><br><span class="line">ThreadB:<span class="number">7</span></span><br><span class="line">ThreadA:<span class="number">8</span></span><br><span class="line">ThreadB:<span class="number">9</span></span><br><span class="line">ThreadA:<span class="number">10</span></span><br><span class="line">ThreadB:<span class="number">11</span></span><br><span class="line">ThreadA:<span class="number">12</span></span><br><span class="line">ThreadB:<span class="number">13</span></span><br><span class="line">ThreadA:<span class="number">14</span></span><br><span class="line">ThreadB:<span class="number">15</span></span><br><span class="line">ThreadA:<span class="number">16</span></span><br><span class="line">ThreadB:<span class="number">17</span></span><br><span class="line">ThreadA:<span class="number">18</span></span><br><span class="line">ThreadB:<span class="number">19</span></span><br><span class="line">ThreadA:<span class="number">20</span></span><br><span class="line">ThreadB:<span class="number">21</span></span><br><span class="line">ThreadA:<span class="number">22</span></span><br><span class="line">ThreadB:<span class="number">23</span></span><br><span class="line">ThreadA:<span class="number">24</span></span><br><span class="line">ThreadB:<span class="number">25</span></span><br><span class="line">ThreadA:<span class="number">26</span></span><br><span class="line">ThreadB:<span class="number">27</span></span><br><span class="line">ThreadA:<span class="number">28</span></span><br><span class="line">ThreadB:<span class="number">29</span></span><br><span class="line">ThreadA:<span class="number">30</span></span><br><span class="line">ThreadB:<span class="number">31</span></span><br><span class="line">ThreadA:<span class="number">32</span></span><br><span class="line">ThreadB:<span class="number">33</span></span><br><span class="line">ThreadA:<span class="number">34</span></span><br><span class="line">ThreadB:<span class="number">35</span></span><br><span class="line">ThreadA:<span class="number">36</span></span><br><span class="line">ThreadB:<span class="number">37</span></span><br><span class="line">ThreadA:<span class="number">38</span></span><br><span class="line">ThreadB:<span class="number">39</span></span><br><span class="line">ThreadA:<span class="number">40</span></span><br><span class="line">ThreadB:<span class="number">41</span></span><br><span class="line">ThreadA:<span class="number">42</span></span><br><span class="line">ThreadB:<span class="number">43</span></span><br><span class="line">ThreadA:<span class="number">44</span></span><br><span class="line">ThreadB:<span class="number">45</span></span><br><span class="line">ThreadA:<span class="number">46</span></span><br><span class="line">ThreadB:<span class="number">47</span></span><br><span class="line">ThreadA:<span class="number">48</span></span><br><span class="line">ThreadB:<span class="number">49</span></span><br><span class="line">ThreadA:<span class="number">50</span></span><br><span class="line">ThreadB:<span class="number">51</span></span><br><span class="line">ThreadA:<span class="number">52</span></span><br><span class="line">ThreadB:<span class="number">53</span></span><br><span class="line">ThreadA:<span class="number">54</span></span><br><span class="line">ThreadB:<span class="number">55</span></span><br><span class="line">ThreadA:<span class="number">56</span></span><br><span class="line">ThreadB:<span class="number">57</span></span><br><span class="line">ThreadA:<span class="number">58</span></span><br><span class="line">ThreadB:<span class="number">59</span></span><br><span class="line">ThreadA:<span class="number">60</span></span><br><span class="line">ThreadB:<span class="number">61</span></span><br><span class="line">ThreadA:<span class="number">62</span></span><br><span class="line">ThreadB:<span class="number">63</span></span><br><span class="line">ThreadA:<span class="number">64</span></span><br><span class="line">ThreadB:<span class="number">65</span></span><br><span class="line">ThreadA:<span class="number">66</span></span><br><span class="line">ThreadB:<span class="number">67</span></span><br><span class="line">ThreadA:<span class="number">68</span></span><br><span class="line">ThreadB:<span class="number">69</span></span><br><span class="line">ThreadA:<span class="number">70</span></span><br><span class="line">ThreadB:<span class="number">71</span></span><br><span class="line">ThreadA:<span class="number">72</span></span><br><span class="line">ThreadB:<span class="number">73</span></span><br><span class="line">ThreadA:<span class="number">74</span></span><br><span class="line">ThreadB:<span class="number">75</span></span><br><span class="line">ThreadA:<span class="number">76</span></span><br><span class="line">ThreadB:<span class="number">77</span></span><br><span class="line">ThreadA:<span class="number">78</span></span><br><span class="line">ThreadB:<span class="number">79</span></span><br><span class="line">ThreadA:<span class="number">80</span></span><br><span class="line">ThreadB:<span class="number">81</span></span><br><span class="line">ThreadA:<span class="number">82</span></span><br><span class="line">ThreadB:<span class="number">83</span></span><br><span class="line">ThreadA:<span class="number">84</span></span><br><span class="line">ThreadB:<span class="number">85</span></span><br><span class="line">ThreadA:<span class="number">86</span></span><br><span class="line">ThreadB:<span class="number">87</span></span><br><span class="line">ThreadA:<span class="number">88</span></span><br><span class="line">ThreadB:<span class="number">89</span></span><br><span class="line">ThreadA:<span class="number">90</span></span><br><span class="line">ThreadB:<span class="number">91</span></span><br><span class="line">ThreadA:<span class="number">92</span></span><br><span class="line">ThreadB:<span class="number">93</span></span><br><span class="line">ThreadA:<span class="number">94</span></span><br><span class="line">ThreadB:<span class="number">95</span></span><br><span class="line">ThreadA:<span class="number">96</span></span><br><span class="line">ThreadB:<span class="number">97</span></span><br><span class="line">ThreadA:<span class="number">98</span></span><br><span class="line">ThreadB:<span class="number">99</span></span><br><span class="line">ThreadA:<span class="number">100</span></span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="线程的各个属性"><a href="#线程的各个属性" class="headerlink" title="线程的各个属性"></a>线程的各个属性</h1><table>
+<thead>
+<tr>
+<th>属性名称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编号（ID）</td>
+<td>每个线程有自己的ID，用于标识不同的线程</td>
+</tr>
+<tr>
+<td>名称（Name）</td>
+<td>让用户或开发者在开发、调试或运行过程中，更容易区分每个不同的线程、定位问题等。</td>
+</tr>
+<tr>
+<td>是否是守护线程（isDaemon）</td>
+<td>true代表该线程是【守护线程】，false代表【非守护线程】也就是用户线程</td>
+</tr>
+<tr>
+<td>优先级（Priority）</td>
+<td>优先级这个属性的目的是告诉线程调度器，用户希望哪些线程相对多运行、哪些少运行</td>
+</tr>
+</tbody></table>
+<h1 id="未捕获异常如何处理"><a href="#未捕获异常如何处理" class="headerlink" title="未捕获异常如何处理"></a>未捕获异常如何处理</h1><p>1.主线程可以轻松发现异常，子线程却不行</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Main()).start();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">运行结果：</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line">Exception in thread <span class="string">"Thread-0"</span> java.lang.RuntimeException</span><br><span class="line">	at com.msr.study.concurrent.disruptor.Application.run(Application.java:<span class="number">19</span>)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:<span class="number">748</span>)</span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>以上的程序运行之后，虽然子线程抛出了，异常信息。但主线程丝毫不受影响。因为子线程的异常无法用传统方法捕获，即无法通过try/catch进行处理。可以看一下下面的代码。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Application(), <span class="string">"MyThread-1"</span>).start();</span><br><span class="line">            Thread.sleep(<span class="number">300</span>);</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Application(), <span class="string">"MyThread-2"</span>).start();</span><br><span class="line">            Thread.sleep(<span class="number">300</span>);</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Application(), <span class="string">"MyThread-3"</span>).start();</span><br><span class="line">            Thread.sleep(<span class="number">300</span>);</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Application(), <span class="string">"MyThread-4"</span>).start();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException e) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" Caught Exception."</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException e) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" Caught Exception."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">MyThread-<span class="number">1</span> Caught Exception.</span><br><span class="line">MyThread-<span class="number">2</span> Caught Exception.</span><br><span class="line">MyThread-<span class="number">3</span> Caught Exception.</span><br><span class="line">MyThread-<span class="number">4</span> Caught Exception.</span><br></pre></td></tr></table></figure>
+
+<p>第一个是如上面的代码那样，在每一个的run方法中都用try/catch进行处理，但是这会很麻烦。第二个方法也是最推荐的方法。利用<code>UncaughtExceptionHandler</code>。看下面的示例代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyUncaughtExceptionHandler</span> <span class="keyword">implements</span> <span class="title">Thread</span>.<span class="title">UncaughtExceptionHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyUncaughtExceptionHandler</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread t, Throwable e)</span> </span>&#123;</span><br><span class="line">        Logger logger = Logger.getAnonymousLogger();</span><br><span class="line">        logger.log(Level.WARNING, <span class="string">"线程异常终止"</span> + t.getName());</span><br><span class="line">        System.out.println(name + <span class="string">"捕获了异常"</span> + t.getName() + <span class="string">"异常"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">new</span> MyUncaughtExceptionHandler(<span class="string">"捕获器1"</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Application(), <span class="string">"MyThread-1"</span>).start();</span><br><span class="line">        Thread.sleep(<span class="number">300</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Application(), <span class="string">"MyThread-2"</span>).start();</span><br><span class="line">        Thread.sleep(<span class="number">300</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Application(), <span class="string">"MyThread-3"</span>).start();</span><br><span class="line">        Thread.sleep(<span class="number">300</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Application(), <span class="string">"MyThread-4"</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">十一月 <span class="number">25</span>, <span class="number">2020</span> <span class="number">9</span>:<span class="number">03</span>:<span class="number">00</span> 下午 com.msr.study.concurrent.MyUncaughtExceptionHandler uncaughtException</span><br><span class="line">警告: 线程异常终止MyThread-<span class="number">1</span></span><br><span class="line">捕获器<span class="number">1</span>捕获了异常MyThread-<span class="number">1</span>异常</span><br><span class="line">十一月 <span class="number">25</span>, <span class="number">2020</span> <span class="number">9</span>:<span class="number">03</span>:<span class="number">01</span> 下午 com.msr.study.concurrent.MyUncaughtExceptionHandler uncaughtException</span><br><span class="line">警告: 线程异常终止MyThread-<span class="number">2</span></span><br><span class="line">捕获器<span class="number">1</span>捕获了异常MyThread-<span class="number">2</span>异常</span><br><span class="line">十一月 <span class="number">25</span>, <span class="number">2020</span> <span class="number">9</span>:<span class="number">03</span>:<span class="number">01</span> 下午 com.msr.study.concurrent.MyUncaughtExceptionHandler uncaughtException</span><br><span class="line">警告: 线程异常终止MyThread-<span class="number">3</span></span><br><span class="line">捕获器<span class="number">1</span>捕获了异常MyThread-<span class="number">3</span>异常</span><br><span class="line">捕获器<span class="number">1</span>捕获了异常MyThread-<span class="number">4</span>异常</span><br><span class="line">十一月 <span class="number">25</span>, <span class="number">2020</span> <span class="number">9</span>:<span class="number">03</span>:<span class="number">01</span> 下午 com.msr.study.concurrent.MyUncaughtExceptionHandler uncaughtException</span><br><span class="line">警告: 线程异常终止MyThread-<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="多线程会导致的问题"><a href="#多线程会导致的问题" class="headerlink" title="多线程会导致的问题"></a>多线程会导致的问题</h1><p>本文不讲解<code>JUC</code>的用法。</p>
+<h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2><p>什么是线程安全问题？</p>
+<p>《Java Concurrency In Practice》：当一个线程访问一个对象时，如果不用考虑这些线程在运行环境下的调度和交替执行，也不需要进行额外的同步，或者在调用方进行任何其他的协调操作，调用这个对象的行为都可以获得正确的结果，那么这个对象就是线程安全的。</p>
+<p>通俗的解释：不管业务中遇到怎样的多个线程访问对象或某些方法的情况，而在编写业务逻辑的时候，都不需要额外的处理，程序也可以正常运行，不会因为多线程而出错，就可以称之为线程安全。</p>
+<p>造成线程安全问题：</p>
+<p>1.数据争用：数据书写由于同时写，会造成错误数据</p>
+<p>2.竞争条件：即使不是同时写造成的错误数据，由于顺序原因依然会造成错误，例如在写入之前读取</p>
+<p>运行结果错误</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Application application = <span class="keyword">new</span> Application();</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(application);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(application);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread1.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">100</span>; j++) &#123;</span><br><span class="line">            increment();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line"><span class="number">177</span></span><br></pre></td></tr></table></figure>
+
+<p>运行多次发现每次的记过都不一样。会出现少加的情况。那是因为<code>i++</code>并不是原子操作，<code>i++</code>在多线程下，出现小时的请求现象，属于<code>read-modify-write</code>。所以很明显出现问题的时<code>i++</code>。</p>
+<p>解决方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 最懒得方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Application application = <span class="keyword">new</span> Application();</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(application);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(application);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread1.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">100</span>; j++) &#123;</span><br><span class="line">            increment();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最推荐常用：volatile+原子类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> AtomicInteger i = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Application application = <span class="keyword">new</span> Application();</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(application);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(application);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            thread1.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">10</span>; j++) &#123;</span><br><span class="line">            increment();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        i.incrementAndGet();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>死锁问题</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadDeadLock</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String lockA = <span class="string">"lockA"</span>;</span><br><span class="line">        String lockB = <span class="string">"lockB"</span>;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> HoldThread(lockA, lockB), <span class="string">"threadA"</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> HoldThread(lockB, lockA), <span class="string">"threadB"</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HoldThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String source1;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String source2;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HoldThread</span><span class="params">(String source1, String source2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.source1 = source1;</span><br><span class="line">        <span class="keyword">this</span>.source2 = source2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (source1) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"\t 持有锁"</span> + source1 + <span class="string">"尝试获得"</span> + source2);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">synchronized</span> (source2) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"\t 持有锁"</span> + source2 + <span class="string">"尝试获得"</span> + source1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">threadA	 持有锁lockA尝试获得lockB</span><br><span class="line">threadB	 持有锁lockB尝试获得lockA</span><br></pre></td></tr></table></figure>
+
+<p>最后程序会卡着不动，使用<code>jstack</code>命令查看，很明显出现了死锁</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jstack 12000</span><br><span class="line"></span><br><span class="line">Found one Java-level deadlock:</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">&quot;threadB&quot;:</span><br><span class="line">  waiting to lock monitor 0x000000001c700c88 (object 0x000000076b6dc760, a java.lang.String),</span><br><span class="line">  which is held by &quot;threadA&quot;</span><br><span class="line">&quot;threadA&quot;:</span><br><span class="line">  waiting to lock monitor 0x000000001c703678 (object 0x000000076b6dc798, a java.lang.String),</span><br><span class="line">  which is held by &quot;threadB&quot;</span><br><span class="line"></span><br><span class="line">Java stack information for the threads listed above:</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">&quot;threadB&quot;:</span><br><span class="line">        at com.msr.study.concurrent.deadlock.HoldThread.run(ThreadDeadLock.java:42)</span><br><span class="line">        - waiting to lock &lt;0x000000076b6dc760&gt; (a java.lang.String)</span><br><span class="line">        - locked &lt;0x000000076b6dc798&gt; (a java.lang.String)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:748)</span><br><span class="line">&quot;threadA&quot;:</span><br><span class="line">        at com.msr.study.concurrent.deadlock.HoldThread.run(ThreadDeadLock.java:42)</span><br><span class="line">        - waiting to lock &lt;0x000000076b6dc798&gt; (a java.lang.String)</span><br><span class="line">        - locked &lt;0x000000076b6dc760&gt; (a java.lang.String)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:748)</span><br><span class="line"></span><br><span class="line">Found 1 deadlock.</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h2><p>调度：上下文切换</p>
+<p>上下文：保存线程执行现场</p>
+<p>缓存开销：缓存失效</p>
+<p>关于JUC请看<a href="https://www.baidu.com/" target="_blank" rel="noopener">百度</a></p>
 ]]></content>
+      <categories>
+        <category>并发编程</category>
+      </categories>
       <tags>
         <tag>java</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
+        <tag>并发编程</tag>
       </tags>
   </entry>
   <entry>
     <title>【java并发编程】线程带来的安全风险问题</title>
-    <url>/posts/java-concurrent-programing/202006011815-index.html</url>
+    <url>/posts/java-concurrent-programing/2020/06/202006011815.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="活跃性问题"><a href="#活跃性问题" class="headerlink" title="活跃性问题"></a>活跃性问题</h2><h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>所谓死锁，是指多个进程在运行过程中因争夺资源而造成的一种僵局，当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。</p>
 <p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/blog/thread-dead-lock.png" alt="thread-dead-lock"></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadDeadLock</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String lockA = <span class="string">"lockA"</span>;</span><br><span class="line">        String lockB = <span class="string">"lockB"</span>;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> HoldThread(lockA, lockB), <span class="string">"threadA"</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> HoldThread(lockB, lockA), <span class="string">"threadB"</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HoldThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String source1;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String source2;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HoldThread</span><span class="params">(String source1, String source2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.source1 = source1;</span><br><span class="line">        <span class="keyword">this</span>.source2 = source2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (source1) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"\t 持有锁"</span> + source1 + <span class="string">"尝试获得"</span> + source2);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">synchronized</span> (source2) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"\t 持有锁"</span> + source2 + <span class="string">"尝试获得"</span> + source1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出结果：控制台会一挂着，因为发生死锁，无法正常结束</span></span><br><span class="line">threadA	 持有锁lockA尝试获得lockB</span><br><span class="line">threadB	 持有锁lockB尝试获得lockA</span><br></pre></td></tr></table></figure>
@@ -5780,23 +5955,8 @@
       </tags>
   </entry>
   <entry>
-    <title>设计模式之策略模式</title>
-    <url>/posts/design-patterns/202005311442-index.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h2><p>TODO</p>
-<h2 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h2><p>TODO</p>
-<h2 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h2><p>TODO</p>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>内功心法</tag>
-        <tag>面试必备</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>设计模式之简单工厂模式</title>
-    <url>/posts/design-patterns/202005311442-index.html</url>
+    <url>/posts/design-patterns/2020/05/202005311442.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h2><p>TODO</p>
 <p>TODO</p>
 <h2 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h2><p>TODO</p>
@@ -5810,8 +5970,23 @@
       </tags>
   </entry>
   <entry>
+    <title>设计模式之策略模式</title>
+    <url>/posts/design-patterns/2020/05/202005311442.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h2><p>TODO</p>
+<h2 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h2><p>TODO</p>
+<h2 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h2><p>TODO</p>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>内功心法</tag>
+        <tag>面试必备</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>设计模式之委派模式</title>
-    <url>/posts/design-patterns/202005291815-index.html</url>
+    <url>/posts/design-patterns/2020/05/202005291815.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="1、What-is-the-delegate-pattern？"><a href="#1、What-is-the-delegate-pattern？" class="headerlink" title="1、What is the delegate pattern？"></a>1、What is the delegate pattern？</h2><p>​        委派模式不是Gof23中的设计模式，但是它能精简程序的逻辑，提高代码的可读性，消除大量的if/esle或switch语句。委派模式就是负责任务的调度和分配。大名鼎鼎的SpringMVC中的<code>DispatcherServlet</code>就是使用到了委派模式。从下图可以看得出来，DispatchServlert把查找Handler、执行Handler、解析视图等工作分配给其他组件去做。在Spring中由Delegate字眼的类都是使用了委派模式，顾名思义嘛~</p>
 <p><img src="https://code.aliyun.com/msr/blog-pic/raw/master/blog/SpringMVC-basic-process.png" alt="springmvc-delegate"></p>
 <h2 id="2、代码实现委派模式"><a href="#2、代码实现委派模式" class="headerlink" title="2、代码实现委派模式"></a>2、代码实现委派模式</h2><p>下面使用委派模式：通过Leader分配任务给其他人。新建业务接口<code>IExecutor</code></p>
