@@ -228,7 +228,7 @@
       </categories>
       <tags>
         <tag>GoWeb</tag>
-        <tag>beego</tag>
+        <tag>Beego</tag>
       </tags>
   </entry>
   <entry>
@@ -911,7 +911,6 @@
         <category>大数据</category>
       </categories>
       <tags>
-        <tag>入门</tag>
         <tag>hadoop</tag>
       </tags>
   </entry>
@@ -1157,7 +1156,6 @@
         <category>java</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>springboot</tag>
       </tags>
   </entry>
@@ -1253,8 +1251,7 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
-        <tag>内功心法</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -1367,8 +1364,7 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
-        <tag>内功心法</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -1377,10 +1373,10 @@
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
       <categories>
         <category>后端</category>
+        <category>java</category>
       </categories>
       <tags>
         <tag>spring</tag>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -1448,9 +1444,9 @@
 <h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1>]]></content>
       <categories>
         <category>并发编程</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
       </tags>
@@ -1514,11 +1510,11 @@
 ]]></content>
       <categories>
         <category>数据库</category>
+        <category>mysql</category>
       </categories>
       <tags>
         <tag>docker</tag>
-        <tag>mysql</tag>
-        <tag>主从复制</tag>
+        <tag>mysql主从复制</tag>
       </tags>
   </entry>
   <entry>
@@ -1593,7 +1589,6 @@
       </categories>
       <tags>
         <tag>hadoop</tag>
-        <tag>HDFS</tag>
       </tags>
   </entry>
   <entry>
@@ -1661,7 +1656,6 @@
         <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>数据结构</tag>
         <tag>动态数组</tag>
       </tags>
@@ -1709,7 +1703,6 @@
         <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>数据结构</tag>
         <tag>动态数组</tag>
       </tags>
@@ -1752,7 +1745,6 @@
         <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>数据结构</tag>
         <tag>动态数组</tag>
       </tags>
@@ -1850,7 +1842,6 @@
         <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>数据结构</tag>
         <tag>动态数组</tag>
       </tags>
@@ -1923,10 +1914,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>Go Web</tag>
+        <tag>GoWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -2040,9 +2031,9 @@
 ]]></content>
       <categories>
         <category>后端</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>springcloud</tag>
         <tag>微服务</tag>
       </tags>
@@ -2081,7 +2072,6 @@
       </categories>
       <tags>
         <tag>nginx</tag>
-        <tag>实践</tag>
       </tags>
   </entry>
   <entry>
@@ -2143,11 +2133,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -2316,11 +2305,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -2364,11 +2352,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -2415,11 +2402,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -2457,11 +2443,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -2571,11 +2556,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -2675,11 +2659,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -2914,7 +2897,6 @@
       </categories>
       <tags>
         <tag>nginx</tag>
-        <tag>实践</tag>
       </tags>
   </entry>
   <entry>
@@ -3068,11 +3050,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -3153,11 +3134,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -3189,11 +3169,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -3253,11 +3232,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -3385,11 +3363,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -3554,11 +3531,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -3951,7 +3927,6 @@
         <category>运维</category>
       </categories>
       <tags>
-        <tag>入门</tag>
         <tag>nginx</tag>
       </tags>
   </entry>
@@ -4109,7 +4084,6 @@
         <category>运维</category>
       </categories>
       <tags>
-        <tag>入门</tag>
         <tag>nginx</tag>
       </tags>
   </entry>
@@ -4228,11 +4202,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -4254,11 +4227,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -4315,11 +4287,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -4398,11 +4369,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -4481,11 +4451,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -5361,11 +5330,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -5434,11 +5402,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -5555,11 +5522,10 @@
 ]]></content>
       <categories>
         <category>后端</category>
-        <category>golang</category>
+        <category>Go</category>
       </categories>
       <tags>
-        <tag>golang</tag>
-        <tag>入门</tag>
+        <tag>golang入门</tag>
       </tags>
   </entry>
   <entry>
@@ -5698,11 +5664,10 @@
 <h1 id="Spring中AOP的运行时序图"><a href="#Spring中AOP的运行时序图" class="headerlink" title="Spring中AOP的运行时序图"></a>Spring中AOP的运行时序图</h1><h1 id="Spring中MVC的运行时序图"><a href="#Spring中MVC的运行时序图" class="headerlink" title="Spring中MVC的运行时序图"></a>Spring中MVC的运行时序图</h1>]]></content>
       <categories>
         <category>后端</category>
+        <category>java</category>
       </categories>
       <tags>
         <tag>spring</tag>
-        <tag>java</tag>
-        <tag>源码学习</tag>
       </tags>
   </entry>
   <entry>
@@ -5728,7 +5693,6 @@
         <category>java</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>springboot</tag>
       </tags>
   </entry>
@@ -5838,13 +5802,11 @@
 ]]></content>
       <categories>
         <category>并发编程</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
-        <tag>juc</tag>
-        <tag>java锁</tag>
       </tags>
   </entry>
   <entry>
@@ -6044,12 +6006,11 @@
 ]]></content>
       <categories>
         <category>并发编程</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
-        <tag>并发编程</tag>
       </tags>
   </entry>
   <entry>
@@ -6094,26 +6055,11 @@
 ]]></content>
       <categories>
         <category>并发编程</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>多线程</tag>
         <tag>高并发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式之简单工厂模式</title>
-    <url>/posts/design-patterns/2020/05/202005311442.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h2><p>TODO</p>
-<p>TODO</p>
-<h2 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h2><p>TODO</p>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>面试必备</tag>
-        <tag>内功心法</tag>
       </tags>
   </entry>
   <entry>
@@ -6127,8 +6073,21 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
-        <tag>内功心法</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之简单工厂模式</title>
+    <url>/posts/design-patterns/2020/05/202005311442.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h2><p>TODO</p>
+<p>TODO</p>
+<h2 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h2><p>TODO</p>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -6159,8 +6118,7 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>面试必备</tag>
-        <tag>内功心法</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
 </search>
