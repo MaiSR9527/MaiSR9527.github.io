@@ -1255,6 +1255,92 @@
       </tags>
   </entry>
   <entry>
+    <title>MySQL笔记：持续更新</title>
+    <url>/posts/mysql/2021/03/202103302310.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="MySQL主从复制参数"><a href="#MySQL主从复制参数" class="headerlink" title="MySQL主从复制参数"></a>MySQL主从复制参数</h1><p><strong>Master端：</strong></p>
+<ol>
+<li>–binlog-do-db：指定数据库的操作事件被记录</li>
+<li>–binlog-ignore-db：指定某个数据库的操作事件不被操作</li>
+<li>set sql_log_bin = 0：会话级别所作操作不被记录</li>
+</ol>
+<p>注意：在Master段进行复制过滤惠导致主服务器上的二进制日志记录不完整，一旦主服务器崩溃将无法做到还原所有数据。</p>
+<p><strong>Slave端：</strong></p>
+<ol>
+<li>–replicate-do-db：需要复制的数据库名，如果复制多个数据库，重复设置这个选项</li>
+<li>–replicate-ignore-db：不需要复制的数据库名，如果复制多个数据库，重复设置这个选项</li>
+<li>–replicate-do-table：同理，表级别的操作</li>
+<li>–replcate-ignore-table：同理，表级别的操作</li>
+<li>–replicate-wild-do-table=foo%.bar%：复制以foo开头的数据库，bar结尾的表</li>
+<li>–replicate-wild-ignore-table=foo%.bar%：不复制以foo开头的数据库，bar结尾的表</li>
+</ol>
+<p>注意：Slave端在接受Master端传过来的日志时，是没有选择权的，Master端写过的日志Slave端全部都接收并写到磁盘，保存在中继日志中。但是Slave端在应用那些数据时是有选择权的。</p>
+<p><strong>配置方式：</strong></p>
+<p>第一：配置文件方式</p>
+<p>第二：在线配置，例如</p>
+<p>change replication filter replicate_do_db=(db1,db2)</p>
+<h1 id="MySQL半同步复制原理"><a href="#MySQL半同步复制原理" class="headerlink" title="MySQL半同步复制原理"></a>MySQL半同步复制原理</h1><p><img src="https://cdn.jsdelivr.net/gh/MaiSR9527/blog-pic/mysql/MySQL%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6.png" alt=""></p>
+<p>默认情况下，MySQL复制是异步的，主库执行完Commit之后，主库写入binlog后就可以返回给客户端，无需等待binlog发送给从库。当主库的一个写入事务并提交成功，而从库尚未得到主库的binlog时，主库宕机，从而可能导致从库丢失该事务，造成主从不一致。</p>
+<p>因此，MySQL引入了半同步复制。半同步复制保证主库的每一个binlog都能可靠得发送到从库上，主库在每次提交事务时，并不及时反馈给客户端，而是等待其中一个从库也接收到binlog并成功写入中继日志后，主库才返回给客户端。此时，至少有两份日志记录，一份在主库的binlog，另外一份至少一个从库的中继日志上，从而保证了数据的一致性。</p>
+<p><strong>配置</strong></p>
+<p>rpl_semi_sync_wait_point：AFTER_COMMIT和AFTER_SYNC</p>
+<ol>
+<li><p>半同步复制AFTER_COMMIT(5.6默认值)：Master将每个事务写入binlog(sync_binlog=1)，传递到Slave刷新到磁盘(sync_relay=1)，同时Master提交事务。Master等待Slave反馈收到relay log，只有收到ACK后Master才将commit ok结果反馈给客户端。</p>
+<p>存在的问题：在使用AFTER_COMMIT的模式下，客户端事务在存储引擎提交后，在得到从库确认的过程中，主库宕机了。此时主句在等待从库ACK的时候，虽然没有返回当前客户端，但是事务已经提交了，其他客户端惠读取到已提交的事务。如果从库还没读到该事务的events，同时主库发生了crash，然后切换到备库，那么之前督导的事务就不见了，出现幻读。</p>
+</li>
+<li><p>无损复制AFTER_SYNC(5.7默认值，5.6没有)：Master将每个事务写到binlog中，发送给Slave并刷新到磁盘(relay log)。Master等待Slave反馈接受到relay log之后，再提交事务并返回commit ok给客户端。</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/MaiSR9527/blog-pic/mysql/%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6%EF%BC%9Aafter_commit&after_sync.png" alt=""></p>
+<p>半同步复制和无损复制的对比</p>
+<ol>
+<li>半同步复制时先engine commit再ACK</li>
+<li>无损复制是先ACK再engine commit</li>
+<li>半同步复制意味着在Master节点上，刚刚提交的事务对数据库的修改，对其他事务是可见的。所以，如果等待Slave ACK的时候crash了，对其他事务惠造成幻读，丢失数据。</li>
+<li>无损复制在Master写完binlog之后，就传输给Slave，但还没去commit，意味着当前这个事务对数据库的修改。其他事务是不可见的。所以不会出现幻读和数据丢失风险。</li>
+</ol>
+<p><strong>配置</strong></p>
+<p>在MySQL的lib/plugin里面有两个插件：semisync_master.so和semisync_slave.so。分别在Master和Slave安装；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#在主库安装</span><br><span class="line">install plugin rpl_semi_sync_master soname ‘semisync_master.so’;</span><br><span class="line">show plugin;</span><br><span class="line">set global rpl_semi_sync_master&#x3D;on;</span><br><span class="line">show variables like &#39;%semi%&#39;;</span><br><span class="line"></span><br><span class="line">#在从库安装</span><br><span class="line">install plugin rpl_semi_sync_slave soname ‘semisync_master.so’</span><br><span class="line">show plugin;</span><br><span class="line">set global rpl_semi_sync_slave&#x3D;on;</span><br><span class="line">show variables like &#39;%semi%&#39;;</span><br><span class="line">stop slave;</span><br><span class="line">start slave;</span><br></pre></td></tr></table></figure>
+
+<p>关键参数：</p>
+<p>rpl_semi_sync_master_enabled =on   开启半同步功能</p>
+<p>rpl_semi_sync_master_timeout   单位毫秒，表示主库等待从库回复消息的时间超过该值，就自动切换为异步复制模式</p>
+<p>rpl_semi_sync_master_wait_no_slave   默认on。表示主库每个事务提交都要等待从库的ACK信号。</p>
+<p>rpl_semi_sync_master_wait_for_slave-count   控制主库接受多少个从库写事务成功反馈，才返回commit ok给客户端</p>
+<p>rpl_semi_sync_master_wiat_point   默认值AFTER_SYNC，含义是使用无损复制。</p>
+<h1 id="手动切换主从"><a href="#手动切换主从" class="headerlink" title="手动切换主从"></a>手动切换主从</h1><p><strong>正常切换</strong></p>
+<ol>
+<li><p>对主库进行全表锁定：flush tables with read lock;</p>
+</li>
+<li><p>在Master执行：show processlist;</p>
+<p>显示：Master has sent all binlog to slave;waiting for binlog to be update</p>
+</li>
+<li><p>在Slave执行：show processlist;</p>
+<p>显示：Slave has read all relay log;waiting for more updates</p>
+</li>
+<li><p>停止slave io线程：stop slave io_thread;</p>
+</li>
+<li><p>将Slave提升为Master</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">stop slave;</span><br><span class="line">#删除所有binlog日志文件，并将日志索引清空，重新开始所有新的日志文件。</span><br><span class="line">reset master;</span><br><span class="line">#删除所有master.info和relay-log.inf文件以及所有的relay log文件，并重新启用一个新的relay log文件</span><br><span class="line">reset slave;</span><br><span class="line">#比reset slave，还会删除内存中的连接信息</span><br><span class="line">reset slave all;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看salve是否只读模式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 只读模式需要修改配置文件，注释read-only&#x3D;1,并重启mysql服务</span><br><span class="line"># 不重启mysql,直接使用命令。不过下次重启mysql就会失效</span><br><span class="line">set global read_only&#x3D;1;</span><br><span class="line">show variables like &#39;%read only%&#39;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将Master变为Slave</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在新的Master上创建同步使用的用户</span><br><span class="line">grant replication slave on *.* to repl@192.168.79.150 indentified by &#39;123456&#39;;</span><br><span class="line"># 将新的slave设置为只读：1、配置文件修改并重启mysql。2、命令修改</span><br><span class="line">set global read_only&#x3D;on;</span><br><span class="line"># 在新的slave上释放全局锁</span><br><span class="line">unlock tables;</span><br><span class="line"># 重置binlog</span><br><span class="line">reset master;</span><br><span class="line"># master连接信息</span><br><span class="line">change master to master_host&#x3D;&#39;192.168.79.150&#39;,master_port&#x3D;&#39;3306&#39;,master_user&#x3D;&#39;repl&#39;,master_password&#x3D;&#39;123456&#39;,master_log_file&#x3D;&#39;mysql-bin.000001&#39;,master_log_pos&#x3D;599,master_connect_retry&#x3D;10;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h1 id="持续更新…"><a href="#持续更新…" class="headerlink" title="持续更新…"></a>持续更新…</h1><p>TODO</p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+        <category>mysql</category>
+      </categories>
+  </entry>
+  <entry>
     <title>MySQL集群管理之PXC</title>
     <url>/posts/mysql/2021/03/202103281932.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
@@ -1309,7 +1395,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir -p &#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3307</span><br><span class="line">mkdir -p &#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3308</span><br><span class="line">mkdir -p &#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3309</span><br><span class="line">mkdir -p &#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3310</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在mysql的解压目录下的bin目录下执行命令:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;mysqld --initialize --console --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3307 --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line"> g&gt;_HuDJ.I6fu #root密码</span><br><span class="line"></span><br><span class="line">.&#x2F;mysqld --initialize --console --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3308 --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">C#fwf)agT8ZA</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.&#x2F;mysqld --initialize --console --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3309 --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line"> root@localhost: ?.a;kf)Vt9iy</span><br><span class="line"></span><br><span class="line">.&#x2F;mysqld --initialize --console --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;33010 --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">*roGsm8#A&#x2F;G2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;mysqld --initialize --console --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3307 --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">.&#x2F;mysqld --initialize --console --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3308 --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">.&#x2F;mysqld --initialize --console --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;3309 --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">.&#x2F;mysqld --initialize --console --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql5.7&#x2F;data&#x2F;33010 --user&#x3D;mysql</span><br></pre></td></tr></table></figure>
 
 <p><strong>注意：–initialize 会随机生成root用户的密码。–console控制台输出初始化日志。这就可以看到生成的root密码。–user指定运行MySQL实例的用户</strong></p>
 </li>
@@ -1551,9 +1637,6 @@
         <category>数据库</category>
         <category>mysql</category>
       </categories>
-      <tags>
-        <tag>一主多从，两主多从到SpringBoot多数据源实战</tag>
-      </tags>
   </entry>
   <entry>
     <title>Netty5各种RPC整合实战</title>
